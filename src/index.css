@@ -1,0 +1,130 @@
+@import-normalize;
+/* bring in normalize.css styles */
+
+/* Reset styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  margin-bottom: 0;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  font-size: inherit;
+  font-family: inherit;
+  line-height: inherit;
+  cursor: pointer;
+  padding: 0;
+  color: currentColor;
+  background-color: transparent;
+}
+
+input {
+  font-family: inherit;
+  outline: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+:root {
+  /*? Fonts */
+  --font-main: "Roboto", sans-serif;
+
+  /*? Colors */
+  --color-primary-white: #ffffff;
+  --color-primary-black: #2F2F2F;
+  --color-primary-blue: #407bff;
+  --color-secondary-gray: #ecf2ff;
+  --color-secondary-red: #ef5050;
+  --color-secondary-blue: #9ebbff;
+  --color-secondary-orange: #ff9d43;
+  --color-secondary-light-blue: #d7e3ff;
+
+  /*? Container device width options */
+  --mobile-container-width: 335px;
+  --tablet-container-width: 704px;
+  --desktop-container-width: 1240px;
+
+  /*? Container configurations */
+  --container-width: var(--mobile-container-width);
+  --container-side-padding: 15px;
+  --container-max-width: calc(var(--container-width) + var(--container-side-padding) * 2);
+
+  /*? Transition */
+  --transition-time: 250ms;
+  --transition-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-main);
+  color: var(--color-primary-black);
+  font-size: 12px;
+  font-weight: 400;
+  background-color: var(--color-primary-white);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  /* content width + 15px for each side (left and right) */
+  max-width: var(--container-max-width);
+  padding: 0 var(--container-side-padding);
+}
+
+/*? ------------------------ MEDIA ------------------------ */
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+  :root {
+    --container-width: var(--tablet-container-width);
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1440px) {
+  :root {
+    --container-width: var(--desktop-container-width);
+    --secondary-container-width: var(--secondary-desktop-container-width);
+  }
+}

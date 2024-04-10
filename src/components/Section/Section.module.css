@@ -1,0 +1,9 @@
+.section {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.section h2 {
+    text-align: center;
+}
