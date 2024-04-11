@@ -9,6 +9,9 @@ import { Loader } from 'components';
 
 import { persistor, store } from 'store/store';
 
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

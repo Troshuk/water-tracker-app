@@ -5,7 +5,7 @@ import { logIn, signUp, fetchUser, logOut } from './operations';
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
 
 const initialState = {
-  user: { name: null, email: null },
+  user: { name: null, email: null, avatarUrl: null, gender: null },
   token: null,
   isLoggedIn: false,
   ...[logIn, signUp, fetchUser, logOut].reduce(
@@ -27,10 +27,7 @@ export const authSlice = createSlice({
         state.user = payload;
       })
       // Sign Up
-      .addCase(signUp.fulfilled, (state, { payload }) => {
-        state.user = payload.user;
-        state.token = payload.token;
-      })
+      .addCase(signUp.fulfilled, () => {})
       // Log In
       .addCase(logIn.fulfilled, (state, { payload }) => {
         state.user = payload.user;
@@ -40,12 +37,9 @@ export const authSlice = createSlice({
       .addCase(logOut.fulfilled, () => initialState)
 
       // Handle fulfilled requests status
-      .addMatcher(
-        isAnyOf(logIn.fulfilled, signUp.fulfilled, fetchUser.fulfilled),
-        state => {
-          state.isLoggedIn = true;
-        }
-      )
+      .addMatcher(isAnyOf(logIn.fulfilled, fetchUser.fulfilled), state => {
+        state.isLoggedIn = true;
+      })
 
       // Handle fulfilled requests status
       .addMatcher(

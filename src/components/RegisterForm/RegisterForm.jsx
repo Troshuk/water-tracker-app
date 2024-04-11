@@ -28,7 +28,8 @@ export const RegisterForm = () => {
       dispatch(signUp(data))
         .unwrap()
         .then(() => e.target.reset()),
-      `Creating new user: ${data.name}`
+      `Creating new user: ${data.name}`,
+      true
     );
   };
 
@@ -39,6 +40,10 @@ export const RegisterForm = () => {
         <label className={css.label}>
           <span>Name:</span>
           <input type="text" name="name" required />
+        </label>
+        <label className={css.label}>
+          <span>Gender:</span>
+          <input type="text" name="gender" required />
         </label>
         <label className={css.label}>
           <span>Email:</span>

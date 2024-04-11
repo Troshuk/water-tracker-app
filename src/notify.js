@@ -16,10 +16,12 @@ const toastConfig = {
 export const notify = (message, type = 'info') =>
   toast[type](message, toastConfig);
 
-export const notifyApi = (api, message = 'Request') =>
+export const notifyApi = (api, message = 'Request', useApiMessage = false) =>
   toast.promise(api, {
     ...toastConfig,
     pending: `${message} is in progress`,
     success: `${message} is completed 👌`,
-    error: `${message} failed`,
+    error: useApiMessage
+      ? { render: ({ data }) => data?.message ?? `${message} failed` }
+      : `${message} failed`,
   });

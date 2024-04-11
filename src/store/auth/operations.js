@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import { createAsyncThunkWithCatch } from 'store/redux.helpers';
 
 export const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -12,7 +13,7 @@ const getToken = state => state.authReducer.token;
 const setToken = (token = null) =>
   (api.defaults.headers.Authorization = token && `Bearer ${token}`);
 
-export const fetchUser = createAsyncThunk(
+export const fetchUser = createAsyncThunkWithCatch(
   'auth/fetchUser',
   async (_, { getState }) => {
     setToken(getToken(getState()));
@@ -21,7 +22,7 @@ export const fetchUser = createAsyncThunk(
   }
 );
 
-export const logIn = createAsyncThunk('auth/logIn', async contact => {
+export const logIn = createAsyncThunkWithCatch('auth/logIn', async contact => {
   const data = (await api.post(USERS_ENDPOINT + 'login', contact)).data;
 
   setToken(data.token);
@@ -29,18 +30,24 @@ export const logIn = createAsyncThunk('auth/logIn', async contact => {
   return data;
 });
 
-export const signUp = createAsyncThunk('auth/signUp', async contact => {
-  const data = (await api.post(USERS_ENDPOINT + 'signup', contact)).data;
+export const signUp = createAsyncThunkWithCatch(
+  'auth/signUp',
+  async contact => {
+    const data = (await api.post(USERS_ENDPOINT + 'register', contact)).data;
 
-  setToken(data.token);
+    setToken(data.token);
 
-  return data;
-});
+    return data;
+  }
+);
 
-export const logOut = createAsyncThunk('auth/logOut', async contact => {
-  const data = (await api.post(USERS_ENDPOINT + 'logout', contact)).data;
+export const logOut = createAsyncThunkWithCatch(
+  'auth/logOut',
+  async contact => {
+    const data = (await api.post(USERS_ENDPOINT + 'logout', contact)).data;
 
-  setToken();
+    setToken();
 
-  return data;
-});
+    return data;
+  }
+);

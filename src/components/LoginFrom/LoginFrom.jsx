@@ -28,7 +28,8 @@ export const LoginFrom = () => {
       dispatch(logIn(data))
         .unwrap()
         .then(() => e.target.reset()),
-      `Attempt to login as: ${data.email}`
+      `Attempt to login as: ${data.email}`,
+      true
     );
   };
 
