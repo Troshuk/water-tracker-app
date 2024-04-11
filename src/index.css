@@ -1,3 +1,49 @@
+:root {
+  /*? Fonts */
+  --font-main: "Roboto", sans-serif;
+
+  /*? Colors */
+  --color-primary-white: #ffffff;
+  --color-primary-black: #2F2F2F;
+  --color-primary-blue: #407bff;
+  --color-secondary-gray: #ecf2ff;
+  --color-secondary-red: #ef5050;
+  --color-secondary-blue: #9ebbff;
+  --color-secondary-orange: #ff9d43;
+  --color-secondary-light-blue: #d7e3ff;
+
+  --primery-color-white: var(--color-primary-white);
+  --primery-color-black: var(--color-primary-black);
+  --primery-color-blue: var(--color-primary-blue);
+  --secondary-color-2: var(--color-secondary-gray);
+  --secondary-color-3: var(--color-secondary-red);
+  --secondary-color-4: var(--color-secondary-blue);
+  --secondary-color-5: var(--color-secondary-orange);
+  --secondary-color---5: var(--color-secondary-light-blue);
+  --color: var(--color-primary-white);
+  --color-2: var(--color-primary-black);
+  --color-3: var(--color-primary-blue);
+  --color-4: var(--color-secondary-gray);
+  --color-5: var(--color-secondary-red);
+  --color-6: var(--color-secondary-blue);
+  --color-7: var(--color-secondary-orange);
+  --color-8: var(--color-secondary-light-blue);
+
+  /*? Container device width options */
+  --mobile-container-width: 335px;
+  --tablet-container-width: 704px;
+  --desktop-container-width: 1240px;
+
+  /*? Container configurations */
+  --container-width: var(--mobile-container-width);
+  --container-side-padding: 15px;
+  --container-max-width: calc(var(--container-width) + var(--container-side-padding) * 2);
+
+  /*? Transition */
+  --transition-time: 250ms;
+  --transition-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Reset styles */
 h1,
 h2,
@@ -39,41 +85,13 @@ button {
 input {
   font-family: inherit;
   outline: none;
+  box-sizing: border-box;
 }
 
 img {
   display: block;
   max-width: 100%;
   height: auto;
-}
-
-:root {
-  /*? Fonts */
-  --font-main: "Roboto", sans-serif;
-
-  /*? Colors */
-  --color-primary-white: #ffffff;
-  --color-primary-black: #2F2F2F;
-  --color-primary-blue: #407bff;
-  --color-secondary-gray: #ecf2ff;
-  --color-secondary-red: #ef5050;
-  --color-secondary-blue: #9ebbff;
-  --color-secondary-orange: #ff9d43;
-  --color-secondary-light-blue: #d7e3ff;
-
-  /*? Container device width options */
-  --mobile-container-width: 335px;
-  --tablet-container-width: 704px;
-  --desktop-container-width: 1240px;
-
-  /*? Container configurations */
-  --container-width: var(--mobile-container-width);
-  --container-side-padding: 15px;
-  --container-max-width: calc(var(--container-width) + var(--container-side-padding) * 2);
-
-  /*? Transition */
-  --transition-time: 250ms;
-  --transition-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html {
@@ -100,14 +118,6 @@ body {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
-}
-
-.container {
-  width: 100%;
-  margin: 0 auto;
-  /* content width + 15px for each side (left and right) */
-  max-width: var(--container-max-width);
-  padding: 0 var(--container-side-padding);
 }
 
 /*? ------------------------ MEDIA ------------------------ */

@@ -1,46 +1,24 @@
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-    background-color: #333;
-    color: white;
+    padding: 8px 0;
 }
 
-.list {
+.container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
 .link {
-    margin-right: 1rem;
-    text-decoration: none;
-    color: white;
     display: flex;
     justify-content: center;
-}
-
-.link:global(.active) {
-    color: #28a745;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+    font-size: 16px;
+    line-height: 125%;
+    color: var(--primery-color-blue);
 }
 
 .link:hover {
-    text-decoration: underline;
-    color: #218838;
-}
-
-.userName {
-    margin-right: 1rem;
-    color: white;
-    display: flex;
-    justify-content: center;
-}
-
-.logoutButton {
-    background-color: transparent;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-left: 1rem;
+    color: var(--secondary-color-5);
 }
