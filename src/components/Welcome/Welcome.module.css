@@ -1,10 +1,132 @@
+.section {
+    background-image: url(//src/images/background-sign-In-phone.png);
+   
+}
+
 .homeContainer {
     text-align: center;
     padding: 2rem;
+    height: 840px;
+        width: 280px;
+        padding: 20px;
+
+      
+       
+}
+
+.welcomeContainer {
+   margin-bottom: 40px;
+}
+
+.titleContainer {
+    display: flex;
+    /* flex-direction: column; */
+    width: 246px;
+gap: 16px;
+/* align-content: end; */
+flex-wrap: wrap;
+text-align: left;
+margin-bottom: 24px;
 }
 
 .title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    /* font-size: 2rem; */
+    /* margin-bottom: 16px; */
     color: #333;
+    font-weight: 700;
+        font-size: 28px;
+        line-height: 1.14;
+}
+
+.secondTitle {
+    
+        font-size: 24px;
+        line-height: 1.25;
+}
+
+.trackerBenefits {
+    display: flex;
+    flex-direction: column;
+    width: 216px;
+    text-align: left;
+    margin-bottom: 24px;
+}
+
+.benefits {
+    font-weight: 500;
+        font-size: 18px;
+        line-height: 1.11;
+        margin-bottom: 12px;
+}
+
+.benefitsList {
+display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* .benefitsItem:not(:last-child) {
+    margin-bottom: 16px;
+} */
+
+.benefitsItem {
+    display: flex;
+        font-size: 16px;
+        line-height: 1.25;
+align-items: center;
+        gap: 8px;
+}
+
+.benefitsItemIcon {
+    stroke: var(--color-primary-blue);
+    fill: transparent;
+}
+
+.benefitsBtn {
+    /* max-width: 280px; */
+    border-radius: 10px;
+        padding: 8px 30px;
+        width: 280px;
+        height: 36px;
+        box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+        background-color: var(--color-primary-blue);
+
+        font-weight: 500;
+            font-size: 16px;
+            line-height: 1.25;
+            text-align: center;
+            color: var(--color-primary-white);
+}
+
+.whyDrinkContainer {
+border-radius: 10px;
+    padding: 24px 16px;
+    text-align: left;
+    /* height: 416px; */
+    box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
+        background: var(--secondary-color-2);
+}
+
+.whyDrinkList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* .whyDrinkItemContainer {
+    display: flex;
+gap: 8px;
+} */
+
+.whyDrinkItem {
+    font-size: 16px;
+        line-height: 1.25;
+
+        display: flex;
+        gap: 8px;
+    align-items: center;
+}
+
+.whyDrinkItemIcon {
+    fill: var(--color-primary-blue);
 }
