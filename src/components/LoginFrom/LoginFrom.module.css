@@ -74,7 +74,10 @@
   text-decoration: none;
   color: #407bff;
 }
-
+.redirectPassword {
+  color: #555;
+  float: right;
+}
 .link:hover {
   text-decoration: underline;
 }

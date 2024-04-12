@@ -3,7 +3,7 @@ import { FaSignInAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ContentLoader } from 'components';
-import { SIGN_UP_ROUTE } from 'routes/routes';
+import { FORGOT_PASSWORD, SIGN_UP_ROUTE } from 'routes/routes';
 import { logInSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 import { logIn } from 'store/operations';
@@ -81,6 +81,11 @@ export const LoginFrom = () => {
       <div className={css.redirectLink}>
         <NavLink to={SIGN_UP_ROUTE} className={css.link}>
           Sign Up
+        </NavLink>
+      </div>
+      <div className={css.redirectLink}>
+        <NavLink to={FORGOT_PASSWORD} className={css.link}>
+          Forgot your password?
         </NavLink>
       </div>
       {/* <picture className="bottle">
