@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import { FaSignInAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { FORGOT_PASSWORD_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
-import { ContentLoader } from 'components';
+import { Container, ContentLoader, Section } from 'components';
 import { logInSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 import { logIn } from 'store/operations';
@@ -11,7 +11,7 @@ import css from './LoginFrom.module.css';
 import { IconButton, InputAdornment } from '@mui/material';
 import { useState } from 'react';
 import { VisibilityOffOutlined } from '@mui/icons-material';
-import { CssTextField } from '../FormTextField/Demo.jsx';
+import { CssTextField } from '../FormTextField/TextFieldStyled.jsx';
 
 export const LoginFrom = () => {
   const [visible, setVisible] = useState(false);
@@ -45,51 +45,52 @@ export const LoginFrom = () => {
     );
   };
   return (
-    <div className={css.loginContainer}>
-      <h1 className={css.title}>Sign In</h1>
-      <form className={css.form} onSubmit={handleSubmit}>
-        <label className={css.label}>
-          <span>Enter your email</span>
-          <CssTextField
-            fullWidth
-            type="text"
-            name="email"
-            required
-            placeholder="Email"
-            id={css['email_input']}
-          />
-        </label>
-        <label className={css.label}>
-          <span>Enter your password</span>
-          <CssTextField
-            fullWidth
-            id={css['email_input']}
-            type={visible ? 'text' : 'password'}
-            name="password"
-            required
-            placeholder="Password"
-            InputProps={{
-              endAdornment: (
-                <EndAdorment visible={visible} setVisible={setVisible} />
-              ),
-            }}
-          />
-        </label>
-        <button type="submit" className={css.button} disabled={isLoading}>
-          Sign In &nbsp; {isLoading ? <ContentLoader /> : <FaSignInAlt />}
-        </button>
-      </form>
-      <div className={css.redirectLink}>
-        <NavLink to={SIGN_UP_ROUTE} className={css.link}>
-          Sign Up
-        </NavLink>
-      </div>
-      <div className={css.redirectLink}>
-        <NavLink to={FORGOT_PASSWORD_ROUTE} className={css.link}>
-          Forgot your password?
-        </NavLink>
-      </div>
-      {/* <picture className="bottle">
+    <Section>
+      <Container className={css.loginContainer}>
+        <h1 className={css.title}>Sign In</h1>
+        <form className={css.form} onSubmit={handleSubmit}>
+          <label className={css.label}>
+            <span>Enter your email</span>
+            <CssTextField
+              fullWidth
+              type="text"
+              name="email"
+              required
+              placeholder="Email"
+              id={css['email_input']}
+            />
+          </label>
+          <label className={css.label}>
+            <span>Enter your password</span>
+            <CssTextField
+              fullWidth
+              id={css['email_input']}
+              type={visible ? 'text' : 'password'}
+              name="password"
+              required
+              placeholder="Password"
+              InputProps={{
+                endAdornment: (
+                  <EndAdorment visible={visible} setVisible={setVisible} />
+                ),
+              }}
+            />
+          </label>
+          <button type="submit" className={css.button} disabled={isLoading}>
+            Sign In &nbsp; {isLoading ? <ContentLoader /> : <FaSignInAlt />}
+          </button>
+        </form>
+        <div className={css.redirectLink}>
+          <NavLink to={SIGN_UP_ROUTE} className={css.link}>
+            Sign Up
+          </NavLink>
+        </div>
+        <div className={css.redirectLink}>
+          <NavLink to={FORGOT_PASSWORD_ROUTE} className={css.link}>
+            Forgot your password?
+          </NavLink>
+        </div>
+        {/* <picture className="bottle">
         <source
           media="(min-width: 1440px)"
           width="865"
@@ -110,6 +111,7 @@ export const LoginFrom = () => {
         />
         <img className="bottle" alt="bottle of water" />
       </picture> */}
-    </div>
+      </Container>
+    </Section>
   );
 };
