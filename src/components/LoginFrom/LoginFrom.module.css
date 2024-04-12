@@ -1,9 +1,7 @@
 .loginContainer {
-
   text-align: center;
   padding: 2rem;
   min-width: 260px;
-
 }
 
 .title {
@@ -44,7 +42,10 @@
 #email_input::placeholder {
   color: var(--color-secondary-blue);
 }
-
+.Icon {
+  fill: none;
+  stroke: var(--color-primary-blue);
+}
 .button {
   padding: 0.8rem 1.5rem;
   margin-top: 1rem;
@@ -63,7 +64,11 @@
 .button:hover {
   box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
 }
-
+Section {
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-image: url(../../images/background-home-screen-phone.png);
+}
 .redirectLink {
   margin-top: 1rem;
   color: #555;

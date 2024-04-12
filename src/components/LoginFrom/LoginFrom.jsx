@@ -1,16 +1,14 @@
 import { NavLink } from 'react-router-dom';
-import { FaSignInAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { FORGOT_PASSWORD_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
-import { Container, ContentLoader, Section } from 'components';
+import { Container, Section } from 'components';
 import { logInSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 import { logIn } from 'store/operations';
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import css from './LoginFrom.module.css';
-import { IconButton, InputAdornment } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { useState } from 'react';
-import { VisibilityOffOutlined } from '@mui/icons-material';
+import { Icon } from 'components';
 import { CssTextField } from '../FormTextField/TextFieldStyled.jsx';
 
 export const LoginFrom = () => {
@@ -35,15 +33,28 @@ export const LoginFrom = () => {
       true
     );
   };
+
   const EndAdorment = ({ visible, setVisible }) => {
     return (
-      <InputAdornment position="end">
-        <IconButton onClick={() => setVisible(!visible)}>
-          {visible ? <VisibilityOffOutlined /> : <RemoveRedEyeOutlinedIcon />}
-        </IconButton>
-      </InputAdornment>
+      <IconButton
+        position="end"
+        onClick={() => setVisible(!visible)}
+        sx={{ p: 0 }}
+      >
+        {visible ? (
+          <Icon id="icon-eye" width="16" height="16" className={css.Icon} />
+        ) : (
+          <Icon
+            id="icon-eye-slash"
+            width="16"
+            height="16"
+            className={css.Icon}
+          />
+        )}
+      </IconButton>
     );
   };
+
   return (
     <Section>
       <Container className={css.loginContainer}>
@@ -77,7 +88,7 @@ export const LoginFrom = () => {
             />
           </label>
           <button type="submit" className={css.button} disabled={isLoading}>
-            Sign In &nbsp; {isLoading ? <ContentLoader /> : <FaSignInAlt />}
+            Sign In
           </button>
         </form>
         <div className={css.redirectLink}>
@@ -91,26 +102,33 @@ export const LoginFrom = () => {
           </NavLink>
         </div>
         {/* <picture className="bottle">
-        <source
-          media="(min-width: 1440px)"
-          width="865"
-          height="680"
-          type="image/png"
-        />
-        <source
-          media="(min-width: 768px)"
-          width="656"
-          height="548"
-          type="image/png"
-        />
-        <source
-          media="(min-width: 320px)"
-          width="280"
-          height="210"
-          type="image/png"
-        />
-        <img className="bottle" alt="bottle of water" />
-      </picture> */}
+          <source
+            srcSet={`../../images/bottle-for-sign-in-desktop.png 1x, ../../images/bottle-for-sign-in-desktop-2x.png 2x`}
+            media="(min-width: 1440px)"
+            width="865"
+            height="680"
+            type="image/png"
+          />
+          <source
+            srcSet={`../../images/botle-sign-in-tablet.png 1x, ../../images/botle-sign-in-tablet-2x.png 2x`}
+            media="(min-width: 768px)"
+            width="656"
+            height="548"
+            type="image/png"
+          />
+          <source
+            srcSet={`../../images/bottle-sign-in-phone.png 1x, ../../images/bottle-sign-in-phone-2x.png 2x`}
+            media="(min-width: 320px)"
+            width="280"
+            height="210"
+            type="image/png"
+          />
+          <img
+            className="bottle"
+            alt="bottle of water"
+            src={bottleHomeScreenPhone}
+          />
+        </picture> */}
       </Container>
     </Section>
   );
