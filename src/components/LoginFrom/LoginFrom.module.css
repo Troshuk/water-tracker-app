@@ -1,68 +1,80 @@
 .loginContainer {
-    text-align: center;
-    padding: 2rem;
+  text-align: center;
+  padding: 2rem;
+  min-width: 260px;
 }
 
 .title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #333;
+  display: flex;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #333;
 }
 
 .form {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .label {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    color: #333;
-    width: 100%;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #333;
+  width: 100%;
 }
 
 .label span {
-    display: block;
-    margin-bottom: 0.5rem;
+  display: flex;
+  margin-bottom: 0.5rem;
 }
 
-.label input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+.label .input {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--color-secondary-light-blue);
+  border-radius: 4px;
+}
+.email_input:active,
+.email_input:focus {
+  color: var(--color-primary-blue);
+}
+.email_input::placeholder {
+  color: var(--color-secondary-blue);
 }
 
 .button {
-    padding: 0.8rem 1.5rem;
-    margin-top: 1rem;
-    text-decoration: none;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #28a745;
-    display: flex;
-    justify-content: center;
+  padding: 0.8rem 1.5rem;
+  margin-top: 1rem;
+  text-decoration: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.625rem;
+  background-color: var(--color-primary-blue);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-width: 260px;
 }
 
 .button:hover {
-    background-color: #218838;
+  box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
 }
 
 .redirectLink {
-    margin-top: 1rem;
-    color: #555;
+  margin-top: 1rem;
+  color: #555;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .link {
-    text-decoration: none;
-    color: #007bff;
+  text-decoration: none;
+  color: #407bff;
 }
 
 .link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
