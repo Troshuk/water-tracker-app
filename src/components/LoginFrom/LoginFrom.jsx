@@ -1,9 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import { FaSignInAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { ContentLoader } from 'components';
 import { FORGOT_PASSWORD_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
+import { Container, ContentLoader, Section } from 'components';
 import { logInSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 import { logIn } from 'store/operations';
@@ -46,6 +45,7 @@ export const LoginFrom = () => {
     );
   };
   return (
+
     <div className={css.loginContainer}>
       <h1 className={css.title}>Sign In</h1>
       <form className={css.form} onSubmit={handleSubmit}>
@@ -112,5 +112,6 @@ export const LoginFrom = () => {
         <img className="bottle" alt="bottle of water" />
       </picture> */}
     </div>
+
   );
 };

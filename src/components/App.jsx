@@ -2,7 +2,7 @@ import { ToastContainer } from 'react-toastify';
 import { Suspense, lazy, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Loader, NavigationBar } from 'components';
+import { PageLoader, NavigationBar } from 'components';
 
 import {
   FORGOT_PASSWORD_ROUTE,
@@ -36,13 +36,13 @@ export const App = () => {
   }, [dispatch, isLoggedIn, token]);
 
   return isLoading ? (
-    <Loader />
+    <PageLoader />
   ) : (
     <>
       <NavigationBar />
 
       <main>
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path={HOME_ROUTE} element={<HomePage />} />
             {isLoggedIn || token ? (
