@@ -33,14 +33,13 @@
 .label .input {
   padding: 0.5rem;
   margin-bottom: 1rem;
-  border: 1px solid var(--color-secondary-light-blue);
-  border-radius: 4px;
 }
-.email_input:active,
-.email_input:focus {
+
+#email_input:active,
+#email_input:focus {
   color: var(--color-primary-blue);
 }
-.email_input::placeholder {
+#email_input::placeholder {
   color: var(--color-secondary-blue);
 }
 

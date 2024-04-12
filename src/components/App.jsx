@@ -4,7 +4,12 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { Loader, NavigationBar } from 'components';
 
-import { HOME_ROUTE, LOGIN_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
+import {
+  FORGOT_PASSWORD_ROUTE,
+  HOME_ROUTE,
+  LOGIN_ROUTE,
+  SIGN_UP_ROUTE,
+} from 'routes/routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthReducerSelector, fetchUserSelector } from 'store/selectors';
 import { fetchUser } from 'store/operations';
@@ -13,6 +18,7 @@ import { notify } from 'notify';
 const HomePage = lazy(() => import('pages/Home'));
 const LoginPage = lazy(() => import('pages/Login'));
 const RegisterPage = lazy(() => import('pages/Register'));
+const ForgotPasswordPage = lazy(() => import('pages/ForgotPasswordPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -48,6 +54,10 @@ export const App = () => {
               <>
                 <Route path={LOGIN_ROUTE} element={<LoginPage />} />
                 <Route path={SIGN_UP_ROUTE} element={<RegisterPage />} />
+                <Route
+                  path={FORGOT_PASSWORD_ROUTE}
+                  element={<ForgotPasswordPage />}
+                />
               </>
             )}
             <Route path="*" element={<Navigate to={HOME_ROUTE} />} />

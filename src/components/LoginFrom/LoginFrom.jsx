@@ -3,15 +3,16 @@ import { FaSignInAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ContentLoader } from 'components';
-import { FORGOT_PASSWORD, SIGN_UP_ROUTE } from 'routes/routes';
+import { FORGOT_PASSWORD_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
 import { logInSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 import { logIn } from 'store/operations';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import css from './LoginFrom.module.css';
-import { IconButton, InputAdornment, TextField } from '@mui/material';
+import { IconButton, InputAdornment } from '@mui/material';
 import { useState } from 'react';
 import { VisibilityOffOutlined } from '@mui/icons-material';
+import { CssTextField } from './Demo.jsx';
 
 export const LoginFrom = () => {
   const [visible, setVisible] = useState(false);
@@ -50,19 +51,20 @@ export const LoginFrom = () => {
       <form className={css.form} onSubmit={handleSubmit}>
         <label className={css.label}>
           <span>Enter your email</span>
-          <TextField
+          <CssTextField
             fullWidth
             type="text"
             name="email"
             required
             placeholder="Email"
+            id={css['email_input']}
           />
         </label>
         <label className={css.label}>
           <span>Enter your password</span>
-          <TextField
+          <CssTextField
             fullWidth
-            style={{}}
+            id={css['email_input']}
             type={visible ? 'text' : 'password'}
             name="password"
             required
@@ -84,7 +86,7 @@ export const LoginFrom = () => {
         </NavLink>
       </div>
       <div className={css.redirectLink}>
-        <NavLink to={FORGOT_PASSWORD} className={css.link}>
+        <NavLink to={FORGOT_PASSWORD_ROUTE} className={css.link}>
           Forgot your password?
         </NavLink>
       </div>
