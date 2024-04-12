@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkwater_tracker_app=self.webpackChunkwater_tracker_app||[]).push([[499],{1499:(e,t,a)=>{a.r(t),a.d(t,{default:()=>l});var c=a(9245);const s={homeContainer:"Welcome_homeContainer__DNlCB",title:"Welcome_title__EAh1s"};var n=a(579);const r=()=>(0,n.jsx)(c.wn,{className:s.section,children:(0,n.jsx)(c.mc,{className:s.homeContainer,children:(0,n.jsx)("h1",{className:s.title,children:"Welcome to the App"})})});function l(){return(0,n.jsx)(r,{})}}}]);
+//# sourceMappingURL=499.e7e915bf.chunk.js.map

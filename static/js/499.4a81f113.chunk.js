@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkwater_tracker_app=self.webpackChunkwater_tracker_app||[]).push([[499],{1499:(e,t,a)=>{a.r(t),a.d(t,{default:()=>n});const c="Welcome_homeContainer__DNlCB",s="Welcome_title__EAh1s";var r=a(579);const l=()=>(0,r.jsx)("div",{className:c,children:(0,r.jsx)("h1",{className:s,children:"Welcome to the App"})});function n(){return(0,r.jsx)(l,{})}}}]);
-//# sourceMappingURL=499.4a81f113.chunk.js.map

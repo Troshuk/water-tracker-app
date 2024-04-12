@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/water-tracker-app/static/css/main.753b4c3e.css",
-    "main.js": "/water-tracker-app/static/js/main.29cbcf3c.js",
+    "main.css": "/water-tracker-app/static/css/main.1c4c5b25.css",
+    "main.js": "/water-tracker-app/static/js/main.13c20b13.js",
     "static/css/499.83d9f073.chunk.css": "/water-tracker-app/static/css/499.83d9f073.chunk.css",
-    "static/js/499.4a81f113.chunk.js": "/water-tracker-app/static/js/499.4a81f113.chunk.js",
+    "static/js/499.e7e915bf.chunk.js": "/water-tracker-app/static/js/499.e7e915bf.chunk.js",
     "static/js/14.62743325.chunk.js": "/water-tracker-app/static/js/14.62743325.chunk.js",
     "static/js/490.94b8aac9.chunk.js": "/water-tracker-app/static/js/490.94b8aac9.chunk.js",
     "static/media/logo.svg": "/water-tracker-app/static/media/logo.370a42932595504fe7b2db82e524cd33.svg",
@@ -51,15 +51,15 @@
     "static/media/roboto-greek-ext-400-normal.woff": "/water-tracker-app/static/media/roboto-greek-ext-400-normal.f708607d2a7290fb8bfa.woff",
     "static/media/roboto-greek-ext-700-normal.woff": "/water-tracker-app/static/media/roboto-greek-ext-700-normal.249853776d22a271b2b5.woff",
     "index.html": "/water-tracker-app/index.html",
-    "main.753b4c3e.css.map": "/water-tracker-app/static/css/main.753b4c3e.css.map",
-    "main.29cbcf3c.js.map": "/water-tracker-app/static/js/main.29cbcf3c.js.map",
+    "main.1c4c5b25.css.map": "/water-tracker-app/static/css/main.1c4c5b25.css.map",
+    "main.13c20b13.js.map": "/water-tracker-app/static/js/main.13c20b13.js.map",
     "499.83d9f073.chunk.css.map": "/water-tracker-app/static/css/499.83d9f073.chunk.css.map",
-    "499.4a81f113.chunk.js.map": "/water-tracker-app/static/js/499.4a81f113.chunk.js.map",
+    "499.e7e915bf.chunk.js.map": "/water-tracker-app/static/js/499.e7e915bf.chunk.js.map",
     "14.62743325.chunk.js.map": "/water-tracker-app/static/js/14.62743325.chunk.js.map",
     "490.94b8aac9.chunk.js.map": "/water-tracker-app/static/js/490.94b8aac9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.753b4c3e.css",
-    "static/js/main.29cbcf3c.js"
+    "static/css/main.1c4c5b25.css",
+    "static/js/main.13c20b13.js"
   ]
 }
