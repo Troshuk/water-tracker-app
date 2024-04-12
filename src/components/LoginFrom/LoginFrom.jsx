@@ -52,8 +52,8 @@ export const LoginFrom = () => {
           <span>Enter your email</span>
           <TextField
             fullWidth
-            type="password"
-            name="password"
+            type="text"
+            name="email"
             required
             placeholder="Email"
           />
