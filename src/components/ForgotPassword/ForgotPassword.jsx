@@ -1,10 +1,11 @@
-import React from 'react';
-
-const ForgotPassword = () => {
+import { Container, Section } from 'components';
+import './ForgotPassword.module.css';
+export const ForgotPassword = () => {
   return (
-    <div>
-      <h1>Forgot Password</h1>
-    </div>
+    <Section>
+      <Container>
+        <h1>Forgot Password</h1>
+      </Container>
+    </Section>
   );
 };
-export default ForgotPassword;
