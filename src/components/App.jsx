@@ -2,7 +2,7 @@ import { ToastContainer } from 'react-toastify';
 import { Suspense, lazy, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Loader, NavigationBar } from 'components';
+import { PageLoader, NavigationBar } from 'components';
 
 import { HOME_ROUTE, LOGIN_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,13 +30,13 @@ export const App = () => {
   }, [dispatch, isLoggedIn, token]);
 
   return isLoading ? (
-    <Loader />
+    <PageLoader />
   ) : (
     <>
       <NavigationBar />
 
       <main>
-        <Suspense fallback={<Loader />}>
+        <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path={HOME_ROUTE} element={<HomePage />} />
             {isLoggedIn || token ? (
