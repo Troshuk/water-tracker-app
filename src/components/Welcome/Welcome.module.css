@@ -1,132 +1,303 @@
 .section {
-    background-image: url(//src/images/background-sign-In-phone.png);
-   
+  background-image: url(..//../images/background-main-page-phone.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+@media (min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
+  .section {
+    background-image: url(..//../images/background-main-page-phone-2x.png);
+  }
 }
 
 .homeContainer {
-    text-align: center;
-    padding: 2rem;
-    height: 840px;
-        width: 280px;
-        padding: 20px;
-
-      
-       
+  text-align: center;
+  padding: 2rem;
+  width: 280px;
+  padding: 20px;
 }
 
 .welcomeContainer {
-   margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 .titleContainer {
-    display: flex;
-    /* flex-direction: column; */
-    width: 246px;
-gap: 16px;
-/* align-content: end; */
-flex-wrap: wrap;
-text-align: left;
-margin-bottom: 24px;
+  display: flex;
+  width: 246px;
+  gap: 16px;
+  flex-wrap: wrap;
+  text-align: left;
+  margin-bottom: 24px;
 }
 
 .title {
-    /* font-size: 2rem; */
-    /* margin-bottom: 16px; */
-    color: #333;
-    font-weight: 700;
-        font-size: 28px;
-        line-height: 1.14;
+  color: var(--color-primary-black);
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.14;
 }
 
 .secondTitle {
-    
-        font-size: 24px;
-        line-height: 1.25;
+  font-size: 24px;
+  line-height: 1.25;
 }
 
 .trackerBenefits {
-    display: flex;
-    flex-direction: column;
-    width: 216px;
-    text-align: left;
-    margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 216px;
+  text-align: left;
+  margin-bottom: 24px;
 }
 
 .benefits {
-    font-weight: 500;
-        font-size: 18px;
-        line-height: 1.11;
-        margin-bottom: 12px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.11;
+  margin-bottom: 12px;
 }
 
 .benefitsList {
-display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* .benefitsItem:not(:last-child) {
-    margin-bottom: 16px;
-} */
-
 .benefitsItem {
-    display: flex;
-        font-size: 16px;
-        line-height: 1.25;
-align-items: center;
-        gap: 8px;
+  display: flex;
+  font-size: 16px;
+  line-height: 1.25;
+  align-items: center;
+  gap: 8px;
 }
 
 .benefitsItemIcon {
-    stroke: var(--color-primary-blue);
-    fill: transparent;
+  stroke: var(--color-primary-blue);
+  fill: transparent;
 }
 
 .benefitsBtn {
-    /* max-width: 280px; */
-    border-radius: 10px;
-        padding: 8px 30px;
-        width: 280px;
-        height: 36px;
-        box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
-        background-color: var(--color-primary-blue);
+  border-radius: 10px;
+  padding: 8px 30px;
+  width: 280px;
+  height: 36px;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  background-color: var(--color-primary-blue);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  text-align: center;
+  color: var(--color-primary-white);
 
-        font-weight: 500;
-            font-size: 16px;
-            line-height: 1.25;
-            text-align: center;
-            color: var(--color-primary-white);
+  cursor: pointer;
+}
+
+.benefitsBtn:hover,
+.benefitsBtn:focus {
+  box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
+  transition-delay: var(--transition-time);
+  transition-timing-function: var(--transition-function);
+}
+
+.benefitsBtn:active {
+  box-shadow: none;
+  transition-delay: var(--transition-time);
+  transition-timing-function: var(--transition-function);
 }
 
 .whyDrinkContainer {
-border-radius: 10px;
-    padding: 24px 16px;
-    text-align: left;
-    /* height: 416px; */
-    box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
-        background: var(--secondary-color-2);
+  border-radius: 10px;
+  padding: 24px 16px;
+  text-align: left;
+  box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
+  background: var(--secondary-color-2);
 }
 
 .whyDrinkList {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
-/* .whyDrinkItemContainer {
-    display: flex;
-gap: 8px;
-} */
-
 .whyDrinkItem {
-    font-size: 16px;
-        line-height: 1.25;
+  font-size: 16px;
+  line-height: 1.25;
 
-        display: flex;
-        gap: 8px;
-    align-items: center;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .whyDrinkItemIcon {
-    fill: var(--color-primary-blue);
+  fill: var(--color-primary-blue);
+}
+
+/***** min-width: 768px *****/
+
+@media screen and (min-width: 768px) {
+  .section {
+    background-image: url(..//../images/background-main-page-tablet.png);
+  }
+
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    .section {
+      background-image: url(..//../images/background-main-page-tablet-2x.png);
+    }
+  }
+
+  .homeContainer {
+    text-align: center;
+    width: 704px;
+    padding: 32px;
+  }
+
+  .welcomeContainer {
+    margin-bottom: 60px;
+  }
+
+  .titleContainer {
+    width: 439px;
+  }
+
+  .title {
+    font-size: 36px;
+    line-height: 1.17;
+  }
+
+  .secondTitle {
+    font-size: 26px;
+    line-height: 1.23;
+  }
+
+  .trackerBenefits {
+    width: 704px;
+  }
+
+  .benefitsList {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    justify-content: space-between;
+  }
+
+  .benefitsItem {
+    display: flex;
+    font-size: 16px;
+    line-height: 1.25;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .benefitsItemIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .benefitsBtn {
+    padding: 10px 30px;
+    width: 336px;
+    height: 44px;
+    font-size: 18px;
+    line-height: 1.33;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .whyDrinkContainer {
+    padding: 32px 24px;
+    width: 494px;
+  }
+
+  .whyDrinkList {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .whyDrinkItem {
+    font-size: 16px;
+    line-height: 1.25;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+}
+
+/***** min-width: 1440px *****/
+
+@media screen and (min-width: 1440px) {
+  .section {
+    background-image: url(..//../images/background-main-page-desktop.png);
+    background-size: contain;
+    background-position: center;
+  }
+
+  @media (min-device-pixel-ratio: 2),
+    (min-resolution: 192dpi),
+    (min-resolution: 2dppx) {
+    .section {
+      background-image: url(..//../images/background-main-page-desktop-2x.png);
+    }
+  }
+
+  .homeContainer {
+    width: 1014px;
+    height: 120vh;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: row;
+    gap: 81px;
+  }
+
+  .welcomeContainer {
+    width: 439px;
+    margin-bottom: 0;
+  }
+
+  .titleContainer {
+    width: 439px;
+    gap: 16px;
+  }
+
+  .title {
+    font-size: 36px;
+    line-height: 1.17;
+  }
+
+  .secondTitle {
+    font-size: 26px;
+    line-height: 1.23;
+  }
+
+  .trackerBenefits {
+    display: flex;
+    flex-direction: column;
+    width: 248px;
+    margin-bottom: 24px;
+  }
+
+  .benefitsList {
+    flex-direction: column;
+  }
+
+  .benefitsBtn {
+    width: 384px;
+  }
+
+  .whyDrinkContainer {
+    border-radius: 10px;
+    max-height: 300px;
+    width: 494px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+    margin-top: 32px;
+  }
 }
