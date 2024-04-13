@@ -1,134 +1,159 @@
+import React, { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
+import { LoginSchema } from 'components/schemasValdiate/LoginSchema';
 import { NavLink } from 'react-router-dom';
+import bottleSignInDesktop2x from 'images/bottle-for-sign-in-desktop-2x.png';
+import bottleSignInDesktop from 'images/bottle-for-sign-in-desktop.png';
+import bottleSignInTablet2x from 'images/botle-sign-in-tablet-2x.png';
+import bottleSignInTablet from 'images/botle-sign-in-tablet.png';
+import bottleSignInPhone from 'images/bottle-sign-in-phone.png';
+import bottleSignInPhone2x from 'images/bottle-sign-in-phone-2x.png';
 import { useDispatch, useSelector } from 'react-redux';
 import { FORGOT_PASSWORD_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
-import { Container, Section } from 'components';
+import { Container, Icon, Section } from 'components';
 import { logInSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 import { logIn } from 'store/operations';
 import css from './LoginFrom.module.css';
 import { IconButton } from '@mui/material';
-import { useState } from 'react';
-import { Icon } from 'components';
-import { CssTextField } from '../FormTextField/TextFieldStyled.jsx';
 
 export const LoginFrom = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const { isLoading } = useSelector(logInSelector);
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = {};
-
-    formData.forEach((value, key) => {
-      data[key] = value;
-    });
+  const handleSubmit = (values, actions) => {
+    const { email, password } = values;
 
     notifyApi(
-      dispatch(logIn(data))
+      dispatch(logIn({ email, password }))
         .unwrap()
-        .then(() => e.target.reset()),
-      `Attempt to login as: ${data.email}`,
+        .then(() => actions.resetForm()),
+      `Attempt to login as: ${email}`,
       true
-    );
-  };
-
-  const EndAdorment = ({ visible, setVisible }) => {
-    return (
-      <IconButton
-        position="end"
-        onClick={() => setVisible(!visible)}
-        sx={{ p: 0 }}
-      >
-        {visible ? (
-          <Icon id="icon-eye" width="16" height="16" className={css.Icon} />
-        ) : (
-          <Icon
-            id="icon-eye-slash"
-            width="16"
-            height="16"
-            className={css.Icon}
-          />
-        )}
-      </IconButton>
     );
   };
 
   return (
     <Section>
       <Container className={css.loginContainer}>
-        <h1 className={css.title}>Sign In</h1>
-        <form className={css.form} onSubmit={handleSubmit}>
-          <label className={css.label}>
-            <span>Enter your email</span>
-            <CssTextField
-              fullWidth
-              type="text"
-              name="email"
-              required
-              placeholder="Email"
-              id={css['email_input']}
+        <Formik
+          initialValues={{
+            email: '',
+            password: '',
+          }}
+          validationSchema={LoginSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ errors, touched }) => (
+            <Form className={css.form}>
+              <div className={css.containerEmail}>
+                <h1 className={css.title}>Sign In</h1>
+                <p className={css.Text}>Enter your email</p>
+                <Field
+                  type="text"
+                  name="email"
+                  placeholder="Email"
+                  className={`${css.Input} ${
+                    errors.email && touched.email
+                      ? `${css.inputError} ${css.error}`
+                      : ''
+                  }`}
+                />
+                {errors.email && touched.email && (
+                  <div className={`${css.errorText} ${css.errorText}`}>
+                    {errors.email}
+                  </div>
+                )}
+              </div>
+              <div className={css.inputWithIcon}>
+                <p className={css.Text}>Enter your password</p>
+                <Field
+                  type={visible ? 'text' : 'password'}
+                  name="password"
+                  placeholder="Password"
+                  className={`${css.Input} ${
+                    errors.password && touched.password
+                      ? `${css.inputError} ${css.error}`
+                      : ''
+                  }`}
+                />
+                <IconButton
+                  position="end"
+                  onClick={() => setVisible(!visible)}
+                  sx={{ p: 0 }}
+                >
+                  {visible ? (
+                    <Icon
+                      id="icon-eye"
+                      width="16"
+                      height="16"
+                      className={css.Icon}
+                    />
+                  ) : (
+                    <Icon
+                      id="icon-eye-slash"
+                      width="16"
+                      height="16"
+                      className={css.Icon}
+                    />
+                  )}
+                </IconButton>
+                {errors.password && touched.password && (
+                  <div className={css.errorText}>{errors.password}</div>
+                )}
+                <button
+                  type="submit"
+                  className={css.button}
+                  disabled={isLoading}
+                >
+                  Sign In
+                </button>
+              </div>
+              <div className={css.redirectLink}>
+                <NavLink to={SIGN_UP_ROUTE} className={css.link}>
+                  Sign Up
+                </NavLink>
+              </div>
+              <div className={css.redirectForgot}>
+                <NavLink to={FORGOT_PASSWORD_ROUTE} className={css.link}>
+                  Forgot your password?
+                </NavLink>
+              </div>
+            </Form>
+          )}
+        </Formik>
+
+        <div style={{ display: 'flex' }}>
+          <picture className={css.bottle}>
+            <source
+              srcSet={`${bottleSignInDesktop} 1x, ${bottleSignInDesktop2x} 2x`}
+              media="(min-width: 1440px)"
+              width="865"
+              height="680"
+              type="image/png"
             />
-          </label>
-          <label className={css.label}>
-            <span>Enter your password</span>
-            <CssTextField
-              fullWidth
-              id={css['email_input']}
-              type={visible ? 'text' : 'password'}
-              name="password"
-              required
-              placeholder="Password"
-              InputProps={{
-                endAdornment: (
-                  <EndAdorment visible={visible} setVisible={setVisible} />
-                ),
-              }}
+            <source
+              srcSet={`${bottleSignInTablet} 1x, ${bottleSignInTablet2x} 2x`}
+              media="(min-width: 768px)"
+              width="656"
+              height="548"
+              type="image/png"
             />
-          </label>
-          <button type="submit" className={css.button} disabled={isLoading}>
-            Sign In
-          </button>
-        </form>
-        <div className={css.redirectLink}>
-          <NavLink to={SIGN_UP_ROUTE} className={css.link}>
-            Sign Up
-          </NavLink>
+            <source
+              srcSet={`${bottleSignInPhone} 1x, ${bottleSignInPhone2x} 2x`}
+              media="(min-width: 320px)"
+              width="280"
+              height="210"
+              type="image/png"
+            />
+            <img
+              className={css.bottle}
+              alt="bottle of water"
+              src={bottleSignInPhone}
+            />
+          </picture>
         </div>
-        <div className={css.redirectLink}>
-          <NavLink to={FORGOT_PASSWORD_ROUTE} className={css.link}>
-            Forgot your password?
-          </NavLink>
-        </div>
-        {/* <picture className="bottle">
-          <source
-            srcSet={`../../images/bottle-for-sign-in-desktop.png 1x, ../../images/bottle-for-sign-in-desktop-2x.png 2x`}
-            media="(min-width: 1440px)"
-            width="865"
-            height="680"
-            type="image/png"
-          />
-          <source
-            srcSet={`../../images/botle-sign-in-tablet.png 1x, ../../images/botle-sign-in-tablet-2x.png 2x`}
-            media="(min-width: 768px)"
-            width="656"
-            height="548"
-            type="image/png"
-          />
-          <source
-            srcSet={`../../images/bottle-sign-in-phone.png 1x, ../../images/bottle-sign-in-phone-2x.png 2x`}
-            media="(min-width: 320px)"
-            width="280"
-            height="210"
-            type="image/png"
-          />
-          <img
-            className="bottle"
-            alt="bottle of water"
-            src={bottleHomeScreenPhone}
-          />
-        </picture> */}
       </Container>
     </Section>
   );
