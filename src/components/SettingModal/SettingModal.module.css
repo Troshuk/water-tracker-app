@@ -1,0 +1,25 @@
+.container {
+    max-width: 280px;
+    height: 852px;
+}
+
+@media screen and (min-width: 768px) {
+    .container {
+        max-width: 704px;
+        height: 860px;
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    .container {
+        max-width: 1008px;
+        height: 592px;
+    }
+  }
+
+.Setbtn {
+    background-color:  var(--color-primary-blue);
+    color:var(--color-primary-white);
+    width: 160px;
+    height: 44px;
+}

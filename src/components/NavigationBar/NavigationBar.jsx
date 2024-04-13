@@ -16,11 +16,14 @@ import { logOut } from 'store/operations';
 import css from './NavigationBar.module.css';
 import { ReactComponent as Logo } from 'images/logo.svg';
 import { Container, Icon } from 'components';
+// import { Icons } from 'react-toastify';
+// import SettingModal from 'components/SettingModal/SettingModal.jsx';
 
 export const NavigationBar = () => {
   const dispatch = useDispatch();
   const { isLoggedIn, user } = useSelector(AuthReducerSelector);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
 
   const handleOpenUserMenu = event => {
     setAnchorElUser(event.currentTarget);
@@ -33,21 +36,32 @@ export const NavigationBar = () => {
   const handleLogOut = () =>
     notifyApi(dispatch(logOut()).unwrap(), 'Sign out', true);
 
+    // const handleOpenSettingModal = () => {
+    //   setIsSettingModalOpen(true);
+
+    // const handleCloseSettingModal = () => {
+    //   setIsSettingModalOpen(false);
+    // };
+  
+
   return (
     <header className={css.header}>
-      <Container className={css.container}>
-        <Link to={HOME_ROUTE}>
+         <Container className={css.container}>
+         <Link to={HOME_ROUTE}>
           <Logo height="48" />
         </Link>
         {isLoggedIn ? (
           <>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <p className={css.username}>{user.name}</p>
               <Avatar
                 alt={`${user?.name || user.email}`}
                 src="/static/images/avatar/2.jpg"
               />
-            </IconButton>
-            <Menu
+              <Icon id="icon-chevron-double-up" width="16" height="16" />
+              </IconButton>
+           
+              <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -64,10 +78,10 @@ export const NavigationBar = () => {
               onClose={handleCloseUserMenu}
             >
               <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Setting</Typography>
+                <Typography textAlign="center"><Icon id="icon-cog-6-tooth" with="24" height="24"/>Setting</Typography>
               </MenuItem>
-              <MenuItem onClick={handleLogOut}>
-                <Typography textAlign="center">Log out</Typography>
+                <MenuItem onClick={handleLogOut}>
+                <Typography textAlign="center"><Icon id="icon-arrow-right-on-rectangle" width="24" height="24"/>Log out</Typography>
               </MenuItem>
             </Menu>
           </>
@@ -78,6 +92,7 @@ export const NavigationBar = () => {
           </NavLink>
         )}
       </Container>
+      {/* {isSettingModalOpen && <SettingModal onClose={handleCloseSettingModal} />} */}
     </header>
   );
 };

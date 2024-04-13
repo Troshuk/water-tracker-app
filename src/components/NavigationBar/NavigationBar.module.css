@@ -22,3 +22,12 @@
 .link:hover {
     color: var(--secondary-color-5);
 }
+
+.username {
+   font-size: 18px; 
+   color:  var(--color-primary-black);
+}
+
+.icon {
+    color: var(--primery-color-blue);
+}
