@@ -127,8 +127,8 @@ Section {
   background-size: 100%;
   background-repeat: no-repeat;
   background-image: image-set(
-    url(images/background-home-screen-tablet.png) 1x,
-    url(images/background-home-screen-tablet-2x.png) 2x
+    url(images/background-home-screen-phone.png) 1x,
+    url(images/background-home-screen-phone-2x.png) 2x
   );
 }
 @media screen and (min-width: 768px) {
@@ -139,8 +139,8 @@ Section {
       max-width: var(--background-screen-width);
       margin: 0 auto;
       background-image: image-set(
-        url(images/background-element-main-page-desktop.png) 1x,
-        url(images/background-element-main-page-desktop-2x.png) 2x
+        url(images/background-home-screen-tablet.png) 1x,
+        url(images/background-home-screen-tablet-2x.png) 2x
       );
     }
   }
@@ -153,8 +153,8 @@ Section {
       max-width: var(--background-screen-width);
       margin: 0 auto;
       background-image: image-set(
-        url(images/bottle-home-screen-desktop.png) 1x,
-        url(images/bottle-home-screen-desktop-2x.png) 2x
+        url(images/background-element-main-page-desktop.png) 1x,
+        url(images/background-element-main-page-desktop-2x.png) 2x
       );
     }
   }
