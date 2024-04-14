@@ -65,7 +65,7 @@ export const RegisterForm = () => {
                   type="text"
                   name="email"
                   autoComplete="true"
-                  placeholder="Email"
+                  placeholder="E-mail"
                   className={`${css.Input} ${
                     errors.email && touched.email
                       ? `${css.inputError} ${css.error}`
