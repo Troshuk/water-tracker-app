@@ -16,8 +16,7 @@ import { logOut } from 'store/operations';
 import css from './NavigationBar.module.css';
 import { ReactComponent as Logo } from 'images/logo.svg';
 import { Container, Icon } from 'components';
-// import { Icons } from 'react-toastify';
-// import SettingModal from 'components/SettingModal/SettingModal.jsx';
+import SettingModal from 'components/SettingModal/SettingModal.jsx';
 
 export const NavigationBar = () => {
   const dispatch = useDispatch();
@@ -36,18 +35,19 @@ export const NavigationBar = () => {
   const handleLogOut = () =>
     notifyApi(dispatch(logOut()).unwrap(), 'Sign out', true);
 
-    // const handleOpenSettingModal = () => {
-    //   setIsSettingModalOpen(true);
+  const handleOpenSettingModal = () => {
+    handleCloseUserMenu();
+    setIsSettingModalOpen(true);
+  };
 
-    // const handleCloseSettingModal = () => {
-    //   setIsSettingModalOpen(false);
-    // };
-  
+  const handleCloseSettingModal = () => {
+    setIsSettingModalOpen(false);
+  };
 
   return (
     <header className={css.header}>
-         <Container className={css.container}>
-         <Link to={HOME_ROUTE}>
+      <Container className={css.container}>
+        <Link to={HOME_ROUTE}>
           <Logo height="48" />
         </Link>
         {isLoggedIn ? (
@@ -59,9 +59,9 @@ export const NavigationBar = () => {
                 src="/static/images/avatar/2.jpg"
               />
               <Icon id="icon-chevron-double-up" width="16" height="16" />
-              </IconButton>
-           
-              <Menu
+            </IconButton>
+
+            <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
               anchorEl={anchorElUser}
@@ -77,11 +77,19 @@ export const NavigationBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center"><Icon id="icon-cog-6-tooth" with="24" height="24"/>Setting</Typography>
+              <MenuItem onClick={handleOpenSettingModal}>
+                <Icon id="icon-cog-6-tooth" width="24" height="24" />
+                <span>Setting</span>
               </MenuItem>
-                <MenuItem onClick={handleLogOut}>
-                <Typography textAlign="center"><Icon id="icon-arrow-right-on-rectangle" width="24" height="24"/>Log out</Typography>
+              <MenuItem onClick={handleLogOut}>
+                <Typography textAlign="center">
+                  <Icon
+                    id="icon-arrow-right-on-rectangle"
+                    width="24"
+                    height="24"
+                  />
+                  Log out
+                </Typography>
               </MenuItem>
             </Menu>
           </>
@@ -92,7 +100,7 @@ export const NavigationBar = () => {
           </NavLink>
         )}
       </Container>
-      {/* {isSettingModalOpen && <SettingModal onClose={handleCloseSettingModal} />} */}
+      {isSettingModalOpen && <SettingModal onClose={handleCloseSettingModal} />}
     </header>
   );
 };
