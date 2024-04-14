@@ -17,6 +17,7 @@
 
 .homeContainer {
   text-align: center;
+  padding-top: 20px;
 }
 
 .welcomeContainer {
@@ -151,8 +152,7 @@
 
   .homeContainer {
     text-align: center;
-    width: 704px;
-    padding: 32px;
+    padding-top: 40px;
   }
 
   .welcomeContainer {
