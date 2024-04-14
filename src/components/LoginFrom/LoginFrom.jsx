@@ -16,15 +16,19 @@ import { notifyApi } from 'notify';
 import { logIn } from 'store/operations';
 import css from './LoginFrom.module.css';
 import { IconButton } from '@mui/material';
+import { toast } from 'react-toastify';
 
 export const LoginFrom = () => {
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
+
   const { isLoading } = useSelector(logInSelector);
 
   const handleSubmit = (values, actions) => {
     const { email, password } = values;
-
+    if (!email || !password) {
+      return toast.error('Email and password are required');
+    }
     notifyApi(
       dispatch(logIn({ email, password }))
         .unwrap()
@@ -42,8 +46,8 @@ export const LoginFrom = () => {
             email: '',
             password: '',
           }}
-          validationSchema={LoginSchema}
           onSubmit={handleSubmit}
+          validationSchema={LoginSchema}
         >
           {({ errors, touched }) => (
             <Form className={css.form}>
