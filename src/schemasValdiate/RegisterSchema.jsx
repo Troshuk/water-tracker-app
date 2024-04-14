@@ -1,12 +1,8 @@
 import * as Yup from 'yup';
 
-const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{5,}$/;
-
 export const RegisterSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email'),
-  password: Yup.string()
-    .min(8, 'Password must be at least 8 characters long')
-    .matches(passwordRules, { message: 'Please create a stronger password' }),
+  password: Yup.string().min(8, 'Password must be at least 8 characters long'),
   passwordRepeat: Yup.string().oneOf(
     [Yup.ref('password'), null],
     'Passwords must match'
