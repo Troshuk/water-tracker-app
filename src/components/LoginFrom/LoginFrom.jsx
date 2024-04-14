@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { LoginSchema } from 'schemasValdiate/LoginSchema';
+
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import bottleSignInDesktop2x from 'images/bottle-for-sign-in-desktop-2x.png';
@@ -17,6 +17,7 @@ import { logIn } from 'store/operations';
 import css from './LoginFrom.module.css';
 import { IconButton } from '@mui/material';
 import { toast } from 'react-toastify';
+import { LoginSchema } from 'schemasValdiate/LoginSchema';
 
 export const LoginFrom = () => {
   const [visible, setVisible] = useState(false);
@@ -46,8 +47,8 @@ export const LoginFrom = () => {
             email: '',
             password: '',
           }}
-          onSubmit={handleSubmit}
           validationSchema={LoginSchema}
+          onSubmit={handleSubmit}
         >
           {({ errors, touched }) => (
             <Form className={css.form}>

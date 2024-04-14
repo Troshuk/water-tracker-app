@@ -6,5 +6,5 @@ export const LoginSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email'),
   password: Yup.string()
     .min(8, 'Password must be at least 8 characters long')
-    .matches(passwordRules, { message: 'Please create a stronger password' }),
+    .matches(passwordRules, { message: 'Please enter a valid password' }),
 });
