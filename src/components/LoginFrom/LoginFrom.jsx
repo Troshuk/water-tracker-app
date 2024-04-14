@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { LoginSchema } from 'components/schemasValdiate/LoginSchema';
+import { LoginSchema } from 'schemasValdiate/LoginSchema';
 import { NavLink } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import bottleSignInDesktop2x from 'images/bottle-for-sign-in-desktop-2x.png';
 import bottleSignInDesktop from 'images/bottle-for-sign-in-desktop.png';
 import bottleSignInTablet2x from 'images/botle-sign-in-tablet-2x.png';
 import bottleSignInTablet from 'images/botle-sign-in-tablet.png';
 import bottleSignInPhone from 'images/bottle-sign-in-phone.png';
 import bottleSignInPhone2x from 'images/bottle-sign-in-phone-2x.png';
-import { useDispatch, useSelector } from 'react-redux';
 import { FORGOT_PASSWORD_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
 import { Container, Icon, Section } from 'components';
 import { logInSelector } from 'store/selectors';
@@ -53,7 +53,7 @@ export const LoginFrom = () => {
                 <Field
                   type="text"
                   name="email"
-                  placeholder="Email"
+                  placeholder="E-mail"
                   className={`${css.Input} ${
                     errors.email && touched.email
                       ? `${css.inputError} ${css.error}`
@@ -123,8 +123,7 @@ export const LoginFrom = () => {
             </Form>
           )}
         </Formik>
-
-        <div style={{ display: 'flex' }}>
+        <div>
           <picture className={css.bottle}>
             <source
               srcSet={`${bottleSignInDesktop} 1x, ${bottleSignInDesktop2x} 2x`}
