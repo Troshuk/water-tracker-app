@@ -1,9 +1,11 @@
 import { Container, Section } from 'components';
-import css from './Welcome.module.css';
-import { Icon } from 'components';
-
 import { Link } from 'react-router-dom';
 import React from 'react';
+
+import { Icon } from 'components';
+
+import css from './Welcome.module.css';
+
 import { SIGN_UP_ROUTE } from 'routes/routes.js';
 
 const whys = [
