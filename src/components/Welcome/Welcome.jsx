@@ -40,8 +40,8 @@ export const Welcome = () => {
             <h2 className={css.benefits}>Tracker Benefits</h2>
 
             <ul className={css.benefitsList}>
-              {benefits.map(benefit => (
-                <li className={css.benefitsItem}>
+              {benefits.map((benefit, index) => (
+                <li key={index} className={css.benefitsItem}>
                   <Icon
                     className={css.benefitsItemIcon}
                     id={benefit.icon}
@@ -65,8 +65,8 @@ export const Welcome = () => {
           <h2 className={css.benefits}>Why drink water</h2>
 
           <ul className={css.whyDrinkList}>
-            {whys.map(why => (
-              <li className={css.whyDrinkItem}>
+            {whys.map((why, index) => (
+              <li key={index} className={css.whyDrinkItem}>
                 <span>
                   <Icon
                     className={css.whyDrinkItemIcon}
