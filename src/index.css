@@ -1,10 +1,12 @@
+@import '../node_modules/modern-normalize/modern-normalize.css';
+
 :root {
   /*? Fonts */
-  --font-main: "Roboto", sans-serif;
+  --font-main: 'Roboto', sans-serif;
 
   /*? Colors */
   --color-primary-white: #ffffff;
-  --color-primary-black: #2F2F2F;
+  --color-primary-black: #2f2f2f;
   --color-primary-blue: #407bff;
   --color-secondary-gray: #ecf2ff;
   --color-secondary-red: #ef5050;
@@ -30,7 +32,7 @@
   --color-8: var(--color-secondary-light-blue);
 
   /*? Container device width options */
-  --mobile-container-width: 335px;
+  --mobile-container-width: 280px;
   --tablet-container-width: 704px;
   --desktop-container-width: 1240px;
 
@@ -38,6 +40,14 @@
   --container-width: var(--mobile-container-width);
   --container-side-padding: 15px;
   --container-max-width: calc(var(--container-width) + var(--container-side-padding) * 2);
+
+  /*? Background image device width options */
+  --mobile-background-screen-width: 320px;
+  --tablet-background-screen-width: 768px;
+  --desktop-background-screen-width: 1440px;
+
+  /*? Background image size */
+  --background-screen-width: var(--mobile-background-screen-width);
 
   /*? Transition */
   --transition-time: 250ms;
@@ -126,6 +136,7 @@ body {
 @media screen and (min-width: 768px) {
   :root {
     --container-width: var(--tablet-container-width);
+    --background-screen-width: var(--tablet-background-screen-width);
   }
 }
 
@@ -133,6 +144,6 @@ body {
 @media screen and (min-width: 1440px) {
   :root {
     --container-width: var(--desktop-container-width);
-    --secondary-container-width: var(--secondary-desktop-container-width);
+    --background-screen-width: var(--desktop-background-screen-width);
   }
 }
