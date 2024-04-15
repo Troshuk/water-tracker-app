@@ -1,3 +1,5 @@
+@import '../node_modules/modern-normalize/modern-normalize.css';
+
 :root {
   /*? Fonts */
   --font-main: "Roboto", sans-serif;
