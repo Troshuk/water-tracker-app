@@ -40,7 +40,7 @@ export const LoginFrom = () => {
   };
 
   return (
-    <Section>
+    <Section className={css.section}>
       <Container className={css.loginContainer}>
         <Formik
           initialValues={{
