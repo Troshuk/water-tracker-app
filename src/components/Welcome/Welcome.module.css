@@ -1,25 +1,24 @@
 .section {
-  background-image: url(../../images/background-main-page-phone.png);
+  background-image: url(images/background-main-page-phone.png);
   background-repeat: no-repeat;
   background-size: cover;
   max-width: var(--background-screen-width);
   background-position: center;
-  margin: 0;
+  margin: 0 auto;
 }
 
 @media (min-device-pixel-ratio: 2),
-  (min-resolution: 192dpi),
-  (min-resolution: 2dppx) {
+(min-resolution: 192dpi),
+(min-resolution: 2dppx) {
   .section {
-    background-image: url(../../images/background-main-page-phone-2x.png);
+    background-image: url(images/background-main-page-phone-2x.png);
   }
 }
 
 .homeContainer {
   text-align: center;
-  padding-top: 20px;
-  padding-bottom: 32px;
-  width: 280px;
+  padding-top: 24px;
+  padding-bottom: 40px;
 }
 
 .welcomeContainer {
@@ -65,7 +64,7 @@
 .benefitsList {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .benefitsItem {
@@ -93,27 +92,24 @@
   line-height: 1.25;
   text-align: center;
   color: var(--color-primary-white);
-
   cursor: pointer;
 }
 
 .benefitsBtn:hover,
 .benefitsBtn:focus {
   box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
-  transition-delay: var(--transition-time);
-  transition-timing-function: var(--transition-function);
+  transition: var(--transition-function), var(--transition-time);
 }
 
 .benefitsBtn:active {
   box-shadow: none;
-  transition-delay: var(--transition-time);
-  transition-timing-function: var(--transition-function);
+  box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
+  transition: var(--transition-function), var(--transition-time);
 }
 
 .whyDrinkContainer {
   border-radius: 10px;
   padding: 24px 16px;
-  width: 248px;
   text-align: left;
   box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.3);
   background: var(--secondary-color-2);
@@ -136,32 +132,28 @@
 
 .whyDrinkItemIcon {
   fill: var(--color-primary-blue);
-  min-width: 8px;
-  min-height: 8px;
 }
 
 /***** min-width: 768px *****/
 
 @media screen and (min-width: 768px) {
   .section {
-    background-image: url(../../images/background-main-page-tablet.png);
-    max-width: var(--tablet-background-screen-width);
-    margin: 0;
+    background-image: url(images/background-main-page-tablet.png);
   }
 
   @media (min-device-pixel-ratio: 2),
-    (min-resolution: 192dpi),
-    (min-resolution: 2dppx) {
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
     .section {
-      background-image: url(../../images/background-main-page-tablet-2x.png);
+      background-image: url(images/background-main-page-tablet-2x.png);
     }
   }
 
   .homeContainer {
     text-align: center;
     width: 100%;
-    margin: 0;
-    padding: 32px;
+    padding-top: 40px;
+    padding-bottom: 50px;
   }
 
   .welcomeContainer {
@@ -242,32 +234,26 @@
 
 @media screen and (min-width: 1440px) {
   .section {
-    background-image: url(../../images/background-main-page-desktop.png),
-      url(../../images/background-element-main-page-desktop.png);
+    background-image: url(images/background-main-page-desktop.png);
     background-size: contain;
     background-position: bottom center;
-    max-width: var(--desktop-background-screen-width);
-    padding-top: 32px;
-    height: 655px;
   }
 
   @media (min-device-pixel-ratio: 2),
-    (min-resolution: 192dpi),
-    (min-resolution: 2dppx) {
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
     .section {
-      background-image: url(../../images/background-main-page-desktop-2x.png),
-        url(../../images/background-element-main-page-desktop-2x.png);
+      background-image: url(images/background-main-page-desktop-2x.png);
     }
   }
 
   .homeContainer {
-    width: var(--desktop-container-width);
-    padding: 0;
+    padding: 80px 0 294px;
     margin: 0 auto;
     width: 1014px;
     display: flex;
     flex-direction: row;
-    gap: 81px;
+    justify-content: space-between;
   }
 
   .welcomeContainer {

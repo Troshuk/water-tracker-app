@@ -6,51 +6,54 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import { SIGN_UP_ROUTE } from 'routes/routes.js';
 
-export const Welcome = ({ location }) => {
+const whys = [
+  'Supply of nutrients to all organs',
+  'Providing oxygen to the lungs',
+  'Maintaining the work of the heart',
+  'Release of processed substances',
+  'Ensuring the stability of the internal environment',
+  'Maintaining within the normal temperature',
+  'Maintaining an immune system capable of resisting disease',
+];
+
+const benefits = [
+  { icon: 'icon-calendar-days', text: 'Habit drive' },
+  { icon: 'icon-presentation-chart-bar', text: 'View statistics' },
+  { icon: 'icon-wrench-screwdriver', text: 'Personal rate setting' },
+];
+
+export const Welcome = () => {
   return (
     <Section className={css.section}>
       <Container className={css.homeContainer}>
         <div className={css.welcomeContainer}>
           <div className={css.titleContainer}>
             <h1 className={css.title}>Water consumption tracker</h1>
+
             <p className={css.secondTitle}>
               Record daily water intake and track
             </p>
           </div>
+
           <div className={css.trackerBenefits}>
             <h2 className={css.benefits}>Tracker Benefits</h2>
+
             <ul className={css.benefitsList}>
-              <li className={css.benefitsItem}>
-                <Icon
-                  className={css.benefitsItemIcon}
-                  id="icon-calendar-days"
-                  width="32"
-                  height="32"
-                />
-                Habit drive
-              </li>
-              <li className={css.benefitsItem}>
-                <Icon
-                  className={css.benefitsItemIcon}
-                  id="icon-presentation-chart-bar"
-                  width="32"
-                  height="32"
-                />
-                View statistics
-              </li>
-              <li className={css.benefitsItem}>
-                <Icon
-                  className={css.benefitsItemIcon}
-                  id="icon-wrench-screwdriver"
-                  width="32"
-                  height="32"
-                />
-                Personal rate setting
-              </li>
+              {benefits.map(benefit => (
+                <li className={css.benefitsItem}>
+                  <Icon
+                    className={css.benefitsItemIcon}
+                    id={benefit.icon}
+                    width="32"
+                    height="32"
+                  />
+                  {benefit.text}
+                </li>
+              ))}
             </ul>
           </div>
 
-          <Link to={SIGN_UP_ROUTE} state={{ from: location }}>
+          <Link to={SIGN_UP_ROUTE}>
             <button className={css.benefitsBtn} type="button">
               Try tracker
             </button>
@@ -59,71 +62,21 @@ export const Welcome = ({ location }) => {
 
         <div className={css.whyDrinkContainer}>
           <h2 className={css.benefits}>Why drink water</h2>
-          <ul className={css.whyDrinkList}>
-            <li className={css.whyDrinkItem}>
-              <Icon
-                className={css.whyDrinkItemIcon}
-                id="icon-plus-circle"
-                width="8"
-                height="8"
-              />
-              <p>Supply of nutrients to all organs</p>
-            </li>
 
-            <li className={css.whyDrinkItem}>
-              <Icon
-                className={css.whyDrinkItemIcon}
-                id="icon-plus-circle"
-                width="8"
-                height="8"
-              />
-              Providing oxygen to the lungs
-            </li>
-            <li className={css.whyDrinkItem}>
-              <Icon
-                className={css.whyDrinkItemIcon}
-                id="icon-plus-circle"
-                width="8"
-                height="8"
-              />
-              Maintaining the work of the heart
-            </li>
-            <li className={css.whyDrinkItem}>
-              <Icon
-                className={css.whyDrinkItemIcon}
-                id="icon-plus-circle"
-                width="8"
-                height="8"
-              />
-              Release of processed substances
-            </li>
-            <li className={css.whyDrinkItem}>
-              <Icon
-                className={css.whyDrinkItemIcon}
-                id="icon-plus-circle"
-                width="8"
-                height="8"
-              />
-              Ensuring the stability of the internal environment
-            </li>
-            <li className={css.whyDrinkItem}>
-              <Icon
-                className={css.whyDrinkItemIcon}
-                id="icon-plus-circle"
-                width="8"
-                height="8"
-              />
-              Maintaining within the normal temperature
-            </li>
-            <li className={css.whyDrinkItem}>
-              <Icon
-                className={css.whyDrinkItemIcon}
-                id="icon-plus-circle"
-                width="8"
-                height="8"
-              />
-              Maintaining an immune system capable of resisting disease
-            </li>
+          <ul className={css.whyDrinkList}>
+            {whys.map(why => (
+              <li className={css.whyDrinkItem}>
+                <span>
+                  <Icon
+                    className={css.whyDrinkItemIcon}
+                    id="icon-plus-circle"
+                    width="8"
+                    height="8"
+                  />
+                </span>
+                <p>{why}</p>
+              </li>
+            ))}
           </ul>
         </div>
       </Container>
