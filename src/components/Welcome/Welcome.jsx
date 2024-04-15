@@ -1,6 +1,5 @@
 import { Container, Section } from 'components';
 import { Link } from 'react-router-dom';
-import React from 'react';
 
 import { Icon } from 'components';
 
