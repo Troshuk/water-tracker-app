@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaUserPlus } from 'react-icons/fa';
@@ -6,7 +6,7 @@ import { ContentLoader } from 'components';
 import { signUpSelector } from 'store/selectors';
 import { signUp } from 'store/operations';
 import { Icon } from 'components';
-
+import { Link } from 'react-router-dom';
 import css from './SettingModal.module.css';
 
 const SettingModal = ({ open, onClose }) => {
@@ -21,6 +21,23 @@ const SettingModal = ({ open, onClose }) => {
     newPassword: '',
     repeatPassword: '',
   });
+
+  useEffect(() => {
+    const onEscPress = e => {
+      if (e.code === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', onEscPress);
+
+    return () => {
+      window.removeEventListener('keydown', onEscPress);
+    };
+  }, [onClose]);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
   const handleChange = e => {
     setFormData({
@@ -43,6 +60,15 @@ const SettingModal = ({ open, onClose }) => {
     dispatch(signUp(formDataToSend));
   };
 
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleRepeatPasswordVisibility = () => {
+    setShowRepeatPassword(!showRepeatPassword);
+  };
+
   return (
     <ReactModal
       contentLabel="Modal"
@@ -54,9 +80,9 @@ const SettingModal = ({ open, onClose }) => {
         },
       }}
     >
-      <div className={css.container} onClick={e => e.stopPropagation()}>
+      <div className={css.Container} onClick={e => e.stopPropagation()}>
         <h1 className={css.title}>Setting</h1>
-        <button
+        <button className={css.backdrop}
           type="button"
           onClick={onClose}
           class="close-btn"
@@ -65,18 +91,23 @@ const SettingModal = ({ open, onClose }) => {
           <Icon id="icon-arrow-up-tray" width="16" height="16" />
         </button>
         <form className={css.form} onSubmit={handleSubmit}>
-          <label class={css.label}>
+        
+        <div className={css.setContainer}>  
+        <label class={css.label}>
             <span className={css.subTitle}>Your photo</span>
-            {/* <Avatar
-              alt={`${user?.name || user.email}`}
-              src="/static/images/avatar/2.jpg"
-            /> */}
-            <Icon id="icon-arrow-up-tray" width="16" height="16" />
+            <div className={css.photoContainer}> 
+            <Icon id="icon-user" width="32" height="32"/>
+
+           <Link to="">  <span class={css.upload}> <Icon className={css.iconArrow}
+            id="icon-arrow-up-tray" width="16" height="16" /> Upload a photo</span> 
+          </Link>
+             
+            </div>        
           </label>
 
           <label className={css.label}>
             <span className={css.subTitle}>Your gender identity</span>
-            <div>
+            <div className={css.inputGender}>
               <input
                 type="radio"
                 id="female"
@@ -88,6 +119,7 @@ const SettingModal = ({ open, onClose }) => {
               <label htmlFor="female" className={css.gender}>
                 Woman
               </label>
+
               <input
                 type="radio"
                 id="male"
@@ -107,72 +139,87 @@ const SettingModal = ({ open, onClose }) => {
             <input
               type="text"
               name="name"
-              className={css.placeholder}
+              className={css.input}
               value={formData.name}
               placeholder="Name"
               onChange={handleChange}
               required
             />
-          </label>
+            </label>
           <label className={css.label}>
             <span className={css.subTitle}>E-mail</span>
             <input
               type="email"
               name="e-mail"
-              className={css.placeholder}
+              className={css.input}
               value={formData.email}
               placeholder="E-mail"
               onChange={handleChange}
               required
             />
           </label>
+          </div>
+        
           <div className={css.passwordContainer}>
             <label className={css.label}>
               <span className={css.subTitle}>Password</span>
               <span className={css.subPas}>Outdated password:</span>
               <div className={css.inputContainer}>
                 <input
-                  type="password"
+                  type={showPassword ? 'text' : 'password'}
                   name="password"
-                  className={css.placeholder}
+                  className={css.input}
                   value={formData.password}
                   placeholder="Password"
                   onChange={handleChange}
                   required
                 />
-                <Icon id="icon-eye" width="24" height="24" />
-              </div>
-
-              <Icon id="icon-eye-slash" width="24" height="24" />
-            </label>
+                <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className={css.eyeBtn}>
+      <Icon id={showPassword ? "icon-eye-slash" : "icon-eye"} width="24" height="24" />
+    </button>
+    </div>
+           </label>
             <label className={css.label}>
               <span className={css.subPas}>New Password:</span>
               <input
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 name="newPassword"
-                className={css.placeholder}
+                className={css.input}
                 value={formData.newPassword}
                 placeholder="Password"
                 onChange={handleChange}
                 required
               />
-              <Icon id="icon-eye" width="24" height="24" />
-              <Icon id="icon-eye-slash" width="24" height="24" />
+              <button
+                  type="button"
+                  onClick={togglePasswordVisibility}
+                  className={css.eyeBtn}
+                >
+                <Icon id={showPassword ? "icon-eye-slash" : "icon-eye"} width="24" height="24" />
+                </button>
             </label>
             <label className={css.label}>
               <span className={css.subPas}>Repeat New Password:</span>
               <input
-                type="password"
+                type={showRepeatPassword ? 'text' : 'password'}
                 name="repeatPassword"
-                className={css.placeholder}
+                className={css.input}
                 value={formData.repeatPassword}
                 placeholder="Password"
                 onChange={handleChange}
                 required
               />
-              <Icon id="icon-eye" width="24" height="24" />
-              <Icon id="icon-eye-slash" width="24" height="24" />
-            </label>
+              <button
+                  type="button"
+                  onClick={toggleRepeatPasswordVisibility}
+                  className={css.eyeBtn}
+                >
+                <Icon id={showPassword ? "icon-eye-slash" : "icon-eye"} width="24" height="24" />
+                </button>
+                </label>
           </div>
           <button type="submit" className={css.Setbtn} disabled={isLoading}>
             Save

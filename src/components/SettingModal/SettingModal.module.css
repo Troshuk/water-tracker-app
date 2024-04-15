@@ -1,11 +1,45 @@
 .container {
-    max-width: 280px;
-    height: 852px;
+    position: absolute;
+    width: 280px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 32px 24px;
+    border-radius: 10px;
+    background-color: var(--primary-white);
+    z-index: 101;
 }
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(2px);
+  z-index: 100; 
+}
+
+.closeBtn {
+    position: absolute;
+    top: 26px;
+    right: 20px;
+    padding: 8px 0;
+    font-size: 28px;
+    line-height: 0.6;
+    color: var(--primary-sky-blue);
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
 
 .section {
     display: flex;
     flex-direction: column;
+}
+
+.label {
+    margin-bottom: 24px;
 }
 
 .title {
@@ -23,15 +57,28 @@
     font-size: 18px;
     font-weight: 500;
     line-height: 1.11;
+    margin-bottom: 10px;
 }
 
 .subPas {
     font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.photoContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.inputGender {
+ justify-content: space-between;
+
 }
 
 .gender {
     font-size: 16px;
     line-height: 1.25;
+    margin-left: 4px;
 }
 
 .label {
@@ -39,26 +86,66 @@
     flex-direction: column;
 }
 
-.placeholder {
+.input {
+   display: block;
     color: var(--color-primary-blue);
     font-size: 16px;
     border-color: var(--color-secondary-light-blue);
     border-radius: 6px;
+    box-sizing: border-box;
     padding: 12px 10px 12px 10px;
     gap: 10px;
-    max-width: 256px;
+    width: 256px;
     height: 44px;
+    outline: none;
+    display: flex;
+    align-items: center;
 }
+
+.input::placeholder {
+    color:  var(--color-secondary-blue);
+    font-size: 16px;
+    line-height: 20px;
+  }
 
 .Setbtn {
     background-color: var(--color-primary-blue);
     color: var(--color-primary-white);
+    box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
     width: 160px;
     height: 44px;
+    padding: 8px 30px;
     border-radius: 10px;
     font-size: 18px;
     font-weight: 500;
+    line-height: 1.33;
     text-align: center;
+    cursor: pointer;
+}
+
+.Setbtn:hover,
+.Setbtn:focus {
+box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
+transition: var(--transition-function), var(--transition-time); 
+}
+
+.upload {
+color: var(--color-primary-blue);
+margin-left: 8px;
+}
+
+.iconArrow {
+    stroke: var(--color-primary-blue);
+}
+
+.eyeBtn {
+    position: absolute;
+    right: 10px;
+    top: 55px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
     cursor: pointer;
 }
 
@@ -84,4 +171,16 @@
         max-width: 392px;
         height: 44px;
     }
+  
+      .setContainer {
+        display: flex;
+        flex-direction: column;
+
+    }
+
+    .passwordContainer {
+        display: flex;
+        flex-direction: column;
+    }
+
 }
