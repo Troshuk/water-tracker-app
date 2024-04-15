@@ -1,9 +1,9 @@
 {
   "files": {
     "main.css": "/water-tracker-app/static/css/main.28635500.css",
-    "main.js": "/water-tracker-app/static/js/main.a4ac63d1.js",
-    "static/css/499.45b5e56e.chunk.css": "/water-tracker-app/static/css/499.45b5e56e.chunk.css",
-    "static/js/499.9f13e214.chunk.js": "/water-tracker-app/static/js/499.9f13e214.chunk.js",
+    "main.js": "/water-tracker-app/static/js/main.8a74445e.js",
+    "static/css/499.3de4d1fb.chunk.css": "/water-tracker-app/static/css/499.3de4d1fb.chunk.css",
+    "static/js/499.841982e3.chunk.js": "/water-tracker-app/static/js/499.841982e3.chunk.js",
     "static/js/14.3fac06db.chunk.js": "/water-tracker-app/static/js/14.3fac06db.chunk.js",
     "static/js/490.40aa11db.chunk.js": "/water-tracker-app/static/js/490.40aa11db.chunk.js",
     "static/js/941.2c99dca7.chunk.js": "/water-tracker-app/static/js/941.2c99dca7.chunk.js",
@@ -64,15 +64,15 @@
     "static/media/roboto-greek-ext-700-normal.woff": "/water-tracker-app/static/media/roboto-greek-ext-700-normal.249853776d22a271b2b5.woff",
     "index.html": "/water-tracker-app/index.html",
     "main.28635500.css.map": "/water-tracker-app/static/css/main.28635500.css.map",
-    "main.a4ac63d1.js.map": "/water-tracker-app/static/js/main.a4ac63d1.js.map",
-    "499.45b5e56e.chunk.css.map": "/water-tracker-app/static/css/499.45b5e56e.chunk.css.map",
-    "499.9f13e214.chunk.js.map": "/water-tracker-app/static/js/499.9f13e214.chunk.js.map",
+    "main.8a74445e.js.map": "/water-tracker-app/static/js/main.8a74445e.js.map",
+    "499.3de4d1fb.chunk.css.map": "/water-tracker-app/static/css/499.3de4d1fb.chunk.css.map",
+    "499.841982e3.chunk.js.map": "/water-tracker-app/static/js/499.841982e3.chunk.js.map",
     "14.3fac06db.chunk.js.map": "/water-tracker-app/static/js/14.3fac06db.chunk.js.map",
     "490.40aa11db.chunk.js.map": "/water-tracker-app/static/js/490.40aa11db.chunk.js.map",
     "941.2c99dca7.chunk.js.map": "/water-tracker-app/static/js/941.2c99dca7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.28635500.css",
-    "static/js/main.a4ac63d1.js"
+    "static/js/main.8a74445e.js"
   ]
 }
