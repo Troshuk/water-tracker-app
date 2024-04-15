@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import bottleSignInDesktop2x from 'images/bottle-for-sign-in-desktop-2x.png';
-import bottleSignInDesktop from 'images/bottle-for-sign-in-desktop.png';
+import bottleSignInDesktop from 'images/sign-background-desktop.png';
 import bottleSignInTablet2x from 'images/botle-sign-in-tablet-2x.png';
-import bottleSignInTablet from 'images/botle-sign-in-tablet.png';
-import bottleSignInPhone from 'images/bottle-sign-in-phone.png';
+import bottleSignInTablet from 'images/sign-background-tablet.png';
 import bottleSignInPhone2x from 'images/bottle-sign-in-phone-2x.png';
+import bottleSignInPhone from 'images/sign-background-phone.png';
 import { FORGOT_PASSWORD_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
 import { Container, Icon, Section } from 'components';
 import { logInSelector } from 'store/selectors';
@@ -40,7 +39,7 @@ export const LoginFrom = () => {
   };
 
   return (
-    <Section className={css.section}>
+    <Section className={css.sectionForm}>
       <Container className={css.loginContainer}>
         <Formik
           initialValues={{
@@ -51,33 +50,33 @@ export const LoginFrom = () => {
           onSubmit={handleSubmit}
         >
           {({ errors, touched }) => (
-            <Form className={css.form}>
+            <Form className={css.formContainer}>
               <div className={css.containerEmail}>
-                <h1 className={css.title}>Sign In</h1>
-                <p className={css.Text}>Enter your email</p>
+                <h1 className={css.titleForm}>Sign In</h1>
+                <p className={css.textInput}>Enter your email</p>
                 <Field
                   type="text"
                   name="email"
                   placeholder="E-mail"
-                  className={`${css.Input} ${
+                  className={`${css.inputField} ${
                     errors.email && touched.email
                       ? `${css.inputError} ${css.error}`
                       : ''
                   }`}
                 />
                 {errors.email && touched.email && (
-                  <div className={`${css.errorText} ${css.errorText}`}>
+                  <p className={`${css.errorText} ${css.errorText}`}>
                     {errors.email}
-                  </div>
+                  </p>
                 )}
               </div>
               <div className={css.inputWithIcon}>
-                <p className={css.Text}>Enter your password</p>
+                <p className={css.textInput}>Enter your password</p>
                 <Field
                   type={visible ? 'text' : 'password'}
                   name="password"
                   placeholder="Password"
-                  className={`${css.Input} ${
+                  className={`${css.inputField} ${
                     errors.password && touched.password
                       ? `${css.inputError} ${css.error}`
                       : ''
@@ -93,35 +92,35 @@ export const LoginFrom = () => {
                       id="icon-eye"
                       width="16"
                       height="16"
-                      className={css.Icon}
+                      className={css.iconField}
                     />
                   ) : (
                     <Icon
                       id="icon-eye-slash"
                       width="16"
                       height="16"
-                      className={css.Icon}
+                      className={css.iconField}
                     />
                   )}
                 </IconButton>
                 {errors.password && touched.password && (
-                  <div className={css.errorText}>{errors.password}</div>
+                  <p className={css.errorText}>{errors.password}</p>
                 )}
                 <button
                   type="submit"
-                  className={css.button}
+                  className={css.buttonForm}
                   disabled={isLoading}
                 >
                   Sign In
                 </button>
               </div>
               <div className={css.redirectLink}>
-                <NavLink to={SIGN_UP_ROUTE} className={css.link}>
+                <NavLink to={SIGN_UP_ROUTE} className={css.linkForm}>
                   Sign Up
                 </NavLink>
               </div>
               <div className={css.redirectForgot}>
-                <NavLink to={FORGOT_PASSWORD_ROUTE} className={css.link}>
+                <NavLink to={FORGOT_PASSWORD_ROUTE} className={css.linkForm}>
                   Forgot your password?
                 </NavLink>
               </div>
@@ -129,7 +128,7 @@ export const LoginFrom = () => {
           )}
         </Formik>
         <div>
-          <picture className={css.bottle}>
+          <picture className={css.bottlePicture}>
             <source
               srcSet={`${bottleSignInDesktop} 1x, ${bottleSignInDesktop2x} 2x`}
               media="(min-width: 1440px)"
