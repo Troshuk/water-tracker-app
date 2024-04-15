@@ -77,18 +77,18 @@ export const NavigationBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleOpenSettingModal}>
-                <Icon id="icon-cog-6-tooth" width="24" height="24" />
-                <span>Setting</span>
+              <MenuItem onClick={handleOpenSettingModal} className={css.menuItem}>
+                <span className={css.icon}><Icon id="icon-cog-6-tooth" width="24" height="24" /></span>
+                <span className={css.menuItemText}>Setting</span>
               </MenuItem>
-              <MenuItem onClick={handleLogOut}>
+              <MenuItem onClick={handleLogOut} className={css.menuItem} >
                 <Typography textAlign="center">
-                  <Icon
+                  <span className={css.icon}><Icon
                     id="icon-arrow-right-on-rectangle"
                     width="24"
                     height="24"
-                  />
-                  Log out
+                    /></span>
+                 <span className={css.menuItemText}>Log out</span>
                 </Typography>
               </MenuItem>
             </Menu>

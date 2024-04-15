@@ -28,6 +28,12 @@
    color:  var(--color-primary-black);
 }
 
-.icon {
-    color: var(--primery-color-blue);
+.icon svg{
+    fill: var(--primery-color-blue);
 }
+
+.menuItemText {
+    color: var(--primery-color-blue);
+    padding-left: 10px;
+}
+
