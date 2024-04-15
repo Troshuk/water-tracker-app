@@ -3,7 +3,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   max-width: var(--background-screen-width);
-  background-position: center;
+  background-position: bottom center;
   margin: 0 auto;
 }
 
@@ -236,7 +236,6 @@
   .section {
     background-image: url(images/background-main-page-desktop.png);
     background-size: contain;
-    background-position: bottom center;
   }
 
   @media (min-device-pixel-ratio: 2),
