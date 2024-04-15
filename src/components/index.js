@@ -7,3 +7,5 @@ export { PageLoader } from './PageLoader/PageLoader';
 export { ContentLoader } from './ContentLoader/ContentLoader';
 export { Icon } from './Icon/Icon';
 export { ForgotPassword } from './ForgotPassword/ForgotPassword';
+export { DashboardLayout } from './DashboardLayout/DashboardLayout';
+

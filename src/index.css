@@ -2,11 +2,11 @@
 
 :root {
   /*? Fonts */
-  --font-main: "Roboto", sans-serif;
+  --font-main: 'Roboto', sans-serif;
 
   /*? Colors */
   --color-primary-white: #ffffff;
-  --color-primary-black: #2F2F2F;
+  --color-primary-black: #2f2f2f;
   --color-primary-blue: #407bff;
   --color-secondary-gray: #ecf2ff;
   --color-secondary-red: #ef5050;
