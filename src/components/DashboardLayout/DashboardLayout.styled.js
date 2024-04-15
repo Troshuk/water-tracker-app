@@ -1,9 +1,12 @@
 import styled from 'styled-components';
+
+import { Container, Section } from 'components';
+
 import backgroundImgMob from 'images/background-home-screen-phone-2x.png';
 import backgroundImgTab from 'images/background-home-screen-tablet-2x.png';
 import backgroundImgDesc from 'images/background-element-main-page-desktop-2x.png';
 
-export const StyledBackground = styled.div`
+export const StyledSection = styled(Section)`
   background-image: url(${backgroundImgMob});
   background-size: cover;
   position: relative;
@@ -26,13 +29,7 @@ export const StyledBackground = styled.div`
   }
 `;
 
-export const LeftSideDiv = styled.div`
-  @media (min-width: 1440px) {
-    padding-bottom: 76px;
-    width: 592px;
-  }
-`;
-export const AllSidesDiv = styled.div`
+export const StyledContainer = styled(Container)`
   @media (min-width: 1440px) {
     display: flex;
     gap: 32px;
@@ -40,5 +37,12 @@ export const AllSidesDiv = styled.div`
 
   @media only screen and (max-width: 1439px) {
     padding-bottom: 40px;
+  }
+`;
+
+export const LeftSideDiv = styled.div`
+  @media (min-width: 1440px) {
+    padding-bottom: 76px;
+    width: 592px;
   }
 `;

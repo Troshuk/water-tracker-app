@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { DailyNormaModal } from 'components/DashboardComponents/DailyNorma/DailyNormaModal/DailyNormaModal.jsx';
+
+import { DailyNormaModal } from './DailyNormaModal/DailyNormaModal.jsx';
 import { Button, Text, TextWater, Wrap, BtnWrap } from './DailyNorma.styled.js';
 
 export const DailyNorma = () => {

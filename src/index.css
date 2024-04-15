@@ -39,9 +39,7 @@
   /*? Container configurations */
   --container-width: var(--mobile-container-width);
   --container-side-padding: 15px;
-  --container-max-width: calc(
-    var(--container-width) + var(--container-side-padding) * 2
-  );
+  --container-max-width: calc(var(--container-width) + var(--container-side-padding) * 2);
 
   /*? Background image device width options */
   --mobile-background-screen-width: 320px;

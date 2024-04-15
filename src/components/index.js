@@ -6,3 +6,4 @@ export { NavigationBar } from './NavigationBar/NavigationBar';
 export { PageLoader } from './PageLoader/PageLoader';
 export { ContentLoader } from './ContentLoader/ContentLoader';
 export { Icon } from './Icon/Icon';
+export { DashboardLayout } from './DashboardLayout/DashboardLayout';

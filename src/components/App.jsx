@@ -18,7 +18,7 @@ import { notify } from 'notify';
 const HomePage = lazy(() => import('pages/Home'));
 const LoginPage = lazy(() => import('pages/Login'));
 const RegisterPage = lazy(() => import('pages/Register'));
-const Dashboard = lazy(() => import('pages/Dashboard/Dashboard'));
+const Dashboard = lazy(() => import('pages/Dashboard'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -44,20 +44,18 @@ export const App = () => {
       <main>
         <Suspense fallback={<PageLoader />}>
           <Routes>
-            <Route index element={!isLoggedIn ? <HomePage /> : <Dashboard />} />
             {isLoggedIn || token ? (
               <>
-                <Route path={HOME_ROUTE} element={<HomePage />} />
-                <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
+                <Route path={DASHBOARD_ROUTE} element={<Dashboard />} />
+                <Route path="*" element={<Navigate to={DASHBOARD_ROUTE} />} />
               </>
             ) : (
               <>
+                <Route path={HOME_ROUTE} element={<HomePage />} />
                 <Route path={LOGIN_ROUTE} element={<LoginPage />} />
                 <Route path={SIGN_UP_ROUTE} element={<RegisterPage />} />
               </>
             )}
-            <Route path={HOME_ROUTE} element={<HomePage />} />
-            <Route path={DASHBOARD_ROUTE} element={<Dashboard />} />
             <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
           </Routes>
         </Suspense>
