@@ -22,7 +22,7 @@ export const NavigationBar = () => {
   const dispatch = useDispatch();
   const { isLoggedIn, user } = useSelector(AuthReducerSelector);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [isSettingModalOpen, setIsSettingModalOpen] = useState(false);
+  const [isSettingModalOpen, setIsSettingModalOpen] = useState(true);
 
   const handleOpenUserMenu = event => {
     setAnchorElUser(event.currentTarget);
@@ -56,7 +56,7 @@ export const NavigationBar = () => {
               <p className={css.username}>{user.name}</p>
               <Avatar
                 alt={`${user?.name || user.email}`}
-                src="/static/images/avatar/2.jpg"
+                src={user.avatarURL}
               />
               <Icon id="icon-chevron-double-up" width="16" height="16" />
             </IconButton>
@@ -77,18 +77,25 @@ export const NavigationBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleOpenSettingModal} className={css.menuItem}>
-                <span className={css.icon}><Icon id="icon-cog-6-tooth" width="24" height="24" /></span>
+              <MenuItem
+                onClick={handleOpenSettingModal}
+                className={css.menuItem}
+              >
+                <span className={css.icon}>
+                  <Icon id="icon-cog-6-tooth" width="24" height="24" />
+                </span>
                 <span className={css.menuItemText}>Setting</span>
               </MenuItem>
-              <MenuItem onClick={handleLogOut} className={css.menuItem} >
+              <MenuItem onClick={handleLogOut} className={css.menuItem}>
                 <Typography textAlign="center">
-                  <span className={css.icon}><Icon
-                    id="icon-arrow-right-on-rectangle"
-                    width="24"
-                    height="24"
-                    /></span>
-                 <span className={css.menuItemText}>Log out</span>
+                  <span className={css.icon}>
+                    <Icon
+                      id="icon-arrow-right-on-rectangle"
+                      width="24"
+                      height="24"
+                    />
+                  </span>
+                  <span className={css.menuItemText}>Log out</span>
                 </Typography>
               </MenuItem>
             </Menu>
@@ -100,7 +107,10 @@ export const NavigationBar = () => {
           </NavLink>
         )}
       </Container>
-      {isSettingModalOpen && <SettingModal onClose={handleCloseSettingModal} />}
+      <SettingModal
+        onClose={handleCloseSettingModal}
+        open={isSettingModalOpen}
+      />
     </header>
   );
 };

@@ -40,19 +40,19 @@
 }
 
 .placeholder {
-color: var(--color-primary-blue);
-font-size: 16px;
-border-color: var(--color-secondary-light-blue);
-border-radius: 6px;
-padding: 12px 10px 12px 10px;
-gap: 10px;
-max-width: 256px;
-height: 44px;
+    color: var(--color-primary-blue);
+    font-size: 16px;
+    border-color: var(--color-secondary-light-blue);
+    border-radius: 6px;
+    padding: 12px 10px 12px 10px;
+    gap: 10px;
+    max-width: 256px;
+    height: 44px;
 }
 
 .Setbtn {
-    background-color:  var(--color-primary-blue);
-    color:var(--color-primary-white);
+    background-color: var(--color-primary-blue);
+    color: var(--color-primary-white);
     width: 160px;
     height: 44px;
     border-radius: 10px;
@@ -72,9 +72,9 @@ height: 44px;
         max-width: 392px;
         height: 44px;
     }
-  }
+}
 
-  @media screen and (min-width: 1440px) {
+@media screen and (min-width: 1440px) {
     .container {
         max-width: 1008px;
         height: 592px;
@@ -84,5 +84,4 @@ height: 44px;
         max-width: 392px;
         height: 44px;
     }
-  }
-
+}

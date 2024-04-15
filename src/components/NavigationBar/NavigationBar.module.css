@@ -24,16 +24,15 @@
 }
 
 .username {
-   font-size: 18px; 
-   color:  var(--color-primary-black);
+    font-size: 18px;
+    color: var(--color-primary-black);
 }
 
-.icon svg{
-    fill: var(--primery-color-blue);
+.icon svg {
+    stroke: var(--primery-color-blue);
 }
 
 .menuItemText {
     color: var(--primery-color-blue);
     padding-left: 10px;
 }
-
