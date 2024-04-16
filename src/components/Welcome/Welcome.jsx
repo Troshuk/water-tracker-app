@@ -6,7 +6,6 @@ import { Icon } from 'components';
 import css from './Welcome.module.css';
 
 import { SIGN_UP_ROUTE } from 'routes/routes.js';
-import { Test } from 'components/ModalDelete/Test';
 
 const whys = [
   'Supply of nutrients to all organs',
@@ -81,8 +80,7 @@ export const Welcome = () => {
             ))}
           </ul>
         </div>
-        <Test></Test>
-      </Container> 
+      </Container>
     </Section>
   );
 };

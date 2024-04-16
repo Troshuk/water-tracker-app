@@ -15,12 +15,13 @@ import { logOut } from 'store/operations';
 
 import css from './NavigationBar.module.css';
 import { ReactComponent as Logo } from 'images/logo.svg';
-import { Container, Icon } from 'components';
+import { ConfirmActionWarningModal, Container, Icon } from 'components';
 
 export const NavigationBar = () => {
   const dispatch = useDispatch();
   const { isLoggedIn, user } = useSelector(AuthReducerSelector);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   const handleOpenUserMenu = event => {
     setAnchorElUser(event.currentTarget);
@@ -30,8 +31,17 @@ export const NavigationBar = () => {
     setAnchorElUser(null);
   };
 
-  const handleLogOut = () =>
-    notifyApi(dispatch(logOut()).unwrap(), 'Sign out', true);
+  const handleLogoutConfirmation = () => setIsOpen(true);
+
+  const handleLogOut = () => {
+    notifyApi(
+      dispatch(logOut())
+        .unwrap()
+        .finally(() => setIsOpen(false)),
+      'Sign out',
+      true
+    );
+  };
 
   return (
     <header className={css.header}>
@@ -66,7 +76,7 @@ export const NavigationBar = () => {
               <MenuItem onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">Setting</Typography>
               </MenuItem>
-              <MenuItem onClick={handleLogOut}>
+              <MenuItem onClick={handleLogoutConfirmation}>
                 <Typography textAlign="center">Log out</Typography>
               </MenuItem>
             </Menu>
@@ -78,6 +88,14 @@ export const NavigationBar = () => {
           </NavLink>
         )}
       </Container>
+      <ConfirmActionWarningModal
+        modalIsOpen={modalIsOpen}
+        closeModal={() => setIsOpen(false)}
+        actionCallBack={handleLogOut}
+        title="Log out"
+        confirmMessage="Do you really want to leave?"
+        actionButtonName="Log out"
+      />
     </header>
   );
 };

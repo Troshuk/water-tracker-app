@@ -7,3 +7,4 @@ export { PageLoader } from './PageLoader/PageLoader';
 export { ContentLoader } from './ContentLoader/ContentLoader';
 export { Icon } from './Icon/Icon';
 export { DashboardLayout } from './DashboardLayout/DashboardLayout';
+export { ConfirmActionWarningModal } from './ConfirmActionWarningModal/ConfirmActionWarningModal';
