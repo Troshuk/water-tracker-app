@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ReactModal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { FaUserPlus } from 'react-icons/fa';
 import { ContentLoader } from 'components';
 import { signUpSelector } from 'store/selectors';
 import { signUp } from 'store/operations';
@@ -80,7 +79,7 @@ const SettingModal = ({ open, onClose }) => {
         },
       }}
     >
-      <div className={css.Container} onClick={e => e.stopPropagation()}>
+      <div className={css.container} onClick={e => e.stopPropagation()}>
         <h1 className={css.title}>Setting</h1>
         <button className={css.backdrop}
           type="button"
@@ -172,9 +171,9 @@ const SettingModal = ({ open, onClose }) => {
                   value={formData.password}
                   placeholder="Password"
                   onChange={handleChange}
-                  required
-                />
-                <button
+                  required 
+                  />
+                 <button
               type="button"
               onClick={togglePasswordVisibility}
               className={css.eyeBtn}>
@@ -223,8 +222,8 @@ const SettingModal = ({ open, onClose }) => {
           </div>
           <button type="submit" className={css.Setbtn} disabled={isLoading}>
             Save
-            {isLoading ? <ContentLoader /> : <FaUserPlus />}
-          </button>
+            {isLoading ? <ContentLoader /> : <button/>}
+            </button>
         </form>
       </div>
     </ReactModal>
