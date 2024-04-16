@@ -1,21 +1,39 @@
 .sectionForm {
-  margin-top: 30px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom right;
+  height: 100vh;
+  background-image: image-set(url(images/background-home-screen-phone.png) 1x,
+      url(images/background-home-screen-phone-2x.png) 2x);
+}
+
+@media screen and (min-width: 768px) {
+  .sectionForm {
+    background-image: image-set(url(images/botle-sign-in-tablet-2x.png) 1x,
+        url(images/botle-sign-in-tablet-2x.png) 2x);
+  }
+}
+
+@media screen and (min-width: 1158px) {
+  .sectionForm {
+    background-image: image-set(url(images/background-element-main-page-desktop.png) 1x,
+        url(images/background-element-main-page-desktop-2x.png) 2x);
+  }
+}
+
+.sectionForm {
+  padding-top: 30px;
 }
 
 .loginContainer {
   text-align: center;
 }
 
-@media screen and (max-width: 428px) {
-  .loginContainer {
-    max-width: 320px;
-    width: auto;
-  }
-}
-
 .titleForm {
   display: flex;
-  font-size: 2rem;
+  font-weight: 500;
+  font-size: 1.62rem;
+  line-height: 123%;
   margin-bottom: 1rem;
   color: #333;
 }
@@ -90,6 +108,7 @@ input.inputError {
   border-radius: 6px;
   height: 44px;
   width: 100%;
+  font-size: 16px;
 }
 
 .inputWithIcon {
@@ -133,48 +152,6 @@ input.inputError {
 
 .buttonForm:hover {
   box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
-}
-
-.sectionForm {
-  max-width: var(--background-screen-width);
-  margin: 0 auto;
-  min-height: 100vh;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-image: image-set(
-    url(images/background-home-screen-phone.png) 1x,
-    url(images/background-home-screen-phone-2x.png) 2x
-  );
-}
-
-@media screen and (min-width: 768px) {
-  @media (min-device-pixel-ratio: 2),
-    (min-resolution: 192dpi),
-    (min-resolution: 2dppx) {
-    .sectionForm {
-      max-width: var(--background-screen-width);
-      margin: 0 auto;
-      background-image: image-set(
-        url(images/background-home-screen-tablet.png) 1x,
-        url(images/background-home-screen-tablet-2x.png) 2x
-      );
-    }
-  }
-}
-
-@media screen and (min-width: 1158px) {
-  @media (min-device-pixel-ratio: 2),
-    (min-resolution: 192dpi),
-    (min-resolution: 2dppx) {
-    .sectionForm {
-      max-width: var(--background-screen-width);
-      margin: 0 auto;
-      background-image: image-set(
-        url(images/background-element-main-page-desktop.png) 1x,
-        url(images/background-element-main-page-desktop-2x.png) 2x
-      );
-    }
-  }
 }
 
 .redirectLink {
@@ -226,13 +203,7 @@ input.inputError {
 @media screen and (min-width: 768px) {
   .loginContainer {
     width: 768px;
-    padding-left: 32px;
-    padding-right: 32px;
     display: flex;
-  }
-
-  .titleForm {
-    font-size: 1.625rem;
   }
 
   .textInput {
@@ -254,13 +225,21 @@ input.inputError {
   }
 }
 
-@media screen and (min-width: 1158px) {
+@media screen and (min-width: 1440px) {
   .loginContainer {
     flex-direction: row-reverse;
+    width: 100%;
+    padding-right: 104px;
   }
+
   .formContainer {
     justify-content: center;
   }
+
+  .inputField {
+    width: 384px
+  }
+
   .bottlePicture {
     min-width: 700px;
   }
