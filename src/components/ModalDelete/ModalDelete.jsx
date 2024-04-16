@@ -1,5 +1,3 @@
-// import { useEffect } from 'react';
-
 import { Icon } from 'components';
 import css from '../../components/ModalDelete/ModalDelete.module.css';
 
@@ -7,13 +5,13 @@ export const ModalDelete = ({ modalIsOpen, closeModal }) => {
   const handleCloseModal = () => {
     closeModal();
   };
-    
-    const overlayClassName = modalIsOpen ? `${css.Overlay} ${css.open}` : css.Overlay;
+
+  const overlayClassName = modalIsOpen
+    ? `${css.Overlay} ${css.open}`
+    : css.Overlay;
 
   return (
-    <div
-          className={overlayClassName}
-          onClick={handleCloseModal} >
+    <div className={overlayClassName} onClick={handleCloseModal}>
       <div className={css.Modal}>
         <div className={css.titleThumb}>
           <h1 className={css.title}>Delete entry</h1>
@@ -50,8 +48,6 @@ export const ModalDelete = ({ modalIsOpen, closeModal }) => {
     </div>
   );
 };
-
-
 
 //     const handleOverlayClick = e => {
 //     if (e.target === e.currentTarget && closeModal) {
