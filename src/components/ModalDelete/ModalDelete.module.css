@@ -1,0 +1,116 @@
+/* TESTING */
+
+
+.openModalBtn {
+    width: 60px;
+    height: 60px;
+    background-color: aquamarine;
+}
+/* TESTING */
+
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1200;
+}
+
+.Modal {
+  position: absolute;
+  right: 50%;
+  transform: translate(50%, 40%);
+  border-radius: 10px;
+  padding: 32px 24px;
+  width: 280px;
+  height: 280px;
+  background-color: var(--color);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.titleThumb {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.23;
+}
+
+.closeBtn {
+  width: 24px;
+  height: 24px;
+}
+
+.deleteIcon {
+  stroke: var(--color-primary-blue);
+  rotate: 45deg;
+}
+
+.areYouSure {
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.11;
+}
+
+.deleteBtn,
+.cancelBtn {
+  width: 100%;
+  border-radius: 10px;
+  padding: 8px 30px;
+  height: 36px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.deleteBtn {
+  background-color: var(--secondary-color-3);
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  color: var(--color-primary-white);
+}
+
+.cancelBtn {
+  background-color: var(--secondary-color---5);
+  color: var(--primery-color-blue);
+}
+
+@media screen and (min-width: 768px) {
+  .Modal {
+    width: 592px;
+    height: 208px;
+    top: 20%;
+  }
+
+  .btnThumb {
+    display: flex;
+    gap: 24px;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+  }
+
+  .deleteBtn,
+  .cancelBtn {
+    width: 160px;
+    padding: 10px 30px;
+    height: 44px;
+    font-size: 18px;
+    line-height: 1.33;
+  }
+
+  @media screen and (min-width: 1440px) {
+    .Modal {
+      top: 30%;
+    }
+  }
+}
