@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Icon } from 'components';
 import css from '../../components/ModalDelete/ModalDelete.module.css';
 
@@ -11,6 +12,20 @@ export const ModalDelete = ({ modalIsOpen, closeModal }) => {
   const handleCloseModal = () => {
     closeModal();
   };
+    
+      useEffect(() => {
+    const handleKeyDown = e => {
+      if (e.code === 'Escape') {
+        closeModal();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [closeModal]);
 
   const overlayClassName = modalIsOpen
     ? `${css.Overlay} ${css.open}`
