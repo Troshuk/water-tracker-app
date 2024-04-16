@@ -82,7 +82,7 @@ export const Welcome = () => {
           </ul>
         </div>
         <Test></Test>
-      </Container>
+      </Container> 
     </Section>
   );
 };

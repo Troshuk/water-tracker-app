@@ -17,12 +17,12 @@ export const Test = () => {
   };
 
   return (
-    <Container className={css.homeContainer}>
+    <Container className={css.OpenModalContainer}>
       <button
         className={css.openModalBtn}
         type="button"
         onClick={openModal}
-      ></button>
+      >Open modal</button>
       <ModalDelete
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}

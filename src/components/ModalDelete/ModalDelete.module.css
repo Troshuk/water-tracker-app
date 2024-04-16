@@ -2,9 +2,16 @@
 
 
 .openModalBtn {
-  width: 60px;
-  height: 60px;
-  background-color: aquamarine;
+  width: 120px;
+  height: 30px;
+  padding: 10px 20px;
+  border: 1px solid gray;
+  background-color:azure;
+}
+
+.OpenModalContainer {
+    width: 120px;
+    height: 30px;
 }
 
 /* TESTING */
