@@ -1,6 +1,8 @@
-body {
-  background-image: image-set(url(images/background-main-page-phone.png) 1x,
-      url(images/background-main-page-phone-2x.png) 2x);
+.section {
+  background-image: image-set(
+    url(images/background-main-page-phone.png) 1x,
+    url(images/background-main-page-phone-2x.png) 2x
+  );
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom right;
@@ -8,17 +10,20 @@ body {
 }
 
 @media screen and (min-width: 368px) {
-  body {
-    background-image:
-      image-set(url(images/background-main-page-tablet.png) 1x,
-        url(images/background-main-page-tablet-2x.png) 2x)
+  .section {
+    background-image: image-set(
+      url(images/background-main-page-tablet.png) 1x,
+      url(images/background-main-page-tablet-2x.png) 2x
+    );
   }
 }
 
 @media screen and (min-width: 950px) {
-  body {
-    background-image: image-set(url(images/background-main-page-desktop.png) 1x,
-        url(images/background-main-page-desktop-2x.png) 2x);
+  .section {
+    background-image: image-set(
+      url(images/background-main-page-desktop.png) 1x,
+      url(images/background-main-page-desktop-2x.png) 2x
+    );
   }
 }
 
@@ -144,7 +149,6 @@ body {
 /***** min-width: 768px *****/
 
 @media screen and (min-width: 768px) {
-
   .homeContainer {
     text-align: center;
     width: 100%;
@@ -229,7 +233,6 @@ body {
 /***** min-width: 1440px *****/
 
 @media screen and (min-width: 1440px) {
-
   .homeContainer {
     padding: 80px 0 294px;
     margin: 0 auto;
