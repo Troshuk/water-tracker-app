@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Icon, Section } from 'components';
+
+import { Container, ContentLoader, Icon, Section } from 'components';
+
 import { logInSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 import { logIn } from 'store/operations';
-import { toast } from 'react-toastify';
 import { LoginSchema } from 'schemasValdiate/LoginSchema';
 import { FORGOT_PASSWORD_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
+
 import css from './LoginFrom.module.css';
 
 export const LoginFrom = () => {
@@ -17,11 +19,7 @@ export const LoginFrom = () => {
 
   const { isLoading } = useSelector(logInSelector);
 
-  const handleSubmit = (values, actions) => {
-    const { email, password } = values;
-    if (!email || !password) {
-      return toast.error('Email and password are required');
-    }
+  const handleSubmit = ({ email, password }, actions) => {
     notifyApi(
       dispatch(logIn({ email, password }))
         .unwrap()
@@ -93,7 +91,7 @@ export const LoginFrom = () => {
                   className={css.buttonForm}
                   disabled={isLoading}
                 >
-                  Sign In
+                  Sign In {isLoading && <ContentLoader />}
                 </button>
               </div>
               <div className={css.redirectLink}>
@@ -109,7 +107,6 @@ export const LoginFrom = () => {
             </Form>
           )}
         </Formik>
-        <div className={css.containerImg}></div>
       </Container>
     </Section>
   );
