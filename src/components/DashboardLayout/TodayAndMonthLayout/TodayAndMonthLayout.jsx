@@ -1,7 +1,10 @@
-export default function TodayAndMonthLayout() {
+import css from './TodayAndMonthLayout.module.css';
+
+export const TodayAndMonthLayout = () => {
   return (
-    <div>
-      <h2>TodayAndMonthLayout</h2>
+    <div className={css.card}>
+      <div>TodayLayout</div>
+      <div>MonthLayout</div>
     </div>
   );
-}
+};

@@ -1,7 +1,7 @@
 import { DailyNorma } from './DailyNorma/DailyNorma';
 import { ImageOfBottle } from './ImageOfBottle/ImageOfBottle';
-import WaterRatioPanel from './WaterRatioPanel/WaterRatioPanel';
-import TodayAndMonthLayout from './TodayAndMonthLayout/TodayAndMonthLayout';
+import { WaterRatioPanel } from './WaterRatioPanel/WaterRatioPanel';
+import { TodayAndMonthLayout } from './TodayAndMonthLayout/TodayAndMonthLayout';
 
 import {
   StyledContainer,
