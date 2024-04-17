@@ -1,0 +1,201 @@
+.todayWaterContainer {
+  width: 264px;
+  height: 258px;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+}
+
+.todayTitle {
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+
+.todayWaterList {
+  overflow: scroll;
+}
+
+.todayWaterList::-webkit-scrollbar {
+  width: 2px;
+  height: 0px;
+}
+
+.todayWaterList::-webkit-scrollbar-track {
+  background: var(--secondary-color---5);
+  width: 2px;
+  height: 170px;
+}
+
+.todayWaterList::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color-4);
+  border-radius: 8px;
+  width: 4px;
+}
+
+.todayWaterItem {
+  width: 254px;
+  margin-right: 4px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--secondary-color---5);
+}
+
+.waterInfoThumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.waterValue {
+  font-size: 18px;
+  line-height: 1.33;
+  color: var(--primery-color-blue);
+}
+
+.waterTime {
+  line-height: 2;
+}
+
+.changeWaterIconThumb {
+  display: flex;
+  gap: 18px;
+}
+
+.editWaterIcon {
+  stroke: var(--secondary-color-4);
+  fill: transparent;
+}
+.deleteWaterIcon {
+  stroke: var(--secondary-color-3);
+  fill: transparent;
+}
+
+.deleteWaterBtn,
+.editWaterBtn {
+  width: 16px;
+  height: 16px;
+  position: relative;
+}
+
+.deleteWaterBtn::after,
+.editWaterBtn::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 18px;
+  width: 0;
+  height: 0;
+  flex-shrink: 0;
+}
+
+.deleteWaterBtn::after {
+  background-color: var(--secondary-color-3);
+}
+
+.editWaterBtn::after {
+  background-color: var(--secondary-color-4);
+}
+
+.deleteWaterBtn:hover::after,
+.deleteWaterBtn:focus::after,
+.editWaterBtn:hover::after,
+.editWaterBtn:focus::after {
+  position: absolute;
+  border-radius: 1px;
+  width: 16px;
+  height: 1px;
+}
+
+.addWaterBtn {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--primery-color-blue);
+
+  width: 97px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.addWaterBtn:hover,
+.addWaterBtn:focus {
+  color: var(--secondary-color-5);
+}
+
+.plusWaterIcon {
+  stroke: var(--primery-color-blue);
+  margin-right: 8px;
+}
+
+.addWaterBtn:hover .plusWaterIcon,
+.addWaterBtn:focus .plusWaterIcon {
+  stroke: var(--secondary-color-5);
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+  .todayWaterContainer {
+    width: 656px;
+    height: 260px;
+  }
+
+  .todayTitle {
+    font-size: 26px;
+    line-height: 1.23;
+  }
+
+  .todayWaterItem {
+    width: 646px;
+  }
+
+  .waterInfoThumb {
+    gap: 0;
+  }
+
+  .todayWaterIcon {
+    width: 36px;
+    height: 36px;
+    margin-right: 12px;
+  }
+
+  .waterValue {
+    margin-right: 16px;
+  }
+
+  .addWaterBtn {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.33;
+    width: 114px;
+    height: 24px;
+  }
+
+  .plusWaterIcon {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1440px) {
+  .todayWaterContainer {
+    width: 544px;
+    height: 260px;
+  }
+
+  .todayWaterItem {
+    width: 534px;
+  }
+
+  .waterInfoThumb {
+    gap: 0;
+  }
+}

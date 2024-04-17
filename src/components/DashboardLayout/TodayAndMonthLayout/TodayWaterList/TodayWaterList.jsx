@@ -1,37 +1,217 @@
-import { Container, Icon } from 'components';
+import { Icon } from 'components';
 
 import css from './TodayWaterList.module.css';
 
 export const TodayWaterList = () => {
   return (
-    <Container className={css.todayWaterContainer}>
-      <h1>Today</h1>
-      <button className={css.addWaterBtn} type="button">
-        <Icon
-          className={css.todayWaterIcon}
-          id="icon-plus-small"
-          width="24"
-          height="24"
-        />
-        Add water
-      </button>
+    <div className={css.todayWaterContainer}>
+      <p className={css.todayTitle}>Today</p>
       <ul className={css.todayWaterList}>
         <li className={css.todayWaterItem}>
-          <Icon className={css.todayWaterIcon} id="" width="33" height="36" />
-          <span>250 ml</span>
-          <span>7:00 AM</span>
+          <div className={css.waterInfoThumb}>
+            <Icon
+              className={css.todayWaterIcon}
+              id="water-glass"
+              width="26"
+              height="26"
+            />
+            <span className={css.waterValue}>250 ml</span>
+            <span className={css.waterTime}>14:00 AM</span>
+          </div>
 
           <div className={css.changeWaterIconThumb}>
-            <Icon className={css.editWaterIcon} id="" width="33" height="36" />
+            <button className={css.editWaterBtn} type="button">
+              <Icon
+                className={css.editWaterIcon}
+                id="icon-pencil-square"
+                width="16"
+                height="16"
+              />
+            </button>
+
+            <button className={css.deleteWaterBtn} type="button">
+              <Icon
+                className={css.deleteWaterIcon}
+                id="icon-trash"
+                width="16"
+                height="16"
+              />
+            </button>
+          </div>
+        </li>
+        <li className={css.todayWaterItem}>
+          <div className={css.waterInfoThumb}>
             <Icon
-              className={css.deleteWaterIcon}
-              id=""
-              width="33"
-              height="36"
+              className={css.todayWaterIcon}
+              id="water-glass"
+              width="26"
+              height="26"
             />
+            <span className={css.waterValue}>250 ml</span>
+            <span className={css.waterTime}>14:00 AM</span>
+          </div>
+
+          <div className={css.changeWaterIconThumb}>
+            <button className={css.editWaterBtn} type="button">
+              <Icon
+                className={css.editWaterIcon}
+                id="icon-pencil-square"
+                width="16"
+                height="16"
+              />
+            </button>
+
+            <button className={css.deleteWaterBtn} type="button">
+              <Icon
+                className={css.deleteWaterIcon}
+                id="icon-trash"
+                width="16"
+                height="16"
+              />
+            </button>
+          </div>
+        </li>
+        <li className={css.todayWaterItem}>
+          <div className={css.waterInfoThumb}>
+            <Icon
+              className={css.todayWaterIcon}
+              id="water-glass"
+              width="26"
+              height="26"
+            />
+            <span className={css.waterValue}>250 ml</span>
+            <span className={css.waterTime}>14:00 AM</span>
+          </div>
+
+          <div className={css.changeWaterIconThumb}>
+            <button className={css.editWaterBtn} type="button">
+              <Icon
+                className={css.editWaterIcon}
+                id="icon-pencil-square"
+                width="16"
+                height="16"
+              />
+            </button>
+
+            <button className={css.deleteWaterBtn} type="button">
+              <Icon
+                className={css.deleteWaterIcon}
+                id="icon-trash"
+                width="16"
+                height="16"
+              />
+            </button>
+          </div>
+        </li>
+        <li className={css.todayWaterItem}>
+          <div className={css.waterInfoThumb}>
+            <Icon
+              className={css.todayWaterIcon}
+              id="water-glass"
+              width="26"
+              height="26"
+            />
+            <span className={css.waterValue}>250 ml</span>
+            <span className={css.waterTime}>14:00 AM</span>
+          </div>
+
+          <div className={css.changeWaterIconThumb}>
+            <button className={css.editWaterBtn} type="button">
+              <Icon
+                className={css.editWaterIcon}
+                id="icon-pencil-square"
+                width="16"
+                height="16"
+              />
+            </button>
+
+            <button className={css.deleteWaterBtn} type="button">
+              <Icon
+                className={css.deleteWaterIcon}
+                id="icon-trash"
+                width="16"
+                height="16"
+              />
+            </button>
+          </div>
+        </li>
+        <li className={css.todayWaterItem}>
+          <div className={css.waterInfoThumb}>
+            <Icon
+              className={css.todayWaterIcon}
+              id="water-glass"
+              width="26"
+              height="26"
+            />
+            <span className={css.waterValue}>250 ml</span>
+            <span className={css.waterTime}>14:00 AM</span>
+          </div>
+
+          <div className={css.changeWaterIconThumb}>
+            <button className={css.editWaterBtn} type="button">
+              <Icon
+                className={css.editWaterIcon}
+                id="icon-pencil-square"
+                width="16"
+                height="16"
+              />
+            </button>
+
+            <button className={css.deleteWaterBtn} type="button">
+              <Icon
+                className={css.deleteWaterIcon}
+                id="icon-trash"
+                width="16"
+                height="16"
+              />
+            </button>
+          </div>
+        </li>
+        <li className={css.todayWaterItem}>
+          <div className={css.waterInfoThumb}>
+            <Icon
+              className={css.todayWaterIcon}
+              id="water-glass"
+              width="26"
+              height="26"
+            />
+            <span className={css.waterValue}>250 ml</span>
+            <span className={css.waterTime}>14:00 AM</span>
+          </div>
+
+          <div className={css.changeWaterIconThumb}>
+            <button className={css.editWaterBtn} type="button">
+              <Icon
+                className={css.editWaterIcon}
+                id="icon-pencil-square"
+                width="16"
+                height="16"
+              />
+            </button>
+
+            <button className={css.deleteWaterBtn} type="button">
+              <Icon
+                className={css.deleteWaterIcon}
+                id="icon-trash"
+                width="16"
+                height="16"
+              />
+            </button>
           </div>
         </li>
       </ul>
-    </Container>
+
+      <div className={css.addWaterThumb}>
+        <button className={css.addWaterBtn} type="button">
+          <Icon
+            className={css.plusWaterIcon}
+            id="icon-plus-small"
+            width="16"
+            height="16"
+          />
+          Add water
+        </button>
+      </div>
+    </div>
   );
 };
