@@ -3,21 +3,12 @@ import { Formik, Form, Field } from 'formik';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Icon, Section } from 'components';
-
 import { logInSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 import { logIn } from 'store/operations';
 import { toast } from 'react-toastify';
 import { LoginSchema } from 'schemasValdiate/LoginSchema';
-
 import { FORGOT_PASSWORD_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
-
-import bottleSignInDesktop2x from 'images/bottle-for-sign-in-desktop-2x.png';
-import bottleSignInDesktop from 'images/sign-background-desktop.png';
-import bottleSignInTablet2x from 'images/botle-sign-in-tablet-2x.png';
-import bottleSignInTablet from 'images/sign-background-tablet.png';
-import bottleSignInPhone2x from 'images/bottle-sign-in-phone-2x.png';
-import bottleSignInPhone from 'images/sign-background-phone.png';
 import css from './LoginFrom.module.css';
 
 export const LoginFrom = () => {
@@ -118,6 +109,7 @@ export const LoginFrom = () => {
             </Form>
           )}
         </Formik>
+        <div className={css.containerImg}></div>
       </Container>
     </Section>
   );

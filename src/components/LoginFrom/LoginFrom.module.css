@@ -1,23 +1,33 @@
 .sectionForm {
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: bottom right;
+  background-size: inherit;
+  background-position: center;
   height: 100vh;
-  background-image: image-set(url(images/background-home-screen-phone.png) 1x,
-      url(images/background-home-screen-phone-2x.png) 2x);
+  background-image: image-set(
+    url(images/bottle-sign-in-phone.png) 1x,
+    url(images/bottle-sign-in-phone-2x.png) 2x
+  );
 }
 
 @media screen and (min-width: 768px) {
   .sectionForm {
-    background-image: image-set(url(images/botle-sign-in-tablet-2x.png) 1x,
-        url(images/botle-sign-in-tablet-2x.png) 2x);
+    background-position: bottom right;
+    background-size: cover;
+    background-image: image-set(
+      url(images/botle-sign-in-tablet.png) 1x,
+      url(images/botle-sign-in-tablet-2x.png) 2x
+    );
   }
 }
 
 @media screen and (min-width: 1158px) {
   .sectionForm {
-    background-image: image-set(url(images/background-element-main-page-desktop.png) 1x,
-        url(images/background-element-main-page-desktop-2x.png) 2x);
+    background-position: top left;
+    background-size: contain;
+    background-image: image-set(
+      url(images/bottle-for-sign-in-desktop.png) 1x,
+      url(images/bottle-for-sign-in-desktop-2x.png) 2x
+    );
   }
 }
 
@@ -32,9 +42,9 @@
 .titleForm {
   display: flex;
   font-weight: 500;
-  font-size: 1.62rem;
+  font-size: 26px;
   line-height: 123%;
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
   color: #333;
 }
 
@@ -44,20 +54,20 @@
 }
 
 .label {
-  font-size: 1rem;
-  margin-bottom: 1rem;
+  font-size: 16px;
+  margin-bottom: 16px;
   color: #333;
   width: 100%;
 }
 
 .label span {
   display: flex;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .label .input {
-  padding: 0.5rem;
-  margin-bottom: 1rem;
+  padding: 8px;
+  margin-bottom: 16px;
 }
 
 .inputError {
@@ -72,12 +82,12 @@
 }
 
 .containerEmail {
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
 
 .textInput {
-  font-size: 1.125rem;
-  margin-bottom: 0.5rem;
+  font-size: 18px;
+  margin-bottom: 8px;
   display: flex;
 }
 
@@ -92,7 +102,7 @@ input.inputError {
 }
 
 .inputField::placeholder {
-  font-size: 1rem;
+  font-size: 16px;
   color: var(--color-secondary-blue);
 }
 
@@ -116,9 +126,9 @@ input.inputError {
 }
 
 .errorText {
-  margin-top: 0.5rem;
+  margin-top: 8px;
   display: flex;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
   color: rgb(239, 80, 80);
 }
 
@@ -130,20 +140,20 @@ input.inputError {
 .inputWithIcon .iconField {
   position: absolute;
   top: 50%;
-  right: 0.5rem;
+  right: 8px;
   transform: translateY(-50%);
   cursor: pointer;
 }
 
 .buttonForm {
-  font-size: 1.2rem;
-  padding: 0.625rem 1.875rem;
-  margin-top: 1rem;
+  font-size: 19px;
+  padding: 10px 30px;
+  margin-top: 16px;
   text-decoration: none;
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 0.625rem;
+  border-radius: 10px;
   background-color: var(--color-primary-blue);
   display: flex;
   justify-content: center;
@@ -155,20 +165,20 @@ input.inputError {
 }
 
 .redirectLink {
-  font-size: 1rem;
-  margin-top: 1rem;
+  font-size: 16px;
+  margin-top: 16px;
   color: #555;
   display: flex;
   justify-content: flex-start;
 }
 
 .redirectForgot {
-  font-size: 1rem;
-  margin-top: 1rem;
+  font-size: 16px;
+  margin-top: 16px;
   color: #555;
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 4.125rem;
+  margin-bottom: 66px;
 }
 
 .linkForm {
@@ -182,7 +192,7 @@ input.inputError {
 }
 
 .dreamTeam {
-  font-size: 1rem;
+  font-size: 16px;
   color: rgb(64, 123, 255);
 }
 
@@ -207,17 +217,17 @@ input.inputError {
   }
 
   .textInput {
-    font-size: 1.125rem;
+    font-size: 18px;
     width: 290px;
   }
 
   .inputField::placeholder {
-    font-size: 1rem;
+    font-size: 16px;
   }
 
   .buttonForm {
     min-width: 276px;
-    font-size: 1.125rem;
+    font-size: 18px;
   }
 
   .imgContainer {
@@ -225,7 +235,7 @@ input.inputError {
   }
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1158px) {
   .loginContainer {
     flex-direction: row-reverse;
     width: 100%;
@@ -237,7 +247,7 @@ input.inputError {
   }
 
   .inputField {
-    width: 384px
+    width: 384px;
   }
 
   .bottlePicture {
