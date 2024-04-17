@@ -8,7 +8,6 @@ import { signUpSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 import css from './RegisterForm.module.css';
 import { signUp } from 'store/operations.js';
-import { toast } from 'react-toastify';
 import { LOGIN_ROUTE } from 'routes/routes.js';
 
 export const RegisterForm = () => {
@@ -20,9 +19,6 @@ export const RegisterForm = () => {
   const handleSubmit = (values, { resetForm }) => {
     const { email, password } = values;
     const data = { email, password };
-    if (!email || !password) {
-      return toast.error('Email and password are required');
-    }
 
     notifyApi(
       dispatch(signUp(data))
@@ -40,6 +36,7 @@ export const RegisterForm = () => {
           initialValues={{
             email: '',
             password: '',
+            passwordRepeat: '',
           }}
           validationSchema={RegisterSchema}
           onSubmit={handleSubmit}

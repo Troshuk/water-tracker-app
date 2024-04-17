@@ -129,7 +129,6 @@ input.inputError {
 .errorText {
   margin-top: 8px;
   display: flex;
-  margin-bottom: 8px;
   color: rgb(239, 80, 80);
 }
 
