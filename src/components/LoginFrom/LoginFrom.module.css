@@ -24,6 +24,7 @@
   .sectionForm {
     background-position: top left;
     background-size: contain;
+    display: flex;
     background-image: image-set(
       url(images/bottle-for-sign-in-desktop.png) 1x,
       url(images/bottle-for-sign-in-desktop-2x.png) 2x
@@ -240,6 +241,8 @@ input.inputError {
     flex-direction: row-reverse;
     width: 100%;
     padding-right: 104px;
+    align-content: center;
+    flex-wrap: wrap;
   }
 
   .formContainer {
