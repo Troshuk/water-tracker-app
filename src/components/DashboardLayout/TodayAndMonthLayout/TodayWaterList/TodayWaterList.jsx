@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { Icon } from 'components';
-
+import { ConfirmActionWarningModal } from 'components';
 import css from './TodayWaterList.module.css';
 
 export const TodayWaterList = () => {
+  const [modalIsOpen, setIsOpen] = useState(false);
   return (
     <div className={css.todayWaterContainer}>
       <p className={css.todayTitle}>Today</p>
@@ -28,8 +30,11 @@ export const TodayWaterList = () => {
                 height="16"
               />
             </button>
-
-            <button className={css.deleteWaterBtn} type="button">
+            <button
+              className={css.deleteWaterBtn}
+              type="button"
+              onClick={() => setIsOpen(true)}
+            >
               <Icon
                 className={css.deleteWaterIcon}
                 id="icon-trash"
@@ -37,6 +42,17 @@ export const TodayWaterList = () => {
                 height="16"
               />
             </button>
+            <ConfirmActionWarningModal
+              modalIsOpen={modalIsOpen}
+              closeModal={() => setIsOpen(false)}
+              actionCallBack={() => {
+                setIsOpen(false);
+                // Delete endpoint call
+              }}
+              title="Delete entry"
+              confirmMessage="Are you sure you want to delete the entry?"
+              actionButtonName="Delete"
+            />
           </div>
         </li>
         <li className={css.todayWaterItem}>
