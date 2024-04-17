@@ -1,41 +1,76 @@
+.sectionForm {
+  background-repeat: no-repeat;
+  background-size: inherit;
+  background-position: center;
+  height: 100vh;
+  background-image: image-set(
+    url(images/bottle-sign-in-phone.png) 1x,
+    url(images/bottle-sign-in-phone-2x.png) 2x
+  );
+}
+
+@media screen and (min-width: 768px) {
+  .sectionForm {
+    background-position: bottom right;
+    background-size: cover;
+    background-image: image-set(
+      url(images/botle-sign-in-tablet.png) 1x,
+      url(images/botle-sign-in-tablet-2x.png) 2x
+    );
+  }
+}
+
+@media screen and (min-width: 1158px) {
+  .sectionForm {
+    background-position: top left;
+    background-size: contain;
+    display: flex;
+    background-image: image-set(
+      url(images/bottle-for-sign-in-desktop.png) 1x,
+      url(images/bottle-for-sign-in-desktop-2x.png) 2x
+    );
+  }
+}
+
+.sectionForm {
+  padding-top: 30px;
+}
+
 .loginContainer {
   text-align: center;
 }
-@media screen and (max-width: 428px) {
-  .loginContainer {
-    max-width: 320px;
-    width: auto;
-  }
-}
-.title {
+
+.titleForm {
   display: flex;
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 123%;
+  margin-bottom: 16px;
   color: #333;
 }
 
-.form {
-  margin-top: 30px;
+.formContainer {
   display: flex;
   flex-direction: column;
 }
 
 .label {
-  font-size: 1rem;
-  margin-bottom: 1rem;
+  font-size: 16px;
+  margin-bottom: 16px;
   color: #333;
   width: 100%;
 }
 
 .label span {
   display: flex;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
 }
 
 .label .input {
-  padding: 0.5rem;
-  margin-bottom: 1rem;
+  padding: 8px;
+  margin-bottom: 16px;
 }
+
 .inputError {
   color: #ef5050;
   border-color: #ef5050;
@@ -46,12 +81,14 @@
   color: #ef5050 !important;
   border-color: #ef5050;
 }
+
 .containerEmail {
-  margin-bottom: 1rem;
+  margin-bottom: 16px;
 }
-.Text {
-  font-size: 1.125rem;
-  margin-bottom: 0.5rem;
+
+.textInput {
+  font-size: 18px;
+  margin-bottom: 8px;
   display: flex;
 }
 
@@ -60,144 +97,118 @@ input.inputError {
   color: #ef5050;
 }
 
-.Input:active,
-.Input:focus {
+.inputField:active,
+.inputField:focus {
   color: var(--color-primary-blue);
 }
-.Input::placeholder {
-  font-size: 1rem;
+
+.inputField::placeholder {
+  font-size: 16px;
   color: var(--color-secondary-blue);
 }
-.Icon {
+
+.iconField {
   fill: none;
   stroke: var(--color-primary-blue);
 }
-.Input {
+
+.inputField {
   color: rgb(64, 123, 255);
   padding: 12px 10px;
   border: 1px solid var(--color-secondary-blue);
   border-radius: 6px;
   height: 44px;
   width: 100%;
+  font-size: 16px;
 }
+
 .inputWithIcon {
   position: relative;
-  margin-bottom: 1rem;
 }
-.inputWithIconEye {
-  position: relative;
-}
-.inputWithIconEye .Icon {
-  position: absolute;
-  top: 50%;
-  right: 0.5rem;
-  transform: translateY(-50%);
-  cursor: pointer;
-}
+
 .errorText {
-  margin-top: 0.5rem;
+  margin-top: 8px;
   display: flex;
-  margin-bottom: 0.5rem;
+  margin-bottom: 8px;
   color: rgb(239, 80, 80);
 }
-.bottle {
+
+.bottlePicture {
   display: flex;
   justify-content: center;
 }
-.inputWithIcon .Icon {
+.inputWithPassword {
+  position: relative;
+}
+.inputContainer {
+  margin-bottom: 16px;
+}
+.inputWithPassword .iconField {
   position: absolute;
   top: 50%;
-  right: 0.5rem;
+  right: 8px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.inputWithIcon .iconField {
+  position: absolute;
+  top: 50%;
+  right: 8px;
   transform: translateY(-50%);
   cursor: pointer;
 }
 
-.button {
-  font-size: 1.2rem;
-  padding: 0.625rem 1.875rem;
-  margin-top: 1rem;
+.buttonForm {
+  font-size: 19px;
+  padding: 10px 30px;
+  margin-top: 16px;
   text-decoration: none;
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 0.625rem;
+  border-radius: 10px;
   background-color: var(--color-primary-blue);
   display: flex;
   justify-content: center;
   width: 100%;
 }
 
-.button:hover {
+.buttonForm:hover {
   box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
-}
-Section {
-  max-width: var(--background-screen-width);
-  margin: 0 auto;
-  min-height: 100vh;
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-image: image-set(
-    url(images/background-home-screen-phone.png) 1x,
-    url(images/background-home-screen-phone-2x.png) 2x
-  );
-}
-@media screen and (min-width: 768px) {
-  @media (min-device-pixel-ratio: 2),
-    (min-resolution: 192dpi),
-    (min-resolution: 2dppx) {
-    Section {
-      max-width: var(--background-screen-width);
-      margin: 0 auto;
-      background-image: image-set(
-        url(images/background-home-screen-tablet.png) 1x,
-        url(images/background-home-screen-tablet-2x.png) 2x
-      );
-    }
-  }
-}
-@media screen and (min-width: 1158px) {
-  @media (min-device-pixel-ratio: 2),
-    (min-resolution: 192dpi),
-    (min-resolution: 2dppx) {
-    Section {
-      max-width: var(--background-screen-width);
-      margin: 0 auto;
-      background-image: image-set(
-        url(images/background-element-main-page-desktop.png) 1x,
-        url(images/background-element-main-page-desktop-2x.png) 2x
-      );
-    }
-  }
 }
 
 .redirectLink {
-  font-size: 1rem;
-  margin-top: 1rem;
+  font-size: 16px;
+  margin-top: 16px;
   color: #555;
   display: flex;
   justify-content: flex-start;
 }
+
 .redirectForgot {
-  font-size: 1rem;
-  margin-top: 1rem;
+  font-size: 16px;
+  margin-top: 16px;
   color: #555;
   display: flex;
   justify-content: flex-start;
-  margin-bottom: 4.125rem;
+  margin-bottom: 66px;
 }
-.link {
+
+.linkForm {
   text-decoration: none;
   color: #407bff;
 }
+
 .redirectPassword {
   color: #555;
   float: right;
 }
 
 .dreamTeam {
-  font-size: 1rem;
+  font-size: 16px;
   color: rgb(64, 123, 255);
 }
+
 .footerTeam {
   display: flex;
   flex-direction: column;
@@ -207,36 +218,54 @@ Section {
   margin-top: auto;
   padding: 20px;
 }
-.link:hover {
+
+.linkForm:hover {
   text-decoration: underline;
 }
+
 @media screen and (min-width: 768px) {
   .loginContainer {
     width: 768px;
-    padding-left: 32px;
-    padding-right: 32px;
     display: flex;
   }
-  .title {
-    font-size: 1.625rem;
-  }
-  .Text {
-    font-size: 1.125rem;
+
+  .textInput {
+    font-size: 18px;
     width: 290px;
   }
-  .Input::placeholder {
-    font-size: 1rem;
+
+  .inputField::placeholder {
+    font-size: 16px;
   }
-  .button {
+
+  .buttonForm {
     min-width: 276px;
-    font-size: 1.125rem;
+    font-size: 18px;
   }
+
   .imgContainer {
     display: flex;
   }
 }
+
 @media screen and (min-width: 1158px) {
   .loginContainer {
     flex-direction: row-reverse;
+    width: 100%;
+    padding-right: 104px;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  .formContainer {
+    justify-content: center;
+  }
+
+  .inputField {
+    width: 384px;
+  }
+
+  .bottlePicture {
+    min-width: 700px;
   }
 }
