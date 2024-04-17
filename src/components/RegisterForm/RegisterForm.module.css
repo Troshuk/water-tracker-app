@@ -1,18 +1,18 @@
-.sectionForm {
+/* .sectionForm {
   background-repeat: no-repeat;
-  background-size: inherit;
-  background-position: center;
-  height: 100vh;
+  background-position: top center;
+  background-size: contain;
+  height: 90vh;
   background-image: image-set(
-    url(images/bottle-sign-in-phone.png) 1x,
-    url(images/bottle-sign-in-phone-2x.png) 2x
+    url(images/sign-in-out-mobile.png) 1x,
+    url(images/sign-in-out-mobile-2x.png) 2x
   );
 }
 
 @media screen and (min-width: 768px) {
   .sectionForm {
-    background-position: bottom right;
-    background-size: cover;
+    background-position: top center;
+    background-size: contain;
     background-image: image-set(
       url(images/botle-sign-in-tablet.png) 1x,
       url(images/botle-sign-in-tablet-2x.png) 2x
@@ -20,24 +20,18 @@
   }
 }
 
-@media screen and (min-width: 1158px) {
+@media screen and (min-width: 1440px) {
   .sectionForm {
-    background-position: top left;
-    background-size: contain;
-    display: flex;
+    background-position: bottom left;
     background-image: image-set(
-      url(images/bottle-for-sign-in-desktop.png) 1x,
-      url(images/bottle-for-sign-in-desktop-2x.png) 2x
+      url(images/sign-in-out-desktop.png) 1x,
+      url(images/sign-in-out-desktop-2x.png) 2x
     );
   }
-}
-
-.sectionForm {
-  padding-top: 30px;
-}
+} */
 
 .loginContainer {
-  text-align: center;
+  padding-top: 24px;
 }
 
 .titleForm {
@@ -46,7 +40,7 @@
   font-size: 26px;
   line-height: 123%;
   margin-bottom: 16px;
-  color: #333;
+  color: var(--primery-color-black);
 }
 
 .formContainer {
@@ -54,32 +48,15 @@
   flex-direction: column;
 }
 
-.label {
-  font-size: 16px;
-  margin-bottom: 16px;
-  color: #333;
-  width: 100%;
-}
-
-.label span {
-  display: flex;
-  margin-bottom: 8px;
-}
-
-.label .input {
-  padding: 8px;
-  margin-bottom: 16px;
-}
-
 .inputError {
-  color: #ef5050;
-  border-color: #ef5050;
+  color: var(--secondary-color-3);
+  border-color: var(--secondary-color-3);
 }
 
 .inputError:active,
 .inputError:focus {
-  color: #ef5050 !important;
-  border-color: #ef5050;
+  color: var(--secondary-color-3);
+  border-color: var(--secondary-color-3);
 }
 
 .containerEmail {
@@ -93,8 +70,8 @@
 }
 
 input.inputError {
-  border-color: #ef5050;
-  color: #ef5050;
+  border-color: var(--secondary-color-3);
+  color: var(--secondary-color-3);
 }
 
 .inputField:active,
@@ -109,67 +86,66 @@ input.inputError {
 
 .iconField {
   fill: none;
-  stroke: var(--color-primary-blue);
+  stroke: var(--primery-color-blue);
 }
 
 .inputField {
   color: rgb(64, 123, 255);
   padding: 12px 10px;
-  border: 1px solid var(--color-secondary-blue);
+  border: 1px solid var(--secondary-color---5);
   border-radius: 6px;
   height: 44px;
   width: 100%;
   font-size: 16px;
+  background: var(--primery-color-white);
 }
 
 .inputWithIcon {
   position: relative;
 }
-
-.errorText {
-  margin-top: 8px;
-  display: flex;
-  color: rgb(239, 80, 80);
-}
-
-.bottlePicture {
-  display: flex;
-  justify-content: center;
-}
 .inputWithPassword {
   position: relative;
 }
-.inputContainer {
-  margin-bottom: 16px;
+.errorText {
+  margin-top: 8px;
+  display: flex;
+  margin-bottom: 8px;
+  color: rgb(239, 80, 80);
 }
 .inputWithPassword .iconField {
   position: absolute;
   top: 50%;
-  right: 8px;
+  right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
 }
 .inputWithIcon .iconField {
   position: absolute;
   top: 50%;
-  right: 8px;
+  right: 10px;
   transform: translateY(-50%);
   cursor: pointer;
 }
 
 .buttonForm {
-  font-size: 19px;
-  padding: 10px 30px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 125%;
+  text-align: center;
+  padding: 8px 30px;
   margin-top: 16px;
-  text-decoration: none;
-  color: white;
+  color: var(--primery-color-white);
   border: none;
   cursor: pointer;
   border-radius: 10px;
-  background-color: var(--color-primary-blue);
-  display: flex;
-  justify-content: center;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  background: var(--primery-color-blue);
   width: 100%;
+  /* For loader */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 .buttonForm:hover {
@@ -179,7 +155,7 @@ input.inputError {
 .redirectLink {
   font-size: 16px;
   margin-top: 16px;
-  color: #555;
+  color: var(--primery-color-blue);
   display: flex;
   justify-content: flex-start;
 }
@@ -187,7 +163,7 @@ input.inputError {
 .redirectForgot {
   font-size: 16px;
   margin-top: 16px;
-  color: #555;
+  color: var(--primery-color-blue);
   display: flex;
   justify-content: flex-start;
   margin-bottom: 66px;
@@ -195,42 +171,16 @@ input.inputError {
 
 .linkForm {
   text-decoration: none;
-  color: #407bff;
-}
-
-.redirectPassword {
-  color: #555;
-  float: right;
-}
-
-.dreamTeam {
-  font-size: 16px;
-  color: rgb(64, 123, 255);
-}
-
-.footerTeam {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-top: auto;
-  padding: 20px;
+  color: var(--primery-color-blue);
 }
 
 .linkForm:hover {
-  text-decoration: underline;
+  color: var(--secondary-color-5);
 }
 
 @media screen and (min-width: 768px) {
-  .loginContainer {
-    width: 768px;
-    display: flex;
-  }
-
-  .textInput {
-    font-size: 18px;
-    width: 290px;
+  .formContainer {
+    width: 336px;
   }
 
   .inputField::placeholder {
@@ -238,33 +188,21 @@ input.inputError {
   }
 
   .buttonForm {
-    min-width: 276px;
+    padding: 10px 30px;
     font-size: 18px;
-  }
-
-  .imgContainer {
-    display: flex;
+    line-height: 133%;
   }
 }
 
-@media screen and (min-width: 1158px) {
+@media screen and (min-width: 1440px) {
   .loginContainer {
+    display: flex;
     flex-direction: row-reverse;
-    width: 100%;
     padding-right: 104px;
-    align-content: center;
-    flex-wrap: wrap;
+    padding-top: 162px;
   }
 
   .formContainer {
-    justify-content: center;
-  }
-
-  .inputField {
     width: 384px;
-  }
-
-  .bottlePicture {
-    min-width: 700px;
   }
 }
