@@ -58,7 +58,7 @@ export const NavigationBar = () => {
                 alt={`${user?.name || user.email}`}
                 src={user.avatarURL}
               />
-              <Icon id="icon-chevron-double-up" width="16" height="16" />
+              <Icon id="icon-chevron-double-up" width="16" height="16" className={css.iconChevron} />
             </IconButton>
 
             <Menu

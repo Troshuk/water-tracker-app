@@ -1,16 +1,17 @@
-.container {
+.Modal {
+    outline: none;
     position: absolute;
-    width: 280px;
-    height: 852px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 32px 12px;
+    right: 50%;
+    transform: translate(50%, 40%);
     border-radius: 10px;
-    background-color: var(--primary-white);
-    z-index: 101;
+    padding: 32px 12px;
+    max-width: 280px;
+    width: 100%;
+    background-color: var(--color);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
-
 
    .backdropContainer {
    display: flex;
@@ -25,7 +26,6 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(2px);
   z-index: 100; 
 }
 
@@ -41,12 +41,12 @@
     background: none;
     cursor: pointer;
   }
+  
 .form {
     display: flex;
     flex-direction: column;
     align-items: center;  
 }
-
 
 .section {
     display: flex;
@@ -141,7 +141,7 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    margin-bottom: 32px;
+    margin-bottom: 8px;
 }
 
 .Setbtn:hover,
@@ -170,13 +170,26 @@ margin-left: 8px;
     cursor: pointer;
 }
 
+.saveBtn {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.setContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
 @media screen and (min-width: 768px) {
-    .container {
-        width: 704px;
-        height: 860px;
-        padding: 32px 24px;
-        border-radius: 10px;
-        justify-content: flex-start;
+    .Modal {
+    padding: 32px 24px;
+    max-width: 704px;
+    width: 100%;
+    padding: 32px 24px;
+    justify-content: flex-start;
 }
 
     .form {
@@ -192,19 +205,29 @@ margin-left: 8px;
 
 }
 
+.setContainer {
+    display: flex;
+    flex-direction: column;
+}
+
 .input {
     width: 392px;
     height: 44px;
 }
 
+.saveBtn {
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}
+
 }
 
 @media screen and (min-width: 1440px) {
-    .container {
-        width: 1008px;
-        height: 592px;
+     .Modal {
         padding: 32px 24px;
-        justify-content: flex-start;
+        max-width: 1008px;
+        width: 100%;
+        flex-direction: row;
         text-align: left;
     }
 
@@ -234,5 +257,10 @@ margin-left: 8px;
     .input {
         width: 392px;
         height: 44px;
+    }
+
+    .saveBtn {
+        flex-direction: row-reverse;
+        justify-content: flex-start;
     }
 }

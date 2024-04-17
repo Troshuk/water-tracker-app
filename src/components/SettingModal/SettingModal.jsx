@@ -80,6 +80,7 @@ const SettingModal = ({ open, onClose }) => {
       }}
     >
       <div className={css.container} onClick={e => e.stopPropagation()}>
+        <div className={css.backdropContainer}>
         <h1 className={css.title}>Setting</h1>
         <button className={css.backdrop}
           type="button"
@@ -87,8 +88,10 @@ const SettingModal = ({ open, onClose }) => {
           class="close-btn"
           aria-label="modal close"
         >
-          <Icon id="icon-arrow-up-tray" width="16" height="16" />
-        </button>
+        <Icon id="icon-arrow-up-tray" width="16" height="16" />
+        </button> 
+        </div>
+        
         <form className={css.form} onSubmit={handleSubmit}>
         
         <div className={css.setContainer}>  
@@ -220,10 +223,13 @@ const SettingModal = ({ open, onClose }) => {
                 </button>
                 </label>
           </div>
-          <button type="submit" className={css.Setbtn} disabled={isLoading}>
+          <div className={css.saveBtn}>     
+             <button type="submit" className={css.Setbtn} disabled={isLoading}>
             Save
             {isLoading ? <ContentLoader /> : <button/>}
             </button>
+          </div>
+         
         </form>
       </div>
     </ReactModal>
