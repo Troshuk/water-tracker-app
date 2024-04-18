@@ -5,6 +5,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { PageLoader, NavigationBar } from 'components';
 
 import {
+  FORGOT_PASSWORD_ROUTE,
   HOME_ROUTE,
   LOGIN_ROUTE,
   SIGN_UP_ROUTE,
@@ -18,7 +19,9 @@ import { notify } from 'notify';
 const HomePage = lazy(() => import('pages/Home'));
 const LoginPage = lazy(() => import('pages/Login'));
 const RegisterPage = lazy(() => import('pages/Register'));
+const ForgotPasswordPage = lazy(() => import('pages/ForgotPasswordPage'));
 const Dashboard = lazy(() => import('pages/Dashboard'));
+
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -54,6 +57,10 @@ export const App = () => {
                 <Route path={HOME_ROUTE} element={<HomePage />} />
                 <Route path={LOGIN_ROUTE} element={<LoginPage />} />
                 <Route path={SIGN_UP_ROUTE} element={<RegisterPage />} />
+                <Route
+                  path={FORGOT_PASSWORD_ROUTE}
+                  element={<ForgotPasswordPage />}
+                />
               </>
             )}
             <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
