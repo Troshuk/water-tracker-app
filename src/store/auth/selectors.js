@@ -18,6 +18,11 @@ export const userSelector = createSelector(
   state => state.user
 );
 
+export const dailyWaterGoalSelector = createSelector(
+  userSelector,
+  state => state.dailyWaterGoal
+);
+
 export const signUpSelector = createSelector(
   AuthReducerSelector,
   state => state[signUp.typePrefix]
