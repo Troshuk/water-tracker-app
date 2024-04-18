@@ -66,14 +66,13 @@ export const waterSlice = createSlice({
           getConsumptionForToday.rejected,
           createConsumptionRecord.rejected
         ),
-        (_, { error, payload, type, meta }) => ({
-          ...initialState,
-          [getStateKey(type, meta)]: {
+        (state, { error, payload, type, meta }) => {
+          state[getStateKey(type, meta)] = {
             isLoading: false,
             error: payload ?? error.message,
             key: null,
-          },
-        })
+          };
+        }
       );
   },
 });
