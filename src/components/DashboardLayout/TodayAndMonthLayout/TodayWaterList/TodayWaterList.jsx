@@ -1,91 +1,56 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Icon } from 'components';
-import { ConfirmActionWarningModal } from 'components';
-import css from './TodayWaterList.module.css';
-import {
-  deleteConsumptionRecord,
-  getConsumptionForToday,
-} from 'store/operations';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-const water = [
-  {
-    // id: '',
-    icon: 'water-glass',
-    value: ' ',
-    consumed_at: ' ',
-    editBtn: { icon: 'icon-pencil-square' },
-    deleteBtn: { icon: 'icon-trash' },
-  },
-  {
-    id: '',
-    icon: 'water-glass',
-    value: ' ',
-    consumed_at: ' ',
-    editBtn: { icon: 'icon-pencil-square' },
-    deleteBtn: { icon: 'icon-trash' },
-  },
-  {
-    id: '',
-    icon: 'water-glass',
-    value: ' ',
-    consumed_at: ' ',
-    editBtn: { icon: 'icon-pencil-square' },
-    deleteBtn: { icon: 'icon-trash' },
-  },
-  {
-    id: '',
-    icon: 'water-glass',
-    value: ' ',
-    consumed_at: ' ',
-    editBtn: { icon: 'icon-pencil-square' },
-    deleteBtn: { icon: 'icon-trash' },
-  },
-  {
-    id: '',
-    icon: 'water-glass',
-    value: ' ',
-    consumed_at: ' ',
-    editBtn: { icon: 'icon-pencil-square' },
-    deleteBtn: { icon: 'icon-trash' },
-  },
-];
+import { ConfirmActionWarningModal, Icon } from 'components';
+
+import { deleteConsumptionRecord } from 'store/operations';
+import { todayConsumptionsSelector } from 'store/selectors';
+
+import css from './TodayWaterList.module.css';
 
 export const TodayWaterList = () => {
-  const [modalIsOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getConsumptionForToday());
-  }, [dispatch]);
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const water = useSelector(todayConsumptionsSelector);
 
   const handleDeleteConsumption = id => {
     dispatch(deleteConsumptionRecord(id));
   };
 
+  const formatTime = date =>
+    new Date(date).toLocaleTimeString([], {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
+
   return (
     <div className={css.todayWaterContainer}>
       <p className={css.todayTitle}>Today</p>
       <ul className={css.todayWaterList}>
-        {water.map((water, id) => (
-          <li className={css.todayWaterItem} key={id}>
+        {water?.map(water => (
+          <li className={css.todayWaterItem} key={water.id}>
             <div className={css.waterInfoThumb}>
               <Icon
                 className={css.todayWaterIcon}
-                id={water.icon}
+                id="water-glass"
                 width="26"
                 height="26"
               />
-              <span className={css.waterValue}>{water.value}200 ml</span>
+              <span className={css.waterValue}>{water.value} ml</span>
 
-              <span className={css.waterTime}>{water.consumed_at}12:00 AM</span>
+              <span className={css.waterTime}>
+                {formatTime(water.consumed_at)}
+              </span>
             </div>
 
             <div className={css.changeWaterIconThumb}>
               <button className={css.editWaterBtn} type="button">
                 <Icon
                   className={css.editWaterIcon}
-                  id={water.editBtn.icon}
+                  id="icon-pencil-square"
                   width="16"
                   height="16"
                 />
@@ -97,7 +62,7 @@ export const TodayWaterList = () => {
               >
                 <Icon
                   className={css.deleteWaterIcon}
-                  id={water.deleteBtn.icon}
+                  id="icon-trash"
                   width="16"
                   height="16"
                 />
