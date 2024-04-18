@@ -3,23 +3,23 @@ name: Build and deploy to GitHub Pages
 on:
   push:
     branches: [main]
+env:
+  NODE_ENV: ${{ secrets.NODE_ENV }}
+  REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+  REACT_APP_APP_NAME: ${{ secrets.REACT_APP_APP_NAME }}
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+        uses: actions/checkout@v3
 
       - name: Install, lint, build 🔧
         run: |
           npm install
           npm run lint:js
           npm run build
-        env:
-          NODE_ENV: ${{ vars.NODE_ENV }}
-          REACT_APP_API_URL: ${{ vars.REACT_APP_API_URL }}
-          REACT_APP_APP_NAME: ${{ vars.REACT_APP_APP_NAME }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.0
