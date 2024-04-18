@@ -11,7 +11,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import { authReducer } from './reducers.js';
+import { authReducer, waterReducer } from './reducers.js';
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +23,7 @@ export const store = configureStore({
       },
       authReducer
     ),
+    waterReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

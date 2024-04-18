@@ -1,7 +1,9 @@
-export default function WaterRatioPanel() {
+import css from './WaterRatioPanel.module.css';
+
+export const WaterRatioPanel = () => {
   return (
-    <div>
+    <div className={css.container}>
       <h2>WaterRatioPanel</h2>
     </div>
   );
-}
+};

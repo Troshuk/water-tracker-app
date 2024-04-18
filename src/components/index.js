@@ -6,4 +6,7 @@ export { NavigationBar } from './NavigationBar/NavigationBar';
 export { PageLoader } from './PageLoader/PageLoader';
 export { ContentLoader } from './ContentLoader/ContentLoader';
 export { Icon } from './Icon/Icon';
+export { ForgotPassword } from './ForgotPassword/ForgotPassword';
 export { DashboardLayout } from './DashboardLayout/DashboardLayout';
+export { ConfirmActionWarningModal } from './ConfirmActionWarningModal/ConfirmActionWarningModal';
+

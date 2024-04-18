@@ -1,10 +1,12 @@
+import css from './TodayAndMonthLayout.module.css';
 import { TodayWaterConsumption } from './TodayWaterConsumption';
 
-export default function TodayAndMonthLayout() {
+export const TodayAndMonthLayout = () => {
   return (
-    <div>
-      <h2>TodayAndMonthLayout</h2>
+    <div className={css.card}>
+      <div>TodayLayout</div>
+      <div>MonthLayout</div>
       <TodayWaterConsumption />
     </div>
   );
-}
+};

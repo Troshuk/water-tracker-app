@@ -5,7 +5,13 @@ import { logIn, signUp, fetchUser, logOut } from './operations';
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
 
 const initialState = {
-  user: { name: null, email: null, avatarUrl: null, gender: null },
+  user: {
+    name: null,
+    email: null,
+    avatarUrl: null,
+    gender: null,
+    dailyWaterGoal: 0,
+  },
   token: null,
   isLoggedIn: false,
   ...[logIn, signUp, fetchUser, logOut].reduce(
