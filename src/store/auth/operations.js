@@ -6,8 +6,6 @@ export const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
 
-console.log('process.env', process.env);
-
 const USERS_ENDPOINT = 'users/';
 
 const getToken = state => state.authReducer.token;
