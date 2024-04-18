@@ -1,7 +1,11 @@
-import { StyledReactModal } from './WaterConsumptionModals.styled';
-import css from './WaterConsumptionModals.module.css';
+import ReactModal from 'react-modal';
 import { useState } from 'react';
+
 import { Icon } from 'components';
+
+import css from './WaterConsumptionModals.module.css';
+
+ReactModal.setAppElement('#root');
 
 const getCurrentTime = () => {
   const now = new Date();
@@ -35,10 +39,11 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
     setSelectedTime(event.target.value);
   };
   return (
-    <StyledReactModal
+    <ReactModal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Modal"
+      className={css.modal}
       style={{
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -102,7 +107,7 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
           </div>
         </div>
       </div>
-    </StyledReactModal>
+    </ReactModal>
   );
 };
 
@@ -112,10 +117,11 @@ export const WaterConsumptionEditModal = ({ isOpen, onRequestClose }) => {
     setSelectedTime(event.target.value);
   };
   return (
-    <StyledReactModal
+    <ReactModal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Modal"
+      className={css.modal}
       style={{
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.3)',
@@ -176,6 +182,6 @@ export const WaterConsumptionEditModal = ({ isOpen, onRequestClose }) => {
           </div>
         </div>
       </div>
-    </StyledReactModal>
+    </ReactModal>
   );
 };

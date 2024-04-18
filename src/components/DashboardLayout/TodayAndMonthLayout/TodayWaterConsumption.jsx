@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {
   WaterConsumptionAddModal,
   WaterConsumptionEditModal,
-} from '../../WaterConsumptionModals/WaterConsumptionModals.jsx';
+} from '../WaterConsumptionModals/WaterConsumptionModals.jsx';
 
 export const TodayWaterConsumption = () => {
   const [isOpen, setIsOpen] = useState(false);
