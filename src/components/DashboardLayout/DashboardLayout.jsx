@@ -1,3 +1,6 @@
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+
 import { DailyNorma } from './DailyNorma/DailyNorma';
 import { ImageOfBottle } from './ImageOfBottle/ImageOfBottle';
 import { WaterRatioPanel } from './WaterRatioPanel/WaterRatioPanel';
@@ -8,8 +11,15 @@ import {
   LeftSideDiv,
   StyledSection,
 } from './DashboardLayout.styled';
+import { getConsumptionForToday } from 'store/operations';
 
 export const DashboardLayout = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getConsumptionForToday()).unwrap();
+  }, [dispatch]);
+
   return (
     <StyledSection>
       <StyledContainer>
