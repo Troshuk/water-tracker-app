@@ -73,7 +73,6 @@ export const TodayWaterList = () => {
                 actionCallBack={() => {
                   setIsOpen(false);
                   handleDeleteConsumption(water.id);
-                  // Delete endpoint call
                 }}
                 title="Delete entry"
                 confirmMessage="Are you sure you want to delete the entry?"

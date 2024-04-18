@@ -1,6 +1,10 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { getConsumptionForToday, createConsumptionRecord, deleteConsumptionRecord } from './operations';
+import {
+  getConsumptionForToday,
+  createConsumptionRecord,
+  deleteConsumptionRecord,
+} from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
 
@@ -9,7 +13,11 @@ const initialState = {
     consumptionPercentage: 0,
     consumption: [],
   },
-  ...[getConsumptionForToday, createConsumptionRecord, deleteConsumptionRecord].reduce(
+  ...[
+    getConsumptionForToday,
+    createConsumptionRecord,
+    deleteConsumptionRecord,
+  ].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -33,8 +41,10 @@ export const waterSlice = createSlice({
       })
 
       // Delete consumption record
-      .addCase(deleteConsumptionRecord.fulfilled, (state, {payload}) => {
-        state.today.consumption = state.today.consumption.filter(water => water.id !== payload.id)
+      .addCase(deleteConsumptionRecord.fulfilled, (state, { payload }) => {
+        state.today.consumption = state.today.consumption.filter(
+          water => water.id !== payload.id
+        );
       })
 
       // Handle fulfilled requests status
@@ -75,7 +85,6 @@ export const waterSlice = createSlice({
           deleteConsumptionRecord.rejected
         ),
         (_, { error, payload, type, meta }) => ({
-          ...initialState,
           [getStateKey(type, meta)]: {
             isLoading: false,
             error: payload ?? error.message,
