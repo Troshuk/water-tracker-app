@@ -21,10 +21,13 @@
 .iconUser {
   border-radius: 28px;
 }
+.header {
+  position: relative;
+  z-index: 1;
+}
+
 .userMenuDropdown {
   position: absolute;
-  top: 80%;
-  right: 5%;
   border-radius: 10px;
   list-style: none;
   margin: 0;
@@ -32,18 +35,27 @@
   z-index: 2;
   box-shadow: 0px 4px 8px 0px var(--color-secondary-light-blue);
   background-color: var(--color-primary-white);
+  right: -5%;
 }
 
-@media screen and (min-width: 1440px) {
-  .userMenuDropdown {
-    right: 18%;
-  }
-}
 .userMenuDropdown .itemIcon {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
   gap: 8px;
+}
+.profileDropDown {
+  position: relative;
+}
+
+.userMenuToggle {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 .icon {
   stroke: var(--primery-color-blue);

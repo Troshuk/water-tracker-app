@@ -71,33 +71,35 @@ export const NavigationBar = () => {
                 />
               </button>
               {isMenuOpen && (
-                <ul className={css.userMenuDropdown}>
-                  <li onClick={handleCloseUserMenu} className={css.menuItem}>
-                    <Link className={css.itemIcon}>
-                      <span className={css.itemText}>Setting</span>
-                      <Icon
-                        id="icon-cog-6-tooth"
-                        width="16"
-                        height="16"
-                        className={css.iconOption}
-                      />
-                    </Link>
-                  </li>
-                  <li
-                    onClick={handleLogoutConfirmation}
-                    className={css.menuItem}
-                  >
-                    <button className={css.itemIcon}>
-                      <span className={css.itemText}>Logout</span>
-                      <Icon
-                        id="icon-arrow-right-on-rectangle"
-                        width="16"
-                        height="16"
-                        className={css.iconOption}
-                      />
-                    </button>
-                  </li>
-                </ul>
+                <div className={css.profileDropDown}>
+                  <ul className={css.userMenuDropdown}>
+                    <li onClick={handleCloseUserMenu} className={css.menuItem}>
+                      <Link className={css.itemIcon}>
+                        <span className={css.itemText}>Setting</span>
+                        <Icon
+                          id="icon-cog-6-tooth"
+                          width="16"
+                          height="16"
+                          className={css.iconOption}
+                        />
+                      </Link>
+                    </li>
+                    <li
+                      onClick={handleLogoutConfirmation}
+                      className={css.menuItem}
+                    >
+                      <button className={css.itemIcon}>
+                        <span className={css.itemText}>Logout</span>
+                        <Icon
+                          id="icon-arrow-right-on-rectangle"
+                          width="16"
+                          height="16"
+                          className={css.iconOption}
+                        />
+                      </button>
+                    </li>
+                  </ul>
+                </div>
               )}
             </div>
           </>
