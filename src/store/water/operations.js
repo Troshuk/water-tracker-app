@@ -13,3 +13,8 @@ export const createConsumptionRecord = createAsyncThunkWithCatch(
   'water/createConsumptionRecord',
   async water => (await api.post(WATER_CONSUMPTION_ENDPOINT, water)).data
 );
+
+export const deleteConsumptionRecord = createAsyncThunkWithCatch(
+  'water/deleteConsumptionRecord',
+  async (id) => (await api.delete(WATER_CONSUMPTION_ENDPOINT + {id}))
+);
