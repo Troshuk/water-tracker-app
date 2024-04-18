@@ -1,5 +1,4 @@
 .header {
-  padding: 16px;
   position: relative;
   z-index: 1;
 }
@@ -15,13 +14,16 @@
   background: none;
   border: none;
   padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .userMenuDropdown {
   position: absolute;
   top: 80%;
+  right: 5%;
   border-radius: 10px;
-  padding: 16px 0;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -29,19 +31,29 @@
   box-shadow: 0px 4px 8px 0px var(--color-secondary-light-blue);
   background-color: var(--color-primary-white);
 }
-.itemIcon {
+
+@media screen and (min-width: 1440px) {
+  .userMenuDropdown {
+    right: 18%;
+  }
+}
+.userMenuDropdown .itemIcon {
   display: flex;
   flex-direction: row-reverse;
+  align-items: center;
+  gap: 8px;
 }
 .icon {
   stroke: var(--primery-color-blue);
-  fill: transparent;
 }
 .menuItem {
   color: var(--primery-color-blue);
 }
+.userMenuDropdown .menuItem:last-child {
+  padding-top: 0;
+}
 .userMenuDropdown .menuItem {
-  padding: 8px 16px;
+  padding: 16px 16px;
   cursor: pointer;
 }
 
@@ -53,7 +65,14 @@
 .link:hover {
   color: var(--secondary-color-5);
 }
-
+.itemText {
+  font-size: 16px;
+  line-height: 125%;
+}
+.iconOption {
+  stroke: var(--primery-color-blue);
+  fill: transparent;
+}
 .link {
   display: flex;
   justify-content: center;

@@ -11,7 +11,7 @@ import { ConfirmActionWarningModal, Container, Icon } from 'components';
 
 export const NavigationBar = () => {
   const dispatch = useDispatch();
-  const { isLoggedIn, user } = useSelector(AuthReducerSelector);
+  const { isLoggedIn } = useSelector(AuthReducerSelector);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -48,45 +48,44 @@ export const NavigationBar = () => {
                 className={css.userMenuToggle}
                 onClick={handleToggleUserMenu}
               >
-                <Icon
-                  alt={`${user?.name || user.email}`}
-                  id="icon-user"
-                  width="28"
-                  height="28"
-                />
-              </button>
-              <button className={css.userMenu} onClick={handleToggleUserMenu}>
+                <Icon id="icon-user" width="28" height="28" />
                 <Icon
                   id="icon-chevron-double-up"
-                  width="28"
-                  height="28"
+                  width="16"
+                  height="16"
                   className={css.icon}
+                  style={{
+                    transform: isMenuOpen ? 'rotate(180deg)' : 'none',
+                    transition: 'transform 0.3s ease',
+                  }}
                 />
               </button>
               {isMenuOpen && (
                 <ul className={css.userMenuDropdown}>
                   <li onClick={handleCloseUserMenu} className={css.menuItem}>
-                    <NavLink>
-                      <div className={css.itemIcon}>
-                        <span>Setting</span>
-                        <Icon id="icon-cog-6-tooth" width="16" height="16" />
-                      </div>
-                    </NavLink>
+                    <Link className={css.itemIcon}>
+                      <span className={css.itemText}>Setting</span>
+                      <Icon
+                        id="icon-cog-6-tooth"
+                        width="16"
+                        height="16"
+                        className={css.iconOption}
+                      />
+                    </Link>
                   </li>
                   <li
                     onClick={handleLogoutConfirmation}
                     className={css.menuItem}
                   >
-                    <NavLink>
-                      <div className={css.itemIcon}>
-                        <span>Log out</span>
-                        <Icon
-                          id="icon-arrow-right-on-rectangle"
-                          width="16"
-                          height="16"
-                        />
-                      </div>
-                    </NavLink>
+                    <button className={css.itemIcon}>
+                      <span className={css.itemText}>Logout</span>
+                      <Icon
+                        id="icon-arrow-right-on-rectangle"
+                        width="16"
+                        height="16"
+                        className={css.iconOption}
+                      />
+                    </button>
                   </li>
                 </ul>
               )}
