@@ -8,10 +8,12 @@ import { todayConsumptionsSelector } from 'store/selectors';
 
 import css from './TodayWaterList.module.css';
 
+const modalIsOpenInitial = { open: false, id: null };
+
 export const TodayWaterList = () => {
   const dispatch = useDispatch();
 
-  const [modalIsOpen, setIsOpen] = useState(false);
+  const [modalIsOpen, setIsOpen] = useState(modalIsOpenInitial);
 
   const water = useSelector(todayConsumptionsSelector);
 
@@ -58,7 +60,7 @@ export const TodayWaterList = () => {
               <button
                 className={css.deleteWaterBtn}
                 type="button"
-                onClick={() => setIsOpen(true)}
+                onClick={() => setIsOpen({ open: true, id: water.id })}
               >
                 <Icon
                   className={css.deleteWaterIcon}
@@ -67,17 +69,6 @@ export const TodayWaterList = () => {
                   height="16"
                 />
               </button>
-              <ConfirmActionWarningModal
-                modalIsOpen={modalIsOpen}
-                closeModal={() => setIsOpen(false)}
-                actionCallBack={() => {
-                  setIsOpen(false);
-                  handleDeleteConsumption(water.id);
-                }}
-                title="Delete entry"
-                confirmMessage="Are you sure you want to delete the entry?"
-                actionButtonName="Delete"
-              />
             </div>
           </li>
         ))}
@@ -93,6 +84,18 @@ export const TodayWaterList = () => {
           Add water
         </button>
       </div>
+
+      <ConfirmActionWarningModal
+        modalIsOpen={modalIsOpen.open}
+        closeModal={() => setIsOpen(modalIsOpenInitial)}
+        actionCallBack={() => {
+          handleDeleteConsumption(modalIsOpen.id);
+          setIsOpen(modalIsOpenInitial);
+        }}
+        title="Delete entry"
+        confirmMessage="Are you sure you want to delete the entry?"
+        actionButtonName="Delete"
+      />
     </div>
   );
 };
