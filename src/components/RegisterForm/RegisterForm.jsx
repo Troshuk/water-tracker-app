@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { RegisterSchema } from '../../schemasValdiate/RegisterSchema.jsx';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container, Icon, Section } from 'components';
+
+import { RegisterSchema } from '../../schemasValdiate/RegisterSchema.jsx';
+import { Container, ContentLoader, Icon, Section } from 'components';
+
 import { signUpSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
-import css from './RegisterForm.module.css';
 import { signUp } from 'store/operations.js';
 import { LOGIN_ROUTE } from 'routes/routes.js';
+
+import css from '../LoginFrom/LoginFrom.module.css';
 
 export const RegisterForm = () => {
   const [visible, setVisible] = useState(false);
@@ -24,7 +27,7 @@ export const RegisterForm = () => {
       dispatch(signUp(data))
         .unwrap()
         .then(() => resetForm()),
-      `Creating new user: ${data.name}`,
+      `Creating new user: ${data.email}`,
       true
     );
   };
@@ -41,7 +44,7 @@ export const RegisterForm = () => {
           validationSchema={RegisterSchema}
           onSubmit={handleSubmit}
         >
-          {({ errors, touched, values }) => (
+          {({ errors, touched }) => (
             <Form className={css.formContainer}>
               <div className={css.containerEmail}>
                 <h1 className={css.titleForm}>Sign Up</h1>
@@ -49,7 +52,6 @@ export const RegisterForm = () => {
                 <Field
                   type="text"
                   name="email"
-                  values={values.email}
                   placeholder="E-mail"
                   className={`${css.inputField} ${
                     errors.email && touched.email
@@ -63,13 +65,12 @@ export const RegisterForm = () => {
                   </p>
                 )}
               </div>
-              <div className={css.inputContainer}>
+              <div className={css.containerEmail}>
                 <p className={css.textInput}>Enter your password</p>
-                <div className={css.inputWithPassword}>
+                <div className={css.inputWithIcon}>
                   <Field
                     type={visible ? 'text' : 'password'}
                     name="password"
-                    value={values.password}
                     placeholder="Password"
                     className={`${css.inputField} ${
                       errors.password && touched.password
@@ -96,8 +97,7 @@ export const RegisterForm = () => {
                   <Field
                     type={visibleEye ? 'text' : 'password'}
                     name="passwordRepeat"
-                    // value={values.password} 'passwordReapet' error is not allowed in back-end
-                    placeholder="Reapet password"
+                    placeholder="Repeat password"
                     className={`${css.inputField} ${
                       errors.passwordRepeat && touched.passwordRepeat
                         ? `${css.inputError} ${css.error}`
@@ -121,7 +121,7 @@ export const RegisterForm = () => {
                   className={css.buttonForm}
                   disabled={isLoading}
                 >
-                  Sign Up
+                  Sign Up {isLoading && <ContentLoader />}
                 </button>
               </div>
               <div className={css.redirectLink}>
