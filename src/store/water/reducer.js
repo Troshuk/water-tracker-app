@@ -1,20 +1,15 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { logIn, signUp, fetchUser, logOut } from './operations';
+import { getConsumptionForToday, createConsumptionRecord } from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
 
 const initialState = {
-  user: {
-    name: null,
-    email: null,
-    avatarUrl: null,
-    gender: null,
-    dailyWaterGoal: 0,
+  today: {
+    consumptionPercentage: 0,
+    consumption: [],
   },
-  token: null,
-  isLoggedIn: false,
-  ...[logIn, signUp, fetchUser, logOut].reduce(
+  ...[getConsumptionForToday, createConsumptionRecord].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -23,37 +18,25 @@ const initialState = {
   ),
 };
 
-export const authSlice = createSlice({
-  name: 'auth',
+export const waterSlice = createSlice({
+  name: 'water',
   initialState,
   extraReducers: builder => {
     builder
-      // Fetch Current User
-      .addCase(fetchUser.fulfilled, (state, { payload }) => {
-        state.user = payload;
+      // Get consumption for today
+      .addCase(getConsumptionForToday.fulfilled, (state, { payload }) => {
+        state.today = payload;
       })
-      // Sign Up
-      .addCase(signUp.fulfilled, () => {})
-      // Log In
-      .addCase(logIn.fulfilled, (state, { payload }) => {
-        state.user = payload.user;
-        state.token = payload.token;
-      })
-      // Log Out
-      .addCase(logOut.fulfilled, () => initialState)
-
-      // Handle fulfilled requests status
-      .addMatcher(isAnyOf(logIn.fulfilled, fetchUser.fulfilled), state => {
-        state.isLoggedIn = true;
+      // Create consumption record
+      .addCase(createConsumptionRecord.fulfilled, (state, { payload }) => {
+        state.today.consumption.push(payload);
       })
 
       // Handle fulfilled requests status
       .addMatcher(
         isAnyOf(
-          logIn.fulfilled,
-          signUp.fulfilled,
-          fetchUser.fulfilled,
-          logOut.fulfilled
+          getConsumptionForToday.fulfilled,
+          createConsumptionRecord.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -66,10 +49,8 @@ export const authSlice = createSlice({
       // Handle Pending requests
       .addMatcher(
         isAnyOf(
-          logIn.pending,
-          signUp.pending,
-          fetchUser.pending,
-          logOut.pending
+          getConsumptionForToday.pending,
+          createConsumptionRecord.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -82,10 +63,8 @@ export const authSlice = createSlice({
       // Handle Rejected requests
       .addMatcher(
         isAnyOf(
-          logIn.rejected,
-          signUp.rejected,
-          fetchUser.rejected,
-          logOut.rejected
+          getConsumptionForToday.rejected,
+          createConsumptionRecord.rejected
         ),
         (_, { error, payload, type, meta }) => ({
           ...initialState,
@@ -99,4 +78,4 @@ export const authSlice = createSlice({
   },
 });
 
-export const authReducer = authSlice.reducer;
+export const waterReducer = waterSlice.reducer;
