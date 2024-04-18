@@ -11,7 +11,7 @@ import { ConfirmActionWarningModal, Container, Icon } from 'components';
 
 export const NavigationBar = () => {
   const dispatch = useDispatch();
-  const { isLoggedIn } = useSelector(AuthReducerSelector);
+  const { isLoggedIn, user } = useSelector(AuthReducerSelector);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -43,12 +43,22 @@ export const NavigationBar = () => {
         </Link>
         {isLoggedIn ? (
           <>
-            <div className={css.containerArrowCategory}>
+            <div>
               <button
                 className={css.userMenuToggle}
                 onClick={handleToggleUserMenu}
               >
-                <Icon id="icon-user" width="28" height="28" />
+                {user.avatarURL ? (
+                  <img
+                    alt={user.name || user.email}
+                    src={user.avatarURL}
+                    width="28"
+                    height="28"
+                    className={css.iconUser}
+                  />
+                ) : (
+                  <Icon id="icon-user" width="28" height="28" />
+                )}
                 <Icon
                   id="icon-chevron-double-up"
                   width="16"

@@ -18,7 +18,9 @@
   align-items: center;
   gap: 4px;
 }
-
+.iconUser {
+  border-radius: 28px;
+}
 .userMenuDropdown {
   position: absolute;
   top: 80%;
