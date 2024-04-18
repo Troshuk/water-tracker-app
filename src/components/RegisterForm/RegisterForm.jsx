@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RegisterSchema } from '../../schemasValdiate/RegisterSchema.jsx';
@@ -17,6 +17,7 @@ export const RegisterForm = () => {
   const [visible, setVisible] = useState(false);
   const [visibleEye, setVisibleEye] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isLoading } = useSelector(signUpSelector);
 
   const handleSubmit = (values, { resetForm }) => {
@@ -26,7 +27,10 @@ export const RegisterForm = () => {
     notifyApi(
       dispatch(signUp(data))
         .unwrap()
-        .then(() => resetForm()),
+        .then(() => {
+          resetForm();
+          navigate(LOGIN_ROUTE);
+        }),
       `Creating new user: ${data.email}`,
       true
     );
