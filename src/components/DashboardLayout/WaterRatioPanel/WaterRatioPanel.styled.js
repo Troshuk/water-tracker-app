@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const StyledRangeInput = styled.input`
   -webkit-appearance: none;
   appearance: none;
-  /* width: 258px; */
   width: 100%;
   cursor: default;
   outline: none;
@@ -19,8 +18,6 @@ export const StyledRangeInput = styled.input`
   }
   @media (min-width: 768px) {
     width: 334px;
-    // margin-left:1px;
-    // margin-right:17px;
   }
   @media (min-width: 1440px) {
     width: 360px;
@@ -77,13 +74,13 @@ export const RangeDiv = styled.div`
 export const RangeTitle = styled.p`
   font-size: 18px;
   font-weight: 400;
-  line-height: 24px;
+  line-height: 133%;
   letter-spacing: 0em;
   text-align: left;
   margin-bottom: 8px;
   color: var(--color-primary-blue);
   @media (min-width: 768px) {
-    margin-bottom: 8px;
+    margin-bottom: 16px;
   }
 `;
 export const PercentageOfRange = styled.div`
@@ -162,5 +159,4 @@ export const SvgButton = styled.svg`
   margin-right: 10px;
   fill: transparent;
   stroke: var(--color-primary-white);
-  stroke-width: 2;
 `;

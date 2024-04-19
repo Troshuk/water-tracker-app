@@ -1,6 +1,4 @@
-import React from 'react';
-
-import iconSprite from '../../../images/icons.svg';
+import { useSelector } from 'react-redux';
 
 import {
   RangeAndAddWater,
@@ -14,8 +12,9 @@ import {
   SvgButton,
 } from './WaterRatioPanel.styled';
 
-import { todayConsumptionPercentageSelector } from '../../../store/water/selectors.js';
-import { useSelector } from 'react-redux';
+import { todayConsumptionPercentageSelector } from 'store/selectors.js';
+
+import iconSprite from 'images/icons.svg';
 
 export const WaterRatioPanel = () => {
   const consumptionPercentage = useSelector(todayConsumptionPercentageSelector);
@@ -35,7 +34,7 @@ export const WaterRatioPanel = () => {
           min="0"
           max="100"
           readOnly={true}
-        ></StyledRangeInput>
+        />
         <PercentageDiv>
           <PercentageOfRange>0%</PercentageOfRange>
           <PercentageOfRange>
