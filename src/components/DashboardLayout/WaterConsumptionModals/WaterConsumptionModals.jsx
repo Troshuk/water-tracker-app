@@ -18,14 +18,22 @@ const getCurrentTime = () => {
 // Генеруємо варіанти часу з інтервалом 5 хвилин
 const generateTimeOptions = () => {
   const options = [];
+  const today = new Date();
   for (let hour = 0; hour < 24; hour++) {
     for (let minute = 0; minute < 60; minute += 5) {
+      const DateOption = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate(),
+        hour,
+        minute
+      ).toISOString();
       const time = `${String(hour).padStart(1, '0')}:${String(minute).padStart(
         2,
         '0'
       )}`;
       options.push(
-        <option key={time} value={time}>
+        <option key={DateOption} value={DateOption}>
           {time}
         </option>
       );
