@@ -1,12 +1,102 @@
 .header {
-  padding: 8px 0;
+  position: relative;
+  margin-top: 8px;
 }
 
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* width: auto; */
+}
+
+.userMenuToggle {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.iconUser {
+  border-radius: 28px;
+}
+
+.userMenuDropdown {
+  position: absolute;
+  border-radius: 10px;
+  z-index: 2;
+  box-shadow: 0px 4px 8px 0px var(--color-secondary-light-blue);
+  background-color: var(--color-primary-white);
+  right: -5%;
+  top: 2px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.userMenuDropdown .itemIcon {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  gap: 8px;
+}
+
+.profileDropDown {
+  position: relative;
+}
+
+.userMenuToggle {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon {
+  stroke: var(--primery-color-blue);
+  transition: transform var(--transition-time) var(--transition-function);
+}
+
+.openIcon {
+  transform: rotate(180deg);
+}
+
+.menuItem {
+  color: var(--primery-color-blue);
+}
+
+.userMenuDropdown .menuItem:last-child {
+  padding-top: 0;
+}
+
+.userMenuDropdown .menuItem {
+  cursor: pointer;
+}
+
+.listOptions {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.link:hover {
+  color: var(--secondary-color-5);
+}
+
+.itemText {
+  font-size: 16px;
+  line-height: 125%;
+}
+
+.iconOption {
+  stroke: var(--primery-color-blue);
+  fill: transparent;
 }
 
 .link {
@@ -20,6 +110,34 @@
   color: var(--primery-color-blue);
 }
 
-.link:hover {
-  color: var(--secondary-color-5);
+.userMenu {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 4px;
+}
+
+.userName {
+  font-size: 16px;
+  line-height: 125%;
+  text-align: right;
+  margin-right: 4px;
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    margin-top: 16px;
+  }
+
+  .userName {
+    font-size: 18px;
+    line-height: 133%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .header {
+    margin-top: 12px;
+  }
 }
