@@ -11,13 +11,7 @@ const useModal = () => {
     setIsOpen(false);
   };
 
-  const handleKeyDown = e => {
-    if (e.key === 'Escape') {
-      closeModal();
-    }
-  };
-
-  return { isOpen, openModal, closeModal, handleKeyDown };
+  return { isOpen, openModal, closeModal };
 };
 
 export default useModal;
