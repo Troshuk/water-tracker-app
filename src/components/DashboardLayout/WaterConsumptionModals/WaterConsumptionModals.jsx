@@ -1,9 +1,10 @@
 import ReactModal from 'react-modal';
 import { useState } from 'react';
-
 import { Icon } from 'components';
-
 import css from './WaterConsumptionModals.module.css';
+import { useDispatch } from 'react-redux';
+import { createConsumptionRecord } from '../../../store/water/operations.js';
+// import { createConsumptionRecordSelector } from '../../../store/water/selectors.jsx';
 
 ReactModal.setAppElement('#root');
 
@@ -35,8 +36,27 @@ const generateTimeOptions = () => {
 
 export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
   const [selectedTime, setSelectedTime] = useState(getCurrentTime());
+  const [consumedValue, setConsumedValue] = useState(0);
+  const [changedConsumedValue, setchangedConsumedValue] = useState('0');
+
+  const dispatch = useDispatch();
+
   const handleTimeChange = event => {
     setSelectedTime(event.target.value);
+  };
+  const handleValueChange = e => {
+    setConsumedValue(e.target.value);
+  };
+  const changeConsumedValue = () => {
+    setchangedConsumedValue(consumedValue);
+  };
+  const handleSubmit = () => {
+    dispatch(
+      createConsumptionRecord({
+        value: changedConsumedValue,
+        consumed_at: selectedTime,
+      })
+    );
   };
   return (
     <ReactModal
@@ -73,7 +93,7 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
                 height="24"
               />
             </button>
-            <span className={css.amount_to_add}>50ml</span>
+            <span className={css.amount_to_add}>{changedConsumedValue}ml</span>
             <button className={css.plus_minus}>
               <Icon
                 className={css.little_plus_minus}
@@ -99,11 +119,19 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
             <label className={css.label_value} htmlFor="value">
               Enter the value of the water used:
             </label>
-            <input type="input" className={css.select_time_value}></input>
+            <input
+              type="input"
+              className={css.select_time_value}
+              onChange={handleValueChange}
+              onBlur={changeConsumedValue}
+              value={consumedValue}
+            ></input>
           </div>
           <div className={css.container_save}>
-            <span className={css.value_save}> 50ml </span>
-            <button className={css.btn_sav}>Save</button>
+            <span className={css.value_save}>{changedConsumedValue}ml</span>
+            <button onClick={handleSubmit} className={css.btn_sav}>
+              Save
+            </button>
           </div>
         </div>
       </div>
@@ -141,7 +169,7 @@ export const WaterConsumptionEditModal = ({ isOpen, onRequestClose }) => {
         </div>
         <div className={css.last_consumed}>
           <span className={css.last_glass}>
-            <Icon id="icon-presentation-chart-bar" width="36" height="36" />
+            <Icon id="glass-water" width="36" height="36" fill="blue" />
           </span>
           <span className={css.last_value}>250ml</span>
           <span className={css.last_time}>7:00 AM</span>
