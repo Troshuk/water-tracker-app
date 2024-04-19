@@ -60,6 +60,11 @@
 
 .icon {
   stroke: var(--primery-color-blue);
+  transition: transform var(--transition-time) var(--transition-function);
+}
+
+.openIcon {
+  transform: rotate(180deg);
 }
 
 .menuItem {

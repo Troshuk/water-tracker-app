@@ -72,11 +72,7 @@ export const NavigationBar = () => {
                 id="icon-chevron-double-up"
                 width="16"
                 height="16"
-                className={css.icon}
-                style={{
-                  transform: isMenuOpen ? 'rotate(180deg)' : 'none',
-                  transition: 'transform 0.3s ease',
-                }}
+                className={`${css.icon} ${isMenuOpen && css.openIcon}`}
               />
             </button>
 
