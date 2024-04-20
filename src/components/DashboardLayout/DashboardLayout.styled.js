@@ -25,8 +25,8 @@ export const StyledSection = styled(Section)`
   @media screen and (min-width: 1440px) {
     background-image: url(${backgroundImgDesc});
     background-size: contain;
-    background-position: 52% center;
-    background-position-y: 30px, center;
+    background-position: center;
+    background-position-y: 2.5em, center;
     background-repeat: no-repeat;
     margin-top: 20px;
   }

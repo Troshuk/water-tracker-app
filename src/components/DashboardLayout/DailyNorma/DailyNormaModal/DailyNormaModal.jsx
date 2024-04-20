@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
   AboutFormula,
   AboutFormulaColor,
@@ -6,10 +7,10 @@ import {
   AmountTextInfo,
   BtnCloseModal,
   Button,
-  CircleColor1,
-  CircleColor2,
+  CircleColor,
   FormulaText,
   Input,
+  MessageError,
   StyledRadioCircle,
   StyledRadioGroup,
   StyledRadioInput,
@@ -24,11 +25,115 @@ import {
   WrapHeader,
 } from './DailyNormaModal.styled';
 import { Icon } from 'components';
+import { useDispatch, useSelector } from 'react-redux';
+import { AuthReducerSelector } from 'store/selectors';
+import { useFormik } from 'formik';
+import { DailyNormaModalSchema } from 'schemasValdiate/dailyNormaModallSchema';
+import { toast } from 'react-toastify';
 
 export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
+  const [formula, setFormula] = useState('');
+  const [amount, setAmount] = useState(0);
+  const dispatch = useDispatch();
+  const { user, token } = useSelector(AuthReducerSelector);
+
+  const formik = useFormik({
+    initialValues: {
+      gender: '',
+      weight: '',
+      time: '',
+      dailyWaterGoal: '',
+    },
+    validationSchema: DailyNormaModalSchema,
+    onSubmit: async values => {
+      console.log(values.dailyWaterGoal);
+      let waterNorma = amount * 1000;
+      if (values.dailyWaterGoal > 0) {
+        waterNorma = values.dailyWaterGoal * 1000;
+      }
+
+      if (waterNorma < 1000) {
+        return toast.error('Even the cat drinks more (min 1 L)');
+      }
+
+      if (waterNorma > 15000 && waterNorma <= 25000) {
+        return toast.error(
+          'This is amount of water that horse usually drinks. Please pick another amount (max rate 15 L)'
+        );
+      }
+
+      if (waterNorma > 25000) {
+        return toast.error(
+          'This is amount of water that elephant usually drinks. Please pick another amount (max rate 15 L)'
+        );
+      }
+
+      const dailyWaterGoalMsg = {
+        dailyWaterGoal: waterNorma,
+      };
+
+      try {
+        await dispatch(user.dailyWaterGoal, token, dailyWaterGoalMsg);
+        handleCloseModal();
+      } catch {
+        return;
+      }
+    },
+  });
+
+  useEffect(() => {
+    const weightNumber = Math.floor(formik.values.weight);
+    let timeNumber = Math.floor(formik.values.time);
+
+    if (
+      formik.values.gender === '' ||
+      isNaN(weightNumber) ||
+      weightNumber < 0 ||
+      timeNumber < 0
+    ) {
+      return;
+    }
+    if (isNaN(timeNumber)) {
+      timeNumber = 0;
+    }
+
+    let result;
+    switch (formik.values.gender) {
+      case 'woman':
+        result = (weightNumber * 0.03 + timeNumber * 0.4).toFixed(1);
+        break;
+      case 'man':
+        result = (weightNumber * 0.04 + timeNumber * 0.6).toFixed(1);
+        break;
+      default:
+        return;
+    }
+
+    setAmount(result);
+  }, [formik.values.gender, formik.values.time, formik.values.weight]);
+
+  const manFromula = 'V=(M*0,04) + (T*0,6)';
+  const womanFormula = 'V=(M*0,03) + (T*0,4)';
+
   const handleCloseModal = () => {
     closeModal();
+    formik.resetForm();
+    setAmount(0);
   };
+
+  const handleGenderChange = e => {
+    formik.setFieldValue('gender', e.target.value);
+    if (e.target.value === 'woman') {
+      setFormula('V=(M*0,03) + (T*0,4)');
+    } else {
+      setFormula('V=(M*0,04) + (T*0,6)');
+    }
+  };
+
+  const handleInputChange = e => {
+    formik.handleChange(e);
+  };
+
   return (
     <StyledReactModal
       contentLabel="Modal"
@@ -43,26 +148,35 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
       <WrapHeader>
         <TitleText>My daily norma</TitleText>
         <BtnCloseModal type="button" onClick={handleCloseModal}>
-          <Icon id="icon-plus-small" width="36" height="36" style={{stroke: '#407bff'}} />
+          <Icon
+            id="icon-plus-small"
+            width="36"
+            height="36"
+            style={{ stroke: '#407bff' }}
+          />
         </BtnCloseModal>
       </WrapHeader>
-      <form>
+      <form onSubmit={formik.handleSubmit}>
         <WrapFormulaText>
           <p>
-            For girl: <FormulaText>V=(M*0,03) + (T*0,4)</FormulaText>
+            For woman: <FormulaText>{womanFormula}</FormulaText>
           </p>
           <p>
-            For man: <FormulaText>V=(M*0,04) + (T*0,6)</FormulaText>
+            For man: <FormulaText>{manFromula}</FormulaText>
           </p>
         </WrapFormulaText>
         <WrapFormula>
           <FormulaText>
+            {formik.values.gender !== '' ? (
+              formula
+            ) : (
               <AboutFormula>
                 <AboutFormulaColor>* </AboutFormulaColor>V is the volume of the
                 water norm in liters per day, M is your body weight, T is the
                 time of active sports, or another type of activity commensurate
                 in terms of loads (in the absence of these, you must set 0)
               </AboutFormula>
+            )}
           </FormulaText>
         </WrapFormula>
         <Text>Calculate your rate:</Text>
@@ -72,9 +186,13 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
               type="radio"
               name="gender"
               value="woman"
+              onChange={handleGenderChange}
+              $hasError={formik.touched.name && formik.errors.name}
             />
             <StyledRadioCircle>
-              <CircleColor2 />
+              <CircleColor
+                checked={formik.values.gender === 'woman'}
+              ></CircleColor>
             </StyledRadioCircle>
             <StyledRadioText>For woman</StyledRadioText>
           </StyledRadioLabel>
@@ -83,20 +201,33 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
               type="radio"
               name="gender"
               value="man"
+              onChange={handleGenderChange}
+              $hasError={formik.touched.name && formik.errors.name}
             />
             <StyledRadioCircle>
-              <CircleColor1 />
+              <CircleColor
+                checked={formik.values.gender === 'man'}
+              ></CircleColor>
             </StyledRadioCircle>
             <StyledRadioText>For man</StyledRadioText>
           </StyledRadioLabel>
         </StyledRadioGroup>
+        {formik.touched.gender && formik.errors.gender ? (
+          <MessageError>{formik.errors.gender}</MessageError>
+        ) : null}
         <label>
           <TextInfo>Your weight in kilograms:</TextInfo>
           <Input
             name="weight"
             type="text"
+            value={formik.values.weight}
+            onChange={handleInputChange}
+            $hasError={formik.touched.weight && formik.errors.weight}
             placeholder="0"
           />
+          {formik.touched.weight && formik.errors.weight ? (
+            <MessageError>{formik.errors.weight}</MessageError>
+          ) : null}
         </label>
         <label>
           <TextInfo>
@@ -106,24 +237,34 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
           <Input
             name="time"
             type="text"
+            value={formik.values.time}
+            onChange={handleInputChange}
+            $hasError={formik.touched.time && formik.errors.time}
             placeholder="0"
           />
+          {formik.touched.time && formik.errors.time ? (
+            <MessageError>{formik.errors.time}</MessageError>
+          ) : null}
         </label>
         <AmountText>
           <AmountTextInfo>
             The required amount of water in liters per day:
           </AmountTextInfo>
-          <AmountNumberInfo>1.8 L</AmountNumberInfo>
+          <AmountNumberInfo>{amount} L</AmountNumberInfo>
         </AmountText>
         <Text>Write down how much water you will drink:</Text>
         <Input
           name="dailyNorma"
           type="text"
-          placeholder="0"
+          value={formik.values.dailyNorma}
+          onChange={handleInputChange}
+          $hasError={formik.touched.dailyNorma && formik.errors.dailyNorma}
+          placeholder={amount}
         />
-        <Button type="submit">
-          Save
-        </Button>
+        {formik.touched.dailyNorma && formik.errors.dailyNorma ? (
+          <MessageError>{formik.errors.dailyNorma}</MessageError>
+        ) : null}
+        <Button type="submit">Save</Button>
       </form>
     </StyledReactModal>
   );
