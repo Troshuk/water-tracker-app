@@ -11,6 +11,7 @@ import { todayConsumptionsSelector, userSelector } from 'store/selectors';
 
 import css from './TodayWaterList.module.css';
 import { notifyApi } from 'notify';
+import { notify } from 'notify';
 
 const modalIsOpenInitial = { open: false, id: null };
 
@@ -26,7 +27,16 @@ export const TodayWaterList = () => {
     notifyApi(
       dispatch(deleteConsumptionRecord(id))
         .unwrap()
-        .then(() => dispatch(getConsumptionForToday())),
+        .then(() =>
+          dispatch(getConsumptionForToday())
+            .unwrap()
+            .catch(() =>
+              notify(
+                'There was an error loading water consumption for today, please try again later',
+                'error'
+              )
+            )
+        ),
       'Removing water record',
       true
     );

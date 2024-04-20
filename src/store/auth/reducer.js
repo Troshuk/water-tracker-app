@@ -11,6 +11,7 @@ const initialState = {
     avatarUrl: null,
     gender: null,
     dailyWaterGoal: 0,
+    timezone: null,
   },
   token: null,
   isLoggedIn: false,

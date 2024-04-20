@@ -12,12 +12,20 @@ import {
   StyledSection,
 } from './DashboardLayout.styled';
 import { getConsumptionForToday } from 'store/operations';
+import { notify } from 'notify';
 
 export const DashboardLayout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getConsumptionForToday());
+    dispatch(getConsumptionForToday())
+      .unwrap()
+      .catch(() =>
+        notify(
+          'There was an error loading water consumption for today, please try again later',
+          'error'
+        )
+      );
   }, [dispatch]);
 
   return (
