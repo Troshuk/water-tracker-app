@@ -1,6 +1,6 @@
 import { Formik, Form, Field } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { notifyApi } from 'notify';
 
 import { forgotPasswordSelector } from 'store/selectors';
@@ -13,20 +13,17 @@ import css from './ForgotPassword.module.css';
 export const ForgotPassword = () => {
   const { isLoading } = useSelector(forgotPasswordSelector);
   const dispatch = useDispatch();
-  const location = useLocation();
- 
+  // const location = useLocation();
 
   const handleSubmit = (body, actions) => {
-    const token = new URLSearchParams(location.search).get('token');
+    // const token = new URLSearchParams(location.search).get('token');
     const email = body.email;
-    const data = {email};
+    const data = { email };
 
     notifyApi(
-      dispatch(forgotPassword(data))
-        .then(() => {
-          actions.resetForm();
-         
-        }),
+      dispatch(forgotPassword(data)).then(() => {
+        actions.resetForm();
+      }),
       `The letter was send`,
       true
     );
@@ -40,8 +37,7 @@ export const ForgotPassword = () => {
             Forgot your password?
             <br />
             <br />
-            Enter your email below, and we'll send you a message with
-            instructions on how to reset it.
+            Enter your email, and we'll send you a message
           </h1>
         </div>
 

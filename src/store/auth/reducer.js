@@ -46,6 +46,10 @@ export const authSlice = createSlice({
       // Forgot Password
       .addCase(forgotPassword.fulfilled, (state, { payload }) => {
         state.user.password = null;
+        state.user = payload;
+        // state.token = payload.token;
+        // state.isLoggedIn = false;
+
       })
 
       // Handle fulfilled requests status
