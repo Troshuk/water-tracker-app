@@ -16,7 +16,10 @@
   padding: 24px 13px;
   box-shadow: 0px 4px 8px 0px var(--color-secondary-light-blue);
 }
-
+.calendarBody {
+  display: flex;
+  justify-content: center;
+}
 .calendarHeader {
   display: flex;
   align-items: center;
@@ -47,19 +50,15 @@
   text-align: center;
   margin-top: 4px;
 }
-.modalBackground {
-  background-color: var(--color-primary-white);
-}
+
 .titleModal {
   font-size: 16px;
 }
+
 .itemName {
   color: var(--color-primary-blue);
 }
 .calendarList {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 42px 22px;
