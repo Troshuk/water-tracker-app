@@ -1,10 +1,18 @@
 import ReactModal from 'react-modal';
-import React, { useState, useEffect } from 'react';
-import { Icon } from 'components';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { ContentLoader, Icon } from 'components';
+
+import {
+  createConsumptionRecord,
+  getConsumptionForToday,
+} from 'store/operations';
+import { createConsumptionRecordSelector } from 'store/selectors';
+import { notifyApi } from 'notify';
+
 import css from './WaterConsumptionModals.module.css';
-import { useDispatch } from 'react-redux';
-import { createConsumptionRecord } from '../../../store/water/operations.js';
-// import { createConsumptionRecordSelector } from '../../../store/water/selectors.jsx';
+import { notify } from 'notify';
 
 ReactModal.setAppElement('#root');
 
@@ -20,20 +28,22 @@ const getCurrentTime = () => {
     today.getHours(),
     formattedMinutes
   );
-  // console.log('closes', closes.toISOString());
   return closes.toISOString();
 };
 
-// Генеруємо варіанти часу з інтервалом 5 хвилин
 const generateTimeOptions = () => {
   const options = [];
   const today = new Date();
+  const step = 5;
+
   for (let hour = 0; hour < 24; hour++) {
-    for (let minute = 0; minute < 60; minute += 5) {
-      const time = `${String(hour).padStart(1, '0')}:${String(minute).padStart(
+    for (let minute = 0; minute < 60; minute += step) {
+      const hour12 = hour % 12 || 12; // Convert hour to 12-hour format
+      const period = hour < 12 ? 'AM' : 'PM'; // Determine AM or PM
+      const time = `${String(hour12)}:${String(minute).padStart(
         2,
         '0'
-      )}`;
+      )} ${period}`;
       const dateTime = new Date(
         today.getFullYear(),
         today.getMonth(),
@@ -52,52 +62,67 @@ const generateTimeOptions = () => {
   return options;
 };
 
-const currentTime = getCurrentTime();
+const MAX_VALUE = 5000;
+const MIN_VALUE = 0;
 
 export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
-  const [selectedTime, setSelectedTime] = useState(currentTime);
-  const [consumedValue, setConsumedValue] = useState(Number(50));
+  const [selectedTime, setSelectedTime] = useState(getCurrentTime());
   const [changedConsumedValue, setChangedConsumedValue] = useState(Number(50));
+  const { isLoading } = useSelector(createConsumptionRecordSelector);
 
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    setSelectedTime(getCurrentTime());
-  }, []);
 
   const handleTimeChange = event => {
     setSelectedTime(event.target.value);
   };
-  const changeConsumedValue = e => {
-    console.log(e);
-    const num = Number(e.target.value);
-    num >= 0 && num <= 5000
-      ? setChangedConsumedValue(num)
-      : setConsumedValue(changedConsumedValue);
+
+  const handleSetConsumedValue = value => {
+    if (value > MAX_VALUE) {
+      setChangedConsumedValue(MAX_VALUE);
+    } else if (value < MIN_VALUE) {
+      setChangedConsumedValue(MIN_VALUE);
+    } else {
+      setChangedConsumedValue(value);
+    }
   };
 
-  const handleValueChange = e => {
-    setConsumedValue(e.target.value);
+  const changeConsumedValue = e => {
+    const num = Number(e.target.value);
+    handleSetConsumedValue(num);
   };
 
   const plus50ml = () => {
-    const value = Number(consumedValue);
-    setConsumedValue(value + 50 <= 5000 ? value + 50 : value);
-    setChangedConsumedValue(value + 50 <= 5000 ? value + 50 : value);
+    const value = Number(changedConsumedValue);
+    handleSetConsumedValue(value + 50);
   };
 
   const minus50ml = () => {
-    const value = Number(consumedValue);
-    setConsumedValue(value - 50 >= 0 ? value - 50 : value);
-    setChangedConsumedValue(value - 50 >= 0 ? value - 50 : value);
+    const value = Number(changedConsumedValue);
+    handleSetConsumedValue(value - 50);
   };
 
   const handleSubmit = () => {
-    dispatch(
-      createConsumptionRecord({
-        value: changedConsumedValue,
-        consumed_at: new Date(selectedTime).toISOString(),
-      })
+    notifyApi(
+      dispatch(
+        createConsumptionRecord({
+          value: changedConsumedValue,
+          consumed_at: new Date(selectedTime).toISOString(),
+        })
+      )
+        .unwrap()
+        .then(() => {
+          onRequestClose();
+          dispatch(getConsumptionForToday())
+            .unwrap()
+            .catch(() =>
+              notify(
+                'There was an error loading water consumption for today, please try again later',
+                'error'
+              )
+            );
+        }),
+      'Adding some water',
+      true
     );
   };
 
@@ -165,16 +190,16 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
             <input
               type="number"
               className={css.select_time_value}
-              onChange={handleValueChange}
+              onChange={changeConsumedValue}
               onBlur={changeConsumedValue}
-              value={consumedValue}
+              value={changedConsumedValue}
               min={0}
             />
           </div>
           <div className={css.container_save}>
             <span className={css.value_save}>{changedConsumedValue}ml</span>
             <button onClick={handleSubmit} className={css.btn_sav}>
-              Save
+              Save {isLoading && <ContentLoader />}
             </button>
           </div>
         </div>

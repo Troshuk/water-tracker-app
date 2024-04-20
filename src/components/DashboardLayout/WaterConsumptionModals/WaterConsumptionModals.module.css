@@ -5,15 +5,15 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: auto;
-    width: auto;
+    width: 100%;
+    max-width: 280px;
+    min-height: 540px;
     background-color: #ffffff;
     border-radius: 10px;
 }
 
 .containerModalAdd {
-    width: 280px;
-    height: 540px;
+    width: 100%;
     padding: 24px 12px;
 }
 
@@ -135,7 +135,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    width: 256px;
+    width: 100%;
 }
 
 .value_save {
@@ -147,7 +147,7 @@
 }
 
 .btn_sav {
-    width: 256px;
+    width: 100%;
     height: 36px;
     color: white;
     background-color: var(--color-primary-blue);
@@ -156,18 +156,16 @@
     font-weight: 500;
     line-height: 1.11;
     box-shadow: 0px 4px 4px rgba(64, 123, 255, 0.34);
-    ;
 }
 
 @media (min-width: 768px) {
-    .containerModalAdd {
-        width: 704px;
-        height: 504px;
-        padding: 32px 24px;
+    .modal {
+        max-width: 704px;
+        min-height: 504px;
     }
 
-    .container_select {
-        width: 100%;
+    .containerModalAdd {
+        padding: 32px 24px;
     }
 
     .select_time_value {
@@ -194,8 +192,8 @@
 }
 
 @media (min-width: 1440px) {
-    .containerModalAdd {
-        width: 592px;
+    .modal {
+        max-width: 592px;
     }
 
     .container_select {

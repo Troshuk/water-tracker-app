@@ -1,6 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { getConsumptionForToday, createConsumptionRecord } from './operations';
+import {
+  getConsumptionForToday,
+  createConsumptionRecord,
+} from './operations';
 
 export const WaterReducerSelector = ({ waterReducer }) => waterReducer;
 
