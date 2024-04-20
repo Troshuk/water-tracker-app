@@ -1,6 +1,4 @@
 .todayWaterContainer {
-  /* width: 264px; */
-  height: 258px;
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -16,6 +14,9 @@
 
 .todayWaterList {
   overflow: scroll;
+  height: 204px;
+  padding-right: 10px;
+  width: 100%;
 }
 
 .todayWaterList::-webkit-scrollbar {
@@ -36,8 +37,7 @@
 }
 
 .todayWaterItem {
-  width: 254px;
-  margin-right: 4px;
+  width: 100%;
   padding-top: 12px;
   padding-bottom: 12px;
   display: flex;
@@ -71,6 +71,7 @@
   stroke: var(--secondary-color-4);
   fill: transparent;
 }
+
 .deleteWaterIcon {
   stroke: var(--secondary-color-3);
   fill: transparent;
@@ -142,18 +143,13 @@
 
 /* Tablet */
 @media screen and (min-width: 768px) {
-  .todayWaterContainer {
-    /* width: 656px; */
-    height: 260px;
+  .todayWaterList {
+    height: 183px;
   }
 
   .todayTitle {
     font-size: 26px;
     line-height: 1.23;
-  }
-
-  .todayWaterItem {
-    width: 646px;
   }
 
   .waterInfoThumb {
@@ -186,13 +182,8 @@
 
 /* Desktop */
 @media screen and (min-width: 1440px) {
-  .todayWaterContainer {
-    /* width: 544px; */
-    height: 260px;
-  }
-
-  .todayWaterItem {
-    width: 534px;
+  .todayWaterList {
+    height: 183px;
   }
 
   .waterInfoThumb {

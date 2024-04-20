@@ -3,10 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ConfirmActionWarningModal, Icon } from 'components';
 
-import { deleteConsumptionRecord } from 'store/operations';
-import { todayConsumptionsSelector } from 'store/selectors';
+import {
+  deleteConsumptionRecord,
+  getConsumptionForToday,
+} from 'store/operations';
+import { todayConsumptionsSelector, userSelector } from 'store/selectors';
 
 import css from './TodayWaterList.module.css';
+import { notifyApi } from 'notify';
 
 const modalIsOpenInitial = { open: false, id: null };
 
@@ -16,9 +20,16 @@ export const TodayWaterList = () => {
   const [modalIsOpen, setIsOpen] = useState(modalIsOpenInitial);
 
   const water = useSelector(todayConsumptionsSelector);
+  const { timezone: timeZone } = useSelector(userSelector);
 
   const handleDeleteConsumption = id => {
-    dispatch(deleteConsumptionRecord(id));
+    notifyApi(
+      dispatch(deleteConsumptionRecord(id))
+        .unwrap()
+        .then(() => dispatch(getConsumptionForToday())),
+      'Removing water record',
+      true
+    );
   };
 
   const formatTime = date =>
@@ -26,6 +37,7 @@ export const TodayWaterList = () => {
       hour: 'numeric',
       minute: '2-digit',
       hour12: true,
+      timeZone,
     });
 
   return (

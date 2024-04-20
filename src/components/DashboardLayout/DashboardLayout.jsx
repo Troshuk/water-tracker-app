@@ -17,7 +17,7 @@ export const DashboardLayout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getConsumptionForToday()).unwrap();
+    dispatch(getConsumptionForToday());
   }, [dispatch]);
 
   return (
