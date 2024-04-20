@@ -24,13 +24,14 @@ export const StModalWrap = styled.div`
 height: auto;
 max-height: 90vh;
 overflow-y: auto;
-background-color: var(--color-primary-white);
-color: var(--color-primary-black);
+background-color: #ffffff;
+color: #2f2f2f;
 padding: 32px 12px;
 border-radius: 10px;
 font-size: 18px;
 line-height: 1.1;
-font-family: 'Roboto-Medium';
+font-family: 'Roboto';
+font-weight: 500;
 box-sizing: border-box;
 
 @media (min-width: 1440px) {
@@ -48,8 +49,9 @@ box-sizing: border-box;
 `;
 
 export const Title = styled.h1`
-font-family: 'Roboto-regular';
+font-family: 'Roboto', sans-serif;
 font-size: 26px;
+font-weight: 500;
 line-height: 1.25;
 margin-bottom: 24px;
 `;
@@ -57,7 +59,7 @@ margin-bottom: 24px;
 export const BtnSvg = styled.button`
 
 @media (min-width: 768px) and (max-width: 1439px){
-    top: 36px; 
+    top: 32px; 
     right: 24px;
   }
 `;
@@ -65,6 +67,7 @@ export const BtnSvg = styled.button`
 export const WrapHeader = styled.div`
 display: flex;
 justify-content: space-between;
+align-items: baseline;
 `;
 
 export const ImgWrapper = styled.div`
@@ -75,14 +78,15 @@ export const ImgWrapper = styled.div`
   height: 80px;
   border-radius: 50%;
   overflow: hidden;
-  border: 1px solid var(--color-secondary-gray);
-`;
-
-export const ImgAvatar = styled.img`
-  width: 100%;
-  height: 100%;
+  border: 1px solid #ecf2ff;
   object-fit: cover; 
 `;
+
+// export const ImgAvatar = styled.img`
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover; 
+// `;
 
 export const AvatarWrap = styled.div`
 display: flex;
@@ -112,15 +116,17 @@ export const UploadButton = styled.div`
   align-items: center;
   gap: 8px; 
   cursor: pointer;
-  color: var(--color-primary-blue);
+  color: #407bff;
   font-size: 14px;
-  font-family: 'Roboto-Medium';
+  font-weight: 500;
+  font-family: 'Roboto';
+  font-weight: 400;
   line-height: 1.3;
 `;
 
-export const SvgUpload = styled.svg`
-fill: var(--color-primary-blue);
-`;
+// export const SvgUpload = styled.svg`
+// fill: #407bff;
+// `;
 
 export const StyledRadioGroup = styled.div`
   display: flex;
@@ -167,20 +173,21 @@ export const CircleColor = styled.div`
 
 export const StyledRadioText = styled.span`
   margin-left: 22px;
-  font-family: 'Roboto-regular';
+  font-family: 'Roboto';
   font-size: 16px;
   line-height: 1.25;
 `;
 
 export const Button = styled.button`
 margin-top: 24px;
-background-color: var(--color-primary-blue);
+background-color: #407bff;
 border: none;
 width: 100%;
 height: 36px;
-color: var(--color-primary-white);
+color: #ffffff;
 font-size: 16px;
-font-family: 'Roboto-Medium';
+font-family: 'Roboto';
+font-weight: 500;
 line-height: 1.3;
 border-radius: 10px;
 box-shadow: 0px 4px 8px 0px rgba(64, 123, 255, 0.34);
@@ -206,14 +213,14 @@ export const Input = styled.input`
   margin-top: 8px;
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid var(--color-secondary-gray);
+  border: 1px solid #ecf2ff;
   border-radius: 8px;
   padding: 12px 10px;
   outline: none;
   color: #407BFF;
   font-size: 16px;
   &::placeholder {
-    color: var(--color-secondary-blue);
+    color: #9ebbff;
   }
 
   @media (min-width: 768px) {
@@ -227,8 +234,8 @@ export const Input = styled.input`
   ${({ $hasError }) =>
     $hasError &&
     `
-      border-color: var(--color-secondary-red) !important;
-      color: var(--color-secondary-red);
+      border-color: #ef5050 !important;
+      color: #ef5050;
     `}
 `;
 
@@ -245,7 +252,8 @@ margin-top: 24px;
 
 export const PasswordText = styled.p`
 margin-top: 12px;
-font-family: 'Roboto-regular';
+font-family: 'Roboto';
+font-weight: 400;
 font-size: 16px;
 line-height: 1.25;
 `;
@@ -254,14 +262,14 @@ export const InputPassword = styled.input`
   margin-top: 8px;
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid var(--color-secondary-gray);
+  border: 1px solid #ecf2ff;
   border-radius: 8px;
   padding: 12px 10px;
   outline: none;
   color: #407BFF;
   font-size: 16px;
   &::placeholder {
-    color: var(--color-secondary-blue);
+    color: #9ebbff;
   }
 
   @media (min-width: 768px) {
@@ -275,8 +283,8 @@ export const InputPassword = styled.input`
   ${({ $hasError }) =>
     $hasError &&
     `
-      border-color: var(--color-secondary-red) !important;
-      color: var(--color-secondary-red);
+      border-color: #ef5050 !important;
+      color: #ef5050;
     `}
   `;
 
@@ -290,25 +298,26 @@ width: 100%;
   }
 `;
 
-export const SvgEye = styled.svg`
-width: 18px;
-height: 18px;
-fill: var(--primery-color-blue);
-`;
+// export const SvgEye = styled.svg`
+// width: 18px;
+// height: 18px;
+// fill: #407bff;
+// `;
 
 export const ButtonEye = styled.button`
 position: absolute;
 width: 16px;
 height: 16px;
-background-color: var(--color-primary-white); 
+background-color: #ffffff; 
 border: none;
 top: 22px;
 right: 22px;
 `;
 
 export const MessageError = styled.div`
-  color: var(--color-secondary-red);
-  font-family: 'Roboto-regular';
+  color: #ef5050;
+  font-family: 'Roboto';
+  font-weight: 400;
   margin-top: 4px;
   font-size: 14px;
 `;

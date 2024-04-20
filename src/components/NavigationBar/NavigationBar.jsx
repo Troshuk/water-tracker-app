@@ -129,7 +129,9 @@ export const NavigationBar = () => {
       </Container>
 
       <SettingModal
-      settingModalIsOpen={settingModalIsOpen}/>
+      settingModalIsOpen={settingModalIsOpen}
+      closeModal={() => setSettingIsOpen(false)}
+      />
       
 
       <ConfirmActionWarningModal

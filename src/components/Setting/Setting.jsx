@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 import { Icon } from 'components';
 
 import { useFormik } from 'formik';
-import sprite from '../../images/icons.svg';
 import {
   StModalBackdrope,
   StModalWrap,
@@ -14,7 +13,6 @@ import {
   BtnSvg,
   WrapHeader,
   ImgWrapper,
-  ImgAvatar,
   AvatarWrap,
   UploadLabel,
   FileInput,
@@ -26,14 +24,12 @@ import {
   StyledRadioText,
   CircleColor,
   Button,
-  SvgUpload,
   WrapInfo,
   Input,
   EmailText,
   PasswordText,
   PasswordTitle,
   InputPassword,
-  SvgEye,
   ButtonEye,
   InputPasswordWrap,
   MessageError,
@@ -48,12 +44,12 @@ import { SettingModalSchema } from '../../schemasValdiate/SettingModalSchema.jsx
 // } from '../../redux/users/usersOperations';
 // import { selectIsLoading } from '../../redux/selectors';
 
-export const SettingModal = ({ settingModalIsOpen }) => {
+export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
   const { user } = useSelector(AuthReducerSelector);
 
   //   const isLoading = useSelector(selectIsLoading);
 
-  const avatarUrl = user.avatarUrl;
+  const avatarURL = user.avatarURL;
   const gender = user.gender;
   const username = user.name;
   const email = user.email;
@@ -125,19 +121,20 @@ export const SettingModal = ({ settingModalIsOpen }) => {
     return data;
   };
 
-  //   const handleFileChange = async evt => {
-  //     const avatar = evt.target.files[0];
-  //     setImgSize(false);
-  //     if (!avatar) {
-  //       return;
-  //     }
+  const handleFileChange = async evt => {
+    const avatar = evt.target.files[0];
+    setImgSize(false);
+    if (!avatar) {
+      return;
+    }
 
-  //     const maxSizeInBytes = 3 * 1024 * 1024;
-  //     if (avatar.size > maxSizeInBytes) {
-  //       evt.target.value = null;
-  //       setImgSize(true);
-  //       return;
-  //     }
+    const maxSizeInBytes = 3 * 1024 * 1024;
+    if (avatar.size > maxSizeInBytes) {
+      evt.target.value = null;
+      setImgSize(true);
+      return;
+    }
+  };
   //     const formData = new FormData();
   //     formData.append('avatar', avatar);
   //     setLoader(true);
@@ -153,11 +150,11 @@ export const SettingModal = ({ settingModalIsOpen }) => {
     formik.handleChange(evt);
   };
 
-  //   const handleCloseModal = () => {
-  //     closeModal();
-  //     formik.resetForm();
-  //     setImgSize(false);
-  //   };
+  const handleCloseModal = () => {
+    closeModal();
+    formik.resetForm();
+    setImgSize(false);
+  };
 
   const handleTogglePassword = field => {
     setShowPassword(prevShowPassword => ({
@@ -166,60 +163,59 @@ export const SettingModal = ({ settingModalIsOpen }) => {
     }));
   };
 
-  //   const onBackdropeClick = evt => {
-  //     if (evt.target === evt.currentTarget) {
-  //       handleCloseModal();
-  //     }
-  //   };
+  const onBackdropeClick = evt => {
+    if (evt.target === evt.currentTarget) {
+      handleCloseModal();
+    }
+  };
   return (
     <StyledSettingModal
       contentLabel="Setting Modal"
       isOpen={settingModalIsOpen}
-      //   onRequestClose={closeModal}
+      onRequestClose={closeModal}
     >
-      <StModalBackdrope>
+      <StModalBackdrope onClick={onBackdropeClick}>
         <StModalWrap>
           <WrapHeader>
             <Title>Setting</Title>
             <BtnSvg
               className="cross-btn"
               type="button"
-              //   onClick={handleCloseModal}
+              onClick={handleCloseModal}
             >
               <Icon
-                // className={css.deleteIcon}
                 id="icon-close-x"
                 width="14"
                 height="14"
-                style={{ stroke: 'var(--color-primary-blue)' }}
+                style={{ stroke: '#407bff' }}
               />
-              {/* <svg className="cross-svg">
-                <use xlinkHref={`${sprite}#icon-close-x`} />
-              </svg> */}
             </BtnSvg>
           </WrapHeader>
           <form onSubmit={formik.handleSubmit}>
             <p>Your photo</p>
             <AvatarWrap>
-              {/* <ImgWrapper>
-                {loader ? (
-                  <Oval color="#407BFF" secondaryColor="#ECF2FF" width="40" />
+              <ImgWrapper>
+                {avatarURL ? (
+                  <img alt={username || email} src={avatarURL} />
                 ) : (
-                  <ImgAvatar src={avatarUrl} alt="user avatar" />
+                  <Icon id="icon-user" />
                 )}
-              </ImgWrapper> */}
+              </ImgWrapper>
               <UploadLabel>
                 <FileInput
                   //   disabled={isLoading}
                   name="avatarUrl"
                   type="file"
                   accept="image/*"
-                  //   onChange={handleFileChange}
+                  onChange={handleFileChange}
                 />
                 <UploadButton>
-                  <SvgUpload width="16" height="16">
-                    <use xlinkHref={`${sprite}#icon-arrow-up-tray`} />
-                  </SvgUpload>
+                  <Icon
+                    id="icon-arrow-up-tray"
+                    width="16"
+                    height="16"
+                    style={{ stroke: '#407bff' }}
+                  />
                   <p>Upload a photo</p>
                 </UploadButton>
               </UploadLabel>
@@ -308,13 +304,19 @@ export const SettingModal = ({ settingModalIsOpen }) => {
                       type="button"
                     >
                       {showPassword.oldPassword ? (
-                        <SvgEye width="16" height="16">
-                          <use xlinkHref={`${sprite}#icon-eye`} />
-                        </SvgEye>
+                        <Icon
+                          id="icon-eye"
+                          width="16"
+                          height="16"
+                          style={{ stroke: '#407bff' }}
+                        />
                       ) : (
-                        <SvgEye width="16" height="16">
-                          <use xlinkHref={`${sprite}#icon-eye-slash`} />
-                        </SvgEye>
+                        <Icon
+                          id="icon-eye-slash"
+                          width="16"
+                          height="16"
+                          style={{ stroke: '#407bff' }}
+                        />
                       )}
                     </ButtonEye>
                   </InputPasswordWrap>
@@ -339,13 +341,19 @@ export const SettingModal = ({ settingModalIsOpen }) => {
                       type="button"
                     >
                       {showPassword.newPassword ? (
-                        <SvgEye width="16" height="16">
-                          <use xlinkHref={`${sprite}#icon-eye`} />
-                        </SvgEye>
+                        <Icon
+                          id="icon-eye"
+                          width="16"
+                          height="16"
+                          style={{ stroke: '#407bff' }}
+                        />
                       ) : (
-                        <SvgEye width="16" height="16">
-                          <use xlinkHref={`${sprite}#icon-eye-slash`} />
-                        </SvgEye>
+                        <Icon
+                          id="icon-eye-slash"
+                          width="16"
+                          height="16"
+                          style={{ stroke: '#407bff' }}
+                        />
                       )}
                     </ButtonEye>
                   </InputPasswordWrap>
@@ -371,13 +379,19 @@ export const SettingModal = ({ settingModalIsOpen }) => {
                       type="button"
                     >
                       {showPassword.confirmPassword ? (
-                        <SvgEye width="16" height="16">
-                          <use xlinkHref={`${sprite}#icon-eye`} />
-                        </SvgEye>
+                        <Icon
+                          id="icon-eye"
+                          width="16"
+                          height="16"
+                          style={{ stroke: '#407bff' }}
+                        />
                       ) : (
-                        <SvgEye width="16" height="16">
-                          <use xlinkHref={`${sprite}#icon-eye-slash`} />
-                        </SvgEye>
+                        <Icon
+                          id="icon-eye-slash"
+                          width="16"
+                          height="16"
+                          style={{ stroke: '#407bff' }}
+                        />
                       )}
                     </ButtonEye>
                   </InputPasswordWrap>
