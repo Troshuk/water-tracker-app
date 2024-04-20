@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import css from './MonthStatsTable.module.css';
+import useModal from 'components/customHooks/useModal';
 
 export const MonthStatsTable = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedMonth, setSelectedMonth] = useState(null);
+  const { isOpen, openModal, closeModal } = useModal();
 
   const getDaysInMonth = date => {
     const year = date.getFullYear();
@@ -14,6 +18,21 @@ export const MonthStatsTable = () => {
     const options = { month: 'long' };
     return new Intl.DateTimeFormat('en-US', options).format(date);
   };
+
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
 
   const goToPreviousMonth = () => {
     setCurrentDate(
@@ -27,6 +46,11 @@ export const MonthStatsTable = () => {
     );
   };
 
+  const handleDateClick = day => {
+    setSelectedDate(day);
+    setSelectedMonth(currentDate.getMonth());
+    openModal();
+  };
   const renderCalendar = () => {
     const daysInMonth = getDaysInMonth(currentDate);
     const monthName = getMonthName(currentDate);
@@ -36,11 +60,12 @@ export const MonthStatsTable = () => {
     Array.from({ length: daysInMonth }).forEach((_, i) => {
       const day = i + 1;
       days.push(
-        <div>
-          <button className={css.buttonCalendar}>
-            <li key={`day-${day}`} className={css.calendarDay}>
-              {day}
-            </li>
+        <div className={css.containerList} key={`day-${day}`}>
+          <button
+            className={css.buttonCalendar}
+            onClick={() => handleDateClick(day)}
+          >
+            <li className={css.calendarDay}>{day}</li>
           </button>
           <p className={css.itemCalendary}>100%</p>
         </div>
@@ -64,6 +89,33 @@ export const MonthStatsTable = () => {
           </div>
         </div>
         <div className={css.calendarBody}>
+          {isOpen && (
+            <div className={css.modalBackground} onClick={closeModal}>
+              <div
+                className={css.modalContent}
+                onClick={e => e.stopPropagation()}
+              >
+                <p>
+                  <span className={css.selectedTimes}>
+                    {selectedDate}, {monthNames[selectedMonth]}
+                  </span>
+                </p>
+                <p className={css.titleModal}>
+                  Daily norma:
+                  <span className={css.selectedTimes}> 1.8L</span>
+                </p>
+                <p className={css.titleModal}>
+                  Fulfillment of the daily norm:
+                  <span className={css.selectedTimes}> 100%</span>
+                </p>
+                <p className={css.titleModal}>
+                  How many servings of water:
+                  <span className={css.selectedTimes}> 6</span>
+                </p>
+                <button onClick={closeModal}>Close Modal</button>
+              </div>
+            </div>
+          )}
           <ul className={css.calendarList}>{days}</ul>
         </div>
       </div>
