@@ -35,27 +35,25 @@ import {
   MessageError,
   Label,
 } from './Setting.styled.js';
-import { AuthReducerSelector } from 'store/selectors';
+import { userSelector } from 'store/selectors';
 
 import { SettingModalSchema } from '../../schemasValdiate/SettingModalSchema.jsx';
-// import {
-//   updateAvatarThunk,
-//   updateThunk,
-// } from '../../redux/users/usersOperations';
+import {
+  updateAvatarThunk,
+} from '../../store/auth/operations.js';
 // import { selectIsLoading } from '../../redux/selectors';
 
 export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
-  const { user } = useSelector(AuthReducerSelector);
+  const user = useSelector(userSelector);
+  // const token = useSelector(tokenSelector);
 
-  //   const isLoading = useSelector(selectIsLoading);
 
   const avatarURL = user.avatarURL;
   const gender = user.gender;
   const username = user.name;
   const email = user.email;
-  //   const token = useSelector(state => state.auth.token);
 
-  //   const [loader, setLoader] = useState(false);
+  const [loader, setLoader] = useState(false);
   const [genderValue, setGenderValue] = useState(user.gender);
   const [imgSize, setImgSize] = useState(false);
   const [showPassword, setShowPassword] = useState({
@@ -134,13 +132,13 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
       setImgSize(true);
       return;
     }
+    
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+    console.log(formData);
+    setLoader(true)
+    dispatch(updateAvatarThunk(formData))
   };
-  //     const formData = new FormData();
-  //     formData.append('avatar', avatar);
-  //     setLoader(true);
-  //     await dispatch(updateAvatarThunk({ avatar: formData, token }));
-  //     setLoader(false);
-  //   };
 
   const handleGenderChange = evt => {
     setGenderValue(evt.target.value);
@@ -168,6 +166,7 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
       handleCloseModal();
     }
   };
+
   return (
     <StyledSettingModal
       contentLabel="Setting Modal"

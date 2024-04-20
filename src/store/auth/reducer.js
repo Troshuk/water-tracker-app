@@ -1,6 +1,12 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { logIn, signUp, fetchUser, logOut } from './operations';
+import {
+  logIn,
+  signUp,
+  fetchUser,
+  logOut,
+  updateAvatarThunk,
+} from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
 
@@ -15,7 +21,7 @@ const initialState = {
   },
   token: null,
   isLoggedIn: false,
-  ...[logIn, signUp, fetchUser, logOut].reduce(
+  ...[logIn, signUp, fetchUser, logOut, updateAvatarThunk].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -43,6 +49,11 @@ export const authSlice = createSlice({
       // Log Out
       .addCase(logOut.fulfilled, () => initialState)
 
+      // UpdateAvatar
+      .addCase(updateAvatarThunk.fulfilled, (state, { payload }) => {
+        state.user = payload;
+      })
+
       // Handle fulfilled requests status
       .addMatcher(isAnyOf(logIn.fulfilled, fetchUser.fulfilled), state => {
         state.isLoggedIn = true;
@@ -54,7 +65,8 @@ export const authSlice = createSlice({
           logIn.fulfilled,
           signUp.fulfilled,
           fetchUser.fulfilled,
-          logOut.fulfilled
+          logOut.fulfilled,
+          updateAvatarThunk.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -70,7 +82,8 @@ export const authSlice = createSlice({
           logIn.pending,
           signUp.pending,
           fetchUser.pending,
-          logOut.pending
+          logOut.pending,
+          updateAvatarThunk.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -96,6 +109,16 @@ export const authSlice = createSlice({
             key: null,
           },
         })
+      )
+      .addMatcher(
+        isAnyOf(updateAvatarThunk.rejected),
+        (state, { error, payload, type, meta }) => {
+          state[getStateKey(type, meta)] = {
+            isLoading: false,
+            error: payload ?? error.message,
+            key: null,
+          };
+        }
       );
   },
 });
