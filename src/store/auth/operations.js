@@ -13,6 +13,8 @@ const getToken = state => state.authReducer.token;
 const setToken = (token = null) =>
   (api.defaults.headers.Authorization = token && `Bearer ${token}`);
 
+const getUsersTimezone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
+
 export const fetchUser = createAsyncThunkWithCatch(
   'auth/fetchUser',
   async (_, { getState }) => {
@@ -22,32 +24,36 @@ export const fetchUser = createAsyncThunkWithCatch(
   }
 );
 
-export const logIn = createAsyncThunkWithCatch('auth/logIn', async contact => {
-  const data = (await api.post(USERS_ENDPOINT + 'login', contact)).data;
+export const logIn = createAsyncThunkWithCatch('auth/logIn', async body => {
+  const data = (
+    await api.post(USERS_ENDPOINT + 'login', {
+      ...body,
+      timezone: getUsersTimezone(),
+    })
+  ).data;
 
   setToken(data.token);
 
   return data;
 });
 
-export const signUp = createAsyncThunkWithCatch(
-  'auth/signUp',
-  async contact => {
-    const data = (await api.post(USERS_ENDPOINT + 'register', contact)).data;
+export const signUp = createAsyncThunkWithCatch('auth/signUp', async body => {
+  const data = (
+    await api.post(USERS_ENDPOINT + 'register', {
+      ...body,
+      timezone: getUsersTimezone(),
+    })
+  ).data;
 
-    setToken(data.token);
+  setToken(data.token);
 
-    return data;
-  }
-);
+  return data;
+});
 
-export const logOut = createAsyncThunkWithCatch(
-  'auth/logOut',
-  async contact => {
-    const data = (await api.post(USERS_ENDPOINT + 'logout', contact)).data;
+export const logOut = createAsyncThunkWithCatch('auth/logOut', async body => {
+  const data = (await api.post(USERS_ENDPOINT + 'logout', body)).data;
 
-    setToken();
+  setToken();
 
-    return data;
-  }
-);
+  return data;
+});

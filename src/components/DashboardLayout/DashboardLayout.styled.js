@@ -14,6 +14,7 @@ export const StyledSection = styled(Section)`
   background-repeat: no-repeat;
   height: 100%;
   z-index: 0;
+  margin-top: 24px;
 
   @media screen and (min-width: 768px) {
     background-image: url(${backgroundImgTab});
@@ -27,6 +28,7 @@ export const StyledSection = styled(Section)`
     background-position: 52% center;
     background-position-y: 30px, center;
     background-repeat: no-repeat;
+    margin-top: 20px;
   }
 `;
 

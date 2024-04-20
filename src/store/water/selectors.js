@@ -16,7 +16,7 @@ export const todayConsumptionPercentageSelector = createSelector(
 
 export const todayConsumptionsSelector = createSelector(
   WaterReducerSelector,
-  state => state.today.consumptions
+  state => state.today.consumption
 );
 
 export const getConsumptionForTodaySelector = createSelector(

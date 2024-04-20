@@ -1,37 +1,35 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import Avatar from '@mui/material/Avatar';
-import MenuItem from '@mui/material/MenuItem';
+import { ConfirmActionWarningModal, Container, Icon } from 'components';
 
 import { HOME_ROUTE, LOGIN_ROUTE } from 'routes/routes';
 import { AuthReducerSelector } from 'store/selectors';
-import { notifyApi } from 'notify';
 import { logOut } from 'store/operations';
+import { notifyApi } from 'notify';
 
-import css from './NavigationBar.module.css';
 import { ReactComponent as Logo } from 'images/logo.svg';
-import { ConfirmActionWarningModal, Container, Icon } from 'components';
+import css from './NavigationBar.module.css';
 
 export const NavigationBar = () => {
   const dispatch = useDispatch();
   const { isLoggedIn, user } = useSelector(AuthReducerSelector);
-  const [anchorElUser, setAnchorElUser] = useState(null);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleOpenUserMenu = event => {
-    setAnchorElUser(event.currentTarget);
+  const handleToggleUserMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
+    setIsMenuOpen(false);
   };
 
-  const handleLogoutConfirmation = () => setIsOpen(true);
+  const handleLogoutConfirmation = () => {
+    handleCloseUserMenu();
+    setIsOpen(true);
+  };
 
   const handleLogOut = () => {
     notifyApi(
@@ -43,6 +41,9 @@ export const NavigationBar = () => {
     );
   };
 
+  const shortName = () => user?.name?.split(' ')?.[0]?.substring(0, 15);
+  const emailName = () => user?.email?.split('@')?.[0];
+
   return (
     <header className={css.header}>
       <Container className={css.container}>
@@ -50,44 +51,75 @@ export const NavigationBar = () => {
           <Logo height="48" />
         </Link>
         {isLoggedIn ? (
-          <>
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar
-                alt={`${user?.name || user.email}`}
-                src="/static/images/avatar/2.jpg"
-              />
-            </IconButton>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+          <div>
+            <button
+              className={css.userMenuToggle}
+              onClick={handleToggleUserMenu}
             >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Setting</Typography>
-              </MenuItem>
-              <MenuItem onClick={handleLogoutConfirmation}>
-                <Typography textAlign="center">Log out</Typography>
-              </MenuItem>
-            </Menu>
-          </>
+              <span className={css.userName}>{shortName() || emailName()}</span>
+              {user.avatarURL ? (
+                <img
+                  alt={user.name || user.email}
+                  src={user.avatarURL}
+                  width="28"
+                  height="28"
+                  className={css.iconUser}
+                />
+              ) : (
+                <Icon id="icon-user" width="28" height="28" />
+              )}
+              <Icon
+                id="icon-chevron-double-up"
+                width="16"
+                height="16"
+                className={`${css.icon} ${isMenuOpen && css.openIcon}`}
+              />
+            </button>
+
+            {isMenuOpen && (
+              <div className={css.profileDropDown}>
+                <ul className={css.userMenuDropdown}>
+                  <li onClick={handleCloseUserMenu} className={css.menuItem}>
+                    <Link className={css.itemIcon}>
+                      <span className={css.itemText}>Setting</span>
+                      <Icon
+                        id="icon-cog-6-tooth"
+                        width="16"
+                        height="16"
+                        className={css.iconOption}
+                      />
+                    </Link>
+                  </li>
+                  <li
+                    onClick={handleLogoutConfirmation}
+                    className={css.menuItem}
+                  >
+                    <button className={css.itemIcon}>
+                      <span className={css.itemText}>Logout</span>
+                      <Icon
+                        id="icon-arrow-right-on-rectangle"
+                        width="16"
+                        height="16"
+                        className={css.iconOption}
+                      />
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            )}
+          </div>
         ) : (
-          <NavLink className={css.link} to={LOGIN_ROUTE}>
-            <span>Sign in</span>
+          <Link
+            to={LOGIN_ROUTE}
+            className={css.link}
+            style={{ textDecoration: 'none' }}
+          >
+            <span className={css.userName}>Sign in</span>
             <Icon id="icon-user" width="28" height="28" />
-          </NavLink>
+          </Link>
         )}
       </Container>
+
       <ConfirmActionWarningModal
         modalIsOpen={modalIsOpen}
         closeModal={() => setIsOpen(false)}
