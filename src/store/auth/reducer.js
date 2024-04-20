@@ -1,6 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { logIn, signUp, fetchUser, logOut } from './operations';
+import { logIn, signUp, fetchUser, logOut, patchWaterGoal } from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
 
@@ -15,7 +15,7 @@ const initialState = {
   },
   token: null,
   isLoggedIn: false,
-  ...[logIn, signUp, fetchUser, logOut].reduce(
+  ...[logIn, signUp, fetchUser, logOut, patchWaterGoal].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -43,6 +43,13 @@ export const authSlice = createSlice({
       // Log Out
       .addCase(logOut.fulfilled, () => initialState)
 
+      //Water
+
+      .addCase(patchWaterGoal.fulfilled, (state, { payload }) => {
+        state.user.dailyWaterGoal = payload.dailyWaterGoal;
+        state.token = payload.token;
+      })
+
       // Handle fulfilled requests status
       .addMatcher(isAnyOf(logIn.fulfilled, fetchUser.fulfilled), state => {
         state.isLoggedIn = true;
@@ -54,7 +61,8 @@ export const authSlice = createSlice({
           logIn.fulfilled,
           signUp.fulfilled,
           fetchUser.fulfilled,
-          logOut.fulfilled
+          logOut.fulfilled,
+          patchWaterGoal.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -70,7 +78,8 @@ export const authSlice = createSlice({
           logIn.pending,
           signUp.pending,
           fetchUser.pending,
-          logOut.pending
+          logOut.pending,
+          patchWaterGoal.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -86,7 +95,8 @@ export const authSlice = createSlice({
           logIn.rejected,
           signUp.rejected,
           fetchUser.rejected,
-          logOut.rejected
+          logOut.rejected,
+          patchWaterGoal.rejected
         ),
         (_, { error, payload, type, meta }) => ({
           ...initialState,

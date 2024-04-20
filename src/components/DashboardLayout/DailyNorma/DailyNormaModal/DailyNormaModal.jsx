@@ -30,9 +30,10 @@ import { AuthReducerSelector } from 'store/selectors';
 import { useFormik } from 'formik';
 import { DailyNormaModalSchema } from 'schemasValdiate/dailyNormaModallSchema';
 import { toast } from 'react-toastify';
+import { patchWaterGoal } from 'store/operations';
 
 export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState(2);
   const dispatch = useDispatch();
   const { user, token } = useSelector(AuthReducerSelector);
 
@@ -41,13 +42,13 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
       gender: user.gender,
       weight: 0,
       time: 0,
-      dailyNorma: 0,
+      dailyWaterGoal: 0,
     },
     validationSchema: DailyNormaModalSchema,
     onSubmit: async values => {
       let waterNorma = amount * 1000;
-      if (values.dailyNorma > 0) {
-        waterNorma = values.dailyNorma * 1000;
+      if (values.dailyWaterGoal > 0) {
+        waterNorma = values.dailyWaterGoal * 1000;
       }
 
       if (waterNorma < 1000) {
@@ -71,7 +72,7 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
       };
 
       try {
-        await dispatch(user.dailyWaterGoal, token, dailyWaterGoalMsg);
+        await dispatch(patchWaterGoal(dailyWaterGoalMsg, token));
         handleCloseModal();
       } catch {
         return;
