@@ -32,24 +32,22 @@ import { DailyNormaModalSchema } from 'schemasValdiate/dailyNormaModallSchema';
 import { toast } from 'react-toastify';
 
 export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
-  const [formula, setFormula] = useState('');
   const [amount, setAmount] = useState(0);
   const dispatch = useDispatch();
   const { user, token } = useSelector(AuthReducerSelector);
 
   const formik = useFormik({
     initialValues: {
-      gender: '',
-      weight: '',
-      time: '',
-      dailyWaterGoal: '',
+      gender: user.gender,
+      weight: 0,
+      time: 0,
+      dailyNorma: 0,
     },
     validationSchema: DailyNormaModalSchema,
     onSubmit: async values => {
-      console.log(values.dailyWaterGoal);
       let waterNorma = amount * 1000;
-      if (values.dailyWaterGoal > 0) {
-        waterNorma = values.dailyWaterGoal * 1000;
+      if (values.dailyNorma > 0) {
+        waterNorma = values.dailyNorma * 1000;
       }
 
       if (waterNorma < 1000) {
@@ -109,8 +107,9 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
         return;
     }
 
+    formik.values.dailyNorma = result;
     setAmount(result);
-  }, [formik.values.gender, formik.values.time, formik.values.weight]);
+  }, [formik.values]);
 
   const manFromula = 'V=(M*0,04) + (T*0,6)';
   const womanFormula = 'V=(M*0,03) + (T*0,4)';
@@ -123,11 +122,6 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
 
   const handleGenderChange = e => {
     formik.setFieldValue('gender', e.target.value);
-    if (e.target.value === 'woman') {
-      setFormula('V=(M*0,03) + (T*0,4)');
-    } else {
-      setFormula('V=(M*0,04) + (T*0,6)');
-    }
   };
 
   const handleInputChange = e => {
@@ -167,16 +161,12 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
         </WrapFormulaText>
         <WrapFormula>
           <FormulaText>
-            {formik.values.gender !== '' ? (
-              formula
-            ) : (
-              <AboutFormula>
-                <AboutFormulaColor>* </AboutFormulaColor>V is the volume of the
-                water norm in liters per day, M is your body weight, T is the
-                time of active sports, or another type of activity commensurate
-                in terms of loads (in the absence of these, you must set 0)
-              </AboutFormula>
-            )}
+            <AboutFormula>
+              <AboutFormulaColor>* </AboutFormulaColor>V is the volume of the
+              water norm in liters per day, M is your body weight, T is the time
+              of active sports, or another type of activity commensurate in
+              terms of loads (in the absence of these, you must set 0)
+            </AboutFormula>
           </FormulaText>
         </WrapFormula>
         <Text>Calculate your rate:</Text>
@@ -223,7 +213,6 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
             value={formik.values.weight}
             onChange={handleInputChange}
             $hasError={formik.touched.weight && formik.errors.weight}
-            placeholder="0"
           />
           {formik.touched.weight && formik.errors.weight ? (
             <MessageError>{formik.errors.weight}</MessageError>
@@ -240,7 +229,6 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
             value={formik.values.time}
             onChange={handleInputChange}
             $hasError={formik.touched.time && formik.errors.time}
-            placeholder="0"
           />
           {formik.touched.time && formik.errors.time ? (
             <MessageError>{formik.errors.time}</MessageError>
@@ -259,7 +247,6 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
           value={formik.values.dailyNorma}
           onChange={handleInputChange}
           $hasError={formik.touched.dailyNorma && formik.errors.dailyNorma}
-          placeholder={amount}
         />
         {formik.touched.dailyNorma && formik.errors.dailyNorma ? (
           <MessageError>{formik.errors.dailyNorma}</MessageError>
