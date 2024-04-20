@@ -57,3 +57,14 @@ export const logOut = createAsyncThunkWithCatch('auth/logOut', async body => {
 
   return data;
 });
+
+export const forgotPassword = createAsyncThunkWithCatch(
+  'auth/forgotPassword',
+  async ({email}, {getState}) => {
+    setToken(getToken(getState()));
+    const data = (await api.post(USERS_ENDPOINT + 'password/forgot', {email}))
+      .data;
+
+    return data;
+  }
+);

@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { fetchUser, logIn, logOut, signUp } from './operations';
+import { fetchUser, logIn, logOut, signUp, forgotPassword } from './operations';
 
 export const AuthReducerSelector = ({ authReducer }) => authReducer;
 
@@ -41,4 +41,9 @@ export const logOutSelector = createSelector(
 export const fetchUserSelector = createSelector(
   AuthReducerSelector,
   state => state[fetchUser.typePrefix]
+);
+
+export const forgotPasswordSelector = createSelector(
+  AuthReducerSelector,
+  state => state[forgotPassword.typePrefix]
 );
