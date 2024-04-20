@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
 import { ConfirmActionWarningModal, Container, Icon } from 'components';
+import {SettingModal} from '../Setting/Setting.jsx'
 
 import { HOME_ROUTE, LOGIN_ROUTE } from 'routes/routes';
 import { AuthReducerSelector } from 'store/selectors';
@@ -17,8 +18,15 @@ export const NavigationBar = () => {
   const { isLoggedIn, user } = useSelector(AuthReducerSelector);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [settingModalIsOpen, setSettingIsOpen] = useState(false);
+
 
   const handleToggleUserMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleOpenSettingMenu = () => {
+    setSettingIsOpen(true);
     setIsMenuOpen(!isMenuOpen);
   };
 
@@ -79,8 +87,8 @@ export const NavigationBar = () => {
             {isMenuOpen && (
               <div className={css.profileDropDown}>
                 <ul className={css.userMenuDropdown}>
-                  <li onClick={handleCloseUserMenu} className={css.menuItem}>
-                    <Link className={css.itemIcon}>
+                  <li onClick={handleOpenSettingMenu} className={css.menuItem}>
+                    <button className={css.itemIcon}>
                       <span className={css.itemText}>Setting</span>
                       <Icon
                         id="icon-cog-6-tooth"
@@ -88,7 +96,7 @@ export const NavigationBar = () => {
                         height="16"
                         className={css.iconOption}
                       />
-                    </Link>
+                    </button>
                   </li>
                   <li
                     onClick={handleLogoutConfirmation}
@@ -119,6 +127,10 @@ export const NavigationBar = () => {
           </Link>
         )}
       </Container>
+
+      <SettingModal
+      settingModalIsOpen={settingModalIsOpen}/>
+      
 
       <ConfirmActionWarningModal
         modalIsOpen={modalIsOpen}
