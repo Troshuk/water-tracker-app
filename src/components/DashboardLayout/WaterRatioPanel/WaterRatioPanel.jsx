@@ -15,9 +15,12 @@ import {
 import { todayConsumptionPercentageSelector } from 'store/selectors.js';
 
 import iconSprite from 'images/icons.svg';
+import { useState } from 'react';
+import { WaterConsumptionAddModal } from '../WaterConsumptionModals/WaterConsumptionModals';
 
 export const WaterRatioPanel = () => {
   const consumptionPercentage = useSelector(todayConsumptionPercentageSelector);
+  const [isOpen, setIsOpen] = useState(false);
 
   const sliderStyle = {
     background: `linear-gradient(to right, #9EBBFF ${consumptionPercentage}%, #D7E3FF ${consumptionPercentage}%)`,
@@ -43,12 +46,16 @@ export const WaterRatioPanel = () => {
           <PercentageOfRange>100%</PercentageOfRange>
         </PercentageDiv>
       </RangeDiv>
-      <ButtonAddWater>
+      <ButtonAddWater onClick={() => setIsOpen(true)}>
         <SvgButton>
           <use href={iconSprite + '#icon-plus-circle'} />
         </SvgButton>
         Add Water
       </ButtonAddWater>
+      <WaterConsumptionAddModal
+        isOpen={isOpen}
+        onRequestClose={() => setIsOpen(false)}
+      />
     </RangeAndAddWater>
   );
 };
