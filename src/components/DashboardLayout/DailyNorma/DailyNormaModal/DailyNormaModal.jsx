@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useFormik } from 'formik';
+
 import {
   AboutFormula,
   AboutFormulaColor,
@@ -25,17 +28,16 @@ import {
   WrapHeader,
 } from './DailyNormaModal.styled';
 import { Icon } from 'components';
-import { useDispatch, useSelector } from 'react-redux';
 import { AuthReducerSelector } from 'store/selectors';
-import { useFormik } from 'formik';
 import { DailyNormaModalSchema } from 'schemasValdiate/dailyNormaModallSchema';
 import { toast } from 'react-toastify';
-import { patchWaterGoal } from 'store/operations';
+import { updateWaterGoal } from 'store/operations';
+import { notify } from 'notify';
 
 export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
-  const [amount, setAmount] = useState(2);
+  const [amount, setAmount] = useState(0);
   const dispatch = useDispatch();
-  const { user, token } = useSelector(AuthReducerSelector);
+  const { user } = useSelector(AuthReducerSelector);
 
   const formik = useFormik({
     initialValues: {
@@ -52,31 +54,30 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
       }
 
       if (waterNorma < 1000) {
-        return toast.error('Even the cat drinks more (min 1 L)');
+        return notify('Even the cat drinks more (min 1 L)', 'error');
       }
 
       if (waterNorma > 15000 && waterNorma <= 25000) {
-        return toast.error(
-          'This is amount of water that horse usually drinks. Please pick another amount (max rate 15 L)'
+        return notify(
+          'This is amount of water that horse usually drinks. Please pick another amount (max rate 15 L)',
+          'error'
         );
       }
 
       if (waterNorma > 25000) {
-        return toast.error(
-          'This is amount of water that elephant usually drinks. Please pick another amount (max rate 15 L)'
+        return notify(
+          'This is amount of water that elephant usually drinks. Please pick another amount (max rate 15 L)',
+          'error'
         );
       }
 
-      const dailyWaterGoalMsg = {
-        dailyWaterGoal: waterNorma,
-      };
-
-      try {
-        await dispatch(patchWaterGoal(dailyWaterGoalMsg, token));
-        handleCloseModal();
-      } catch {
-        return;
-      }
+      dispatch(
+        updateWaterGoal({
+          dailyWaterGoal: waterNorma,
+        })
+      )
+        .unwrap()
+        .then(handleCloseModal);
     },
   });
 

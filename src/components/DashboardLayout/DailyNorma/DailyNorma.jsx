@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { DailyNormaModal } from './DailyNormaModal/DailyNormaModal.jsx';
 import { Button, Text, TextWater, Wrap, BtnWrap } from './DailyNorma.styled.js';
-import { useSelector } from 'react-redux';
 import { dailyWaterGoalSelector } from 'store/selectors.js';
 
 export const DailyNorma = () => {
@@ -22,7 +22,7 @@ export const DailyNorma = () => {
     };
   }, [modalIsOpen]);
 
-  const waterValue = (dailyWaterGoal / 1000).toFixed(1)
+  const waterValue = (dailyWaterGoal / 1000).toFixed(1);
 
   const openModal = () => {
     setIsOpen(true);

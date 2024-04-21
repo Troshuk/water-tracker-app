@@ -10,7 +10,6 @@ export const StyledReactModal = styled(ReactModal)`
   max-height: 90vh;
   overflow-y: auto;
   background-color: #ffffff;
-  font-family: 'Roboto';
   font-weight: 400;
   color: #2f2f2f;
   padding: 24px 12px;
@@ -40,7 +39,6 @@ export const WrapHeader = styled.div`
 
 export const TitleText = styled.div`
   font-size: 26px;
-  font-family: 'Roboto';
   font-weight: 500;
   line-height: 1.2;
   margin-bottom: 24px;
@@ -124,8 +122,7 @@ export const WrapFormula = styled.div`
 export const AboutFormula = styled.p`
   color: #8f8f8f;
   font-size: 12px;
-  line-height: 1.35;
-  font-family: 'Roboto';
+  line-height: 1.33;
   box-sizing: border-box;
 `;
 
@@ -135,8 +132,9 @@ export const AboutFormulaColor = styled.span`
 
 export const Text = styled.h2`
   font-size: 18px;
-  line-height: 1.1;
+  line-height: 1.11;
   margin-bottom: 16px;
+  font-weight: 500;
 `;
 export const TextInfo = styled.p`
   margin-bottom: 8px;
@@ -176,7 +174,6 @@ export const AmountNumberInfo = styled.span`
   margin-left: 6px;
   color: #407bff;
   font-size: 18px;
-  font-family: 'Roboto';
   font-weight: 700;
   line-height: 1.3;
 `;
@@ -189,7 +186,6 @@ export const Button = styled.button`
   height: 36px;
   color: #ffffff;
   font-size: 16px;
-  font-family: 'Roboto';
   font-weight: 500;
   line-height: 1.3;
   border-radius: 10px;
@@ -215,7 +211,6 @@ export const Button = styled.button`
 
 export const MessageError = styled.div`
   color: #ef5050;
-  font-family: 'Roboto';
   margin-top: 4px;
   font-size: 14px;
 `;

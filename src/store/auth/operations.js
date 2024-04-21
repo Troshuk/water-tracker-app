@@ -58,13 +58,7 @@ export const logOut = createAsyncThunkWithCatch('auth/logOut', async body => {
   return data;
 });
 
-export const patchWaterGoal = createAsyncThunkWithCatch(
-  'water/patchWaterGoal',
-  async body => {
-    const data = (await api.patch(USERS_ENDPOINT + 'water/goal', body)).data;
-
-    setToken();
-
-    return data;
-  }
+export const updateWaterGoal = createAsyncThunkWithCatch(
+  'user/updateWaterGoal',
+  async body => (await api.patch(USERS_ENDPOINT + 'water/goal', body)).data
 );

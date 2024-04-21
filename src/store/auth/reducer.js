@@ -1,6 +1,12 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { logIn, signUp, fetchUser, logOut, patchWaterGoal } from './operations';
+import {
+  logIn,
+  signUp,
+  fetchUser,
+  logOut,
+  updateWaterGoal,
+} from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
 
@@ -15,7 +21,7 @@ const initialState = {
   },
   token: null,
   isLoggedIn: false,
-  ...[logIn, signUp, fetchUser, logOut, patchWaterGoal].reduce(
+  ...[logIn, signUp, fetchUser, logOut, updateWaterGoal].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -45,9 +51,8 @@ export const authSlice = createSlice({
 
       //Water
 
-      .addCase(patchWaterGoal.fulfilled, (state, { payload }) => {
-        state.user.dailyWaterGoal = payload.dailyWaterGoal;
-        state.token = payload.token;
+      .addCase(updateWaterGoal.fulfilled, (state, { payload }) => {
+        state.user = payload;
       })
 
       // Handle fulfilled requests status
@@ -62,7 +67,7 @@ export const authSlice = createSlice({
           signUp.fulfilled,
           fetchUser.fulfilled,
           logOut.fulfilled,
-          patchWaterGoal.fulfilled
+          updateWaterGoal.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -79,7 +84,7 @@ export const authSlice = createSlice({
           signUp.pending,
           fetchUser.pending,
           logOut.pending,
-          patchWaterGoal.pending
+          updateWaterGoal.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -89,14 +94,13 @@ export const authSlice = createSlice({
           };
         }
       )
-      // Handle Rejected requests
+      // Handle Auth Rejected requests
       .addMatcher(
         isAnyOf(
           logIn.rejected,
           signUp.rejected,
           fetchUser.rejected,
-          logOut.rejected,
-          patchWaterGoal.rejected
+          logOut.rejected
         ),
         (_, { error, payload, type, meta }) => ({
           ...initialState,
@@ -106,6 +110,17 @@ export const authSlice = createSlice({
             key: null,
           },
         })
+      )
+      // Handle Rejected requests
+      .addMatcher(
+        isAnyOf(updateWaterGoal.rejected),
+        (state, { error, payload, type, meta }) => {
+          state[getStateKey(type, meta)] = {
+            isLoading: false,
+            error: payload ?? error.message,
+            key: null,
+          };
+        }
       );
   },
 });
