@@ -1,6 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { logIn, signUp, fetchUser, logOut, forgotPassword } from './operations';
+import { logIn, signUp, fetchUser, logOut, forgotPassword, updatePassword } from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
 
@@ -15,7 +15,7 @@ const initialState = {
   },
   token: null,
   isLoggedIn: false,
-  ...[logIn, signUp, fetchUser, logOut, forgotPassword].reduce(
+  ...[logIn, signUp, fetchUser, logOut, forgotPassword, updatePassword].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -50,6 +50,12 @@ export const authSlice = createSlice({
         // state.token = payload.token;
         // state.isLoggedIn = false;
 
+        
+      })
+
+      .addCase(updatePassword.fulfilled, (state, {payload}) => {
+        state.user = payload.user;
+        state.token = payload.token;
       })
 
       // Handle fulfilled requests status
@@ -64,7 +70,8 @@ export const authSlice = createSlice({
           signUp.fulfilled,
           fetchUser.fulfilled,
           logOut.fulfilled,
-          forgotPassword.fulfilled
+          forgotPassword.fulfilled,
+          updatePassword.fulfilled,
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -81,7 +88,8 @@ export const authSlice = createSlice({
           signUp.pending,
           fetchUser.pending,
           logOut.pending,
-          forgotPassword.pending
+          forgotPassword.pending,
+          updatePassword.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -98,7 +106,8 @@ export const authSlice = createSlice({
           signUp.rejected,
           fetchUser.rejected,
           logOut.rejected,
-          forgotPassword.rejected
+          forgotPassword.rejected,
+          updatePassword.rejected,
         ),
         (_, { error, payload, type, meta }) => ({
           ...initialState,

@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Container, ContentLoader, Icon, Section } from 'components';
 
-import { logInSelector } from 'store/selectors';
+import { updatePasswordSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
-import { logIn } from 'store/operations';
+import { updatePassword } from 'store/operations';
 import { LOGIN_ROUTE } from 'routes/routes';
 
 import css from './UpdatePassword.module.css';
@@ -17,13 +17,18 @@ export const UpdatePassword = () => {
   const [visibleEye, setVisibleEye] = useState(false);
   const dispatch = useDispatch();
 
-  const { isLoading } = useSelector(logInSelector);
+  const { isLoading } = useSelector(updatePasswordSelector);
+ 
 
-  const handleSubmit = ({ password }, actions) => {
+  const handleSubmit = (body, actions) => {
+    const password = body.password;
+    const data = { password };
+
     notifyApi(
-      dispatch(logIn({ password }))
+      dispatch(updatePassword(data))
         .unwrap()
-        .then(() => actions.resetForm()),
+        .then(() => actions.resetForm())
+        .navigate(LOGIN_ROUTE),
       `Attempt to password`,
       true
     );
@@ -94,7 +99,7 @@ export const UpdatePassword = () => {
                     <p className={css.errorText}>{errors.passwordRepeat}</p>
                   )}
 
-                  <NavLink to={LOGIN_ROUTE}>
+                  
                     <button
                       type="submit"
                       className={css.buttonForm}
@@ -102,7 +107,7 @@ export const UpdatePassword = () => {
                     >
                       Send {isLoading && <ContentLoader />}
                     </button>
-                  </NavLink>
+                  
                 </div>
               </div>
             </Form>

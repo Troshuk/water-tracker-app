@@ -69,6 +69,19 @@ export const forgotPassword = createAsyncThunkWithCatch(
   }
 );
 
+export const updatePassword = createAsyncThunkWithCatch(
+  'auth/updatePassword',
+  async ({token, ...body}) => {
+    const data = (
+      await api.post(USERS_ENDPOINT + `password/reset/${token}`, body)
+    ).data;
+  
+    setToken(data.token);
+  
+    return data;
+  }
+)
+
 // export const forgotPassword = createAsyncThunkWithCatch(
 //   'auth/forgotPassword',
 //   async ({email}, {getState}) => {
