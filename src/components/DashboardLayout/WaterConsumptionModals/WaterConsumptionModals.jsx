@@ -225,7 +225,6 @@ export const WaterConsumptionEditModal = ({ isOpen, id, onRequestClose }) => {
   const dispatch = useDispatch();
   const consumedWater = useSelector(todayConsumptionsSelector);
   const lastConsumedWater = consumedWater[consumedWater.length - 1];
-  console.log(lastConsumedWater);
 
   const handleTimeChange = event => {
     setSelectedTime(event.target.value);
@@ -303,9 +302,12 @@ export const WaterConsumptionEditModal = ({ isOpen, id, onRequestClose }) => {
           </button>
         </div>
         <div className={css.last_consumed}>
-          <span className={css.last_glass}>
-            <Icon id="glass-water" width="36" height="36" fill="blue" />
-          </span>
+          <Icon
+            id="water-glass"
+            className={css.last_glass}
+            width="36"
+            height="36"
+          />
           <span className={css.last_value}>{lastConsumedWater?.value}</span>
           <span className={css.last_time}>
             {formatTimeLt(lastConsumedWater?.consumed_at)}
