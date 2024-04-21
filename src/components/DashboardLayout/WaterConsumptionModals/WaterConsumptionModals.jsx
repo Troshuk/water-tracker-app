@@ -306,7 +306,7 @@ export const WaterConsumptionEditModal = ({ isOpen, id, onRequestClose }) => {
           <span className={css.last_glass}>
             <Icon id="glass-water" width="36" height="36" fill="blue" />
           </span>
-          <span className={css.last_value}>{lastConsumedWater?.value}</span>
+          <span className={css.last_value}>{lastConsumedWater?.value} ml</span>
           <span className={css.last_time}>
             {formatTimeLt(lastConsumedWater?.consumed_at)}
           </span>
