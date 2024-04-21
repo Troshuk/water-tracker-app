@@ -28,18 +28,3 @@
   }
 }
 
-.title {
-  font-weight: 500;
-  font-size: 26px;
-  line-height: 1.23;
-  align-self: center;
-}
-
-@media screen and (min-width: 1440px) {
-  .title {
-    padding-right: 104px;
-    font-size: 24px;
-    text-align: right;
-    padding-top: 162px;
-  }
-}

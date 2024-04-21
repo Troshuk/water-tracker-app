@@ -73,3 +73,9 @@ export const updateWaterGoal = createAsyncThunkWithCatch(
   'user/updateWaterGoal',
   async body => (await api.patch(USERS_ENDPOINT + 'water/goal', body)).data
 );
+
+export const verifyEmail = createAsyncThunkWithCatch(
+  'auth/verifyEmail',
+  async (token) =>
+    (await api.get(USERS_ENDPOINT + `verify/${token}`)).data
+);
