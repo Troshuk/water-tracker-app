@@ -1,5 +1,27 @@
 import ReactModal from 'react-modal';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const modalFadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+`;
+
+const modalFadeOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+`;
 
 export const StyledReactModal = styled(ReactModal)`
   position: absolute;
@@ -17,6 +39,14 @@ export const StyledReactModal = styled(ReactModal)`
   font-size: 16px;
   line-height: 1.2;
   box-sizing: border-box;
+
+  &.ReactModal__Content--after-open {
+    animation: ${modalFadeIn} 0.3s ease-in-out forwards;
+  }
+
+  &.ReactModal__Content--before-close {
+    animation: ${modalFadeOut} 0.3s ease-in-out forwards;
+  }
 
   @media (min-width: 1440px) {
     width: 592px;
@@ -45,9 +75,9 @@ export const TitleText = styled.div`
 `;
 
 export const BtnCloseModal = styled.button`
-  transform: rotate(45deg);
-  width: 36px;
-  height: 36px;
+  width: 24px;
+  height: 24px;
+  margin-top: 5px;
 `;
 
 export const StyledRadioGroup = styled.div`
@@ -154,6 +184,17 @@ export const Input = styled.input`
     color: #407bff;
     opacity: 1;
   }
+`;
+
+export const ValueDiv = styled.div`
+  position: relative;
+`;
+
+export const ValueSpan = styled.span`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #407bff;
 `;
 
 export const AmountText = styled.div`
