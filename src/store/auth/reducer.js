@@ -6,6 +6,7 @@ import {
   fetchUser,
   logOut,
   updateAvatarThunk,
+  updateUser,
 } from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
@@ -21,7 +22,7 @@ const initialState = {
   },
   token: null,
   isLoggedIn: false,
-  ...[logIn, signUp, fetchUser, logOut, updateAvatarThunk].reduce(
+  ...[logIn, signUp, fetchUser, logOut, updateAvatarThunk, updateUser].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -54,6 +55,15 @@ export const authSlice = createSlice({
         state.user = payload;
       })
 
+      // UpdateUser
+      .addCase(updateUser.fulfilled, (state, { payload }) => {
+        state.user.email = payload.email;
+        state.user.name = payload.name;
+        state.user.gender = payload.gender;
+        state.user.avatarUrl = payload.avatarUrl;
+        state.user.dailyNorma = payload.dailyNorma;
+      })
+
       // Handle fulfilled requests status
       .addMatcher(isAnyOf(logIn.fulfilled, fetchUser.fulfilled), state => {
         state.isLoggedIn = true;
@@ -66,7 +76,8 @@ export const authSlice = createSlice({
           signUp.fulfilled,
           fetchUser.fulfilled,
           logOut.fulfilled,
-          updateAvatarThunk.fulfilled
+          updateAvatarThunk.fulfilled,
+          updateUser.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -83,7 +94,8 @@ export const authSlice = createSlice({
           signUp.pending,
           fetchUser.pending,
           logOut.pending,
-          updateAvatarThunk.pending
+          updateAvatarThunk.pending,
+          updateUser.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -111,7 +123,7 @@ export const authSlice = createSlice({
         })
       )
       .addMatcher(
-        isAnyOf(updateAvatarThunk.rejected),
+        isAnyOf(updateAvatarThunk.rejected, updateUser.rejected),
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {
             isLoading: false,

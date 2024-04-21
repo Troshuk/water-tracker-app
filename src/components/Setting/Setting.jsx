@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 // import { Oval } from 'react-loader-spinner';
 import { Icon } from 'components';
 
@@ -38,19 +37,14 @@ import {
 import { userSelector } from 'store/selectors';
 
 import { SettingModalSchema } from '../../schemasValdiate/SettingModalSchema.jsx';
-import {
-  updateAvatarThunk,
-} from '../../store/auth/operations.js';
-// import { selectIsLoading } from '../../redux/selectors';
+import { updateAvatarThunk, updateUser } from '../../store/auth/operations.js';
 
 export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
   const user = useSelector(userSelector);
-  // const token = useSelector(tokenSelector);
-
 
   const avatarURL = user.avatarURL;
   const gender = user.gender;
-  const username = user.name;
+  const name = user.name;
   const email = user.email;
 
   const [loader, setLoader] = useState(false);
@@ -63,41 +57,19 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
   });
   const dispatch = useDispatch();
 
-  const formik = useFormik({
-    initialValues: {
-      username,
-      email,
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-    },
-    //     onSubmit: async values => {
-    //       try {
-    //         const data = saveValues(values);
-    //         if (Object.keys(data).length === 0) {
-    //           handleCloseModal();
-    //           return;
-    //         }
-    //         await dispatch(updateThunk({ updateUser: data, token }));
-    //         handleCloseModal();
-    //       } catch {
-    //         toast.error('Something went wrong');
-    //       }
-    //     },
-    validationSchema: SettingModalSchema,
-  });
-
   const saveValues = values => {
     let data = {};
 
     if (
-      values.username.trim().length !== 0 &&
-      values.username !== formik.initialValues.username
+      values.name &&
+      values.name.trim().length !== 0 &&
+      values.name !== formik.initialValues.name
     ) {
-      data = { ...data, username: values.username };
+      data = { ...data, name: values.name };
     }
 
     if (
+      values.email &&
       values.email.trim().length !== 0 &&
       values.email !== formik.initialValues.email
     ) {
@@ -109,15 +81,37 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
     }
 
     if (formik.values.oldPassword || formik.values.confirmPassword) {
-      const password = {
-        newPassword: formik.values.confirmPassword,
-        oldPassword: formik.values.oldPassword,
-      };
+      const password = formik.values.confirmPassword,
+    
       data = { ...data, password };
     }
 
     return data;
   };
+
+  const formik = useFormik({
+    initialValues: {
+      name,
+      email,
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    },
+    onSubmit: async values => {
+      try {
+        const data = saveValues(values);
+        if (Object.keys(data).length === 0) {
+          handleCloseModal();
+          return;
+        }
+        dispatch(updateUser(data));
+        handleCloseModal();
+      } catch (error) {
+        console.error(error.message);
+      }
+    },
+    validationSchema: SettingModalSchema,
+  });
 
   const handleFileChange = async evt => {
     const avatar = evt.target.files[0];
@@ -132,12 +126,11 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
       setImgSize(true);
       return;
     }
-    
+
     const formData = new FormData();
     formData.append('avatar', avatar);
-    console.log(formData);
-    setLoader(true)
-    dispatch(updateAvatarThunk(formData))
+    setLoader(true);
+    dispatch(updateAvatarThunk(formData));
   };
 
   const handleGenderChange = evt => {
@@ -195,7 +188,7 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
             <AvatarWrap>
               <ImgWrapper>
                 {avatarURL ? (
-                  <img alt={username || email} src={avatarURL} />
+                  <img alt={name || email} src={avatarURL} />
                 ) : (
                   <Icon id="icon-user" />
                 )}
@@ -260,14 +253,12 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
                   <Input
                     name="username"
                     type="text"
-                    placeholder={username}
+                    placeholder={name}
                     onChange={handleInputChange}
-                    $hasError={
-                      formik.touched.username && formik.errors.username
-                    }
+                    $hasError={formik.touched.name && formik.errors.name}
                   />
-                  {formik.touched.username && formik.errors.username ? (
-                    <MessageError>{formik.errors.username}</MessageError>
+                  {formik.touched.name && formik.errors.name ? (
+                    <MessageError>{formik.errors.name}</MessageError>
                   ) : null}
                 </label>
                 <label>
