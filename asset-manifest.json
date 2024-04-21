@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/water-tracker-app/static/css/main.05715a17.css",
-    "main.js": "/water-tracker-app/static/js/main.1007537a.js",
-    "static/css/499.44b52aab.chunk.css": "/water-tracker-app/static/css/499.44b52aab.chunk.css",
+    "main.css": "/water-tracker-app/static/css/main.9fde178c.css",
+    "main.js": "/water-tracker-app/static/js/main.890f9416.js",
+    "static/css/499.426d777e.chunk.css": "/water-tracker-app/static/css/499.426d777e.chunk.css",
     "static/js/499.e6a5e2c7.chunk.js": "/water-tracker-app/static/js/499.e6a5e2c7.chunk.js",
     "static/js/14.4ea75dc5.chunk.js": "/water-tracker-app/static/js/14.4ea75dc5.chunk.js",
     "static/js/490.3e93f18e.chunk.js": "/water-tracker-app/static/js/490.3e93f18e.chunk.js",
@@ -70,9 +70,9 @@
     "static/media/roboto-greek-ext-400-normal.woff": "/water-tracker-app/static/media/roboto-greek-ext-400-normal.f708607d2a7290fb8bfa.woff",
     "static/media/roboto-greek-ext-700-normal.woff": "/water-tracker-app/static/media/roboto-greek-ext-700-normal.249853776d22a271b2b5.woff",
     "index.html": "/water-tracker-app/index.html",
-    "main.05715a17.css.map": "/water-tracker-app/static/css/main.05715a17.css.map",
-    "main.1007537a.js.map": "/water-tracker-app/static/js/main.1007537a.js.map",
-    "499.44b52aab.chunk.css.map": "/water-tracker-app/static/css/499.44b52aab.chunk.css.map",
+    "main.9fde178c.css.map": "/water-tracker-app/static/css/main.9fde178c.css.map",
+    "main.890f9416.js.map": "/water-tracker-app/static/js/main.890f9416.js.map",
+    "499.426d777e.chunk.css.map": "/water-tracker-app/static/css/499.426d777e.chunk.css.map",
     "499.e6a5e2c7.chunk.js.map": "/water-tracker-app/static/js/499.e6a5e2c7.chunk.js.map",
     "14.4ea75dc5.chunk.js.map": "/water-tracker-app/static/js/14.4ea75dc5.chunk.js.map",
     "490.3e93f18e.chunk.js.map": "/water-tracker-app/static/js/490.3e93f18e.chunk.js.map",
@@ -80,7 +80,7 @@
     "941.1f0ba0ce.chunk.js.map": "/water-tracker-app/static/js/941.1f0ba0ce.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.05715a17.css",
-    "static/js/main.1007537a.js"
+    "static/css/main.9fde178c.css",
+    "static/js/main.890f9416.js"
   ]
 }
