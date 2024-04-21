@@ -13,18 +13,13 @@ import css from './ForgotPassword.module.css';
 export const ForgotPassword = () => {
   const { isLoading } = useSelector(forgotPasswordSelector);
   const dispatch = useDispatch();
-  // const location = useLocation();
 
-  const handleSubmit = (body, actions) => {
-    // const token = new URLSearchParams(location.search).get('token');
-    const email = body.email;
-    const data = { email };
-
+  const handleSubmit = ({ email }, actions) => {
     notifyApi(
-      dispatch(forgotPassword(data)).then(() => {
+      dispatch(forgotPassword({ email })).then(() => {
         actions.resetForm();
       }),
-      `The letter was send`,
+      `Sending your password reset email`,
       true
     );
   };
