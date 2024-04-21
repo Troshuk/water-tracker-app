@@ -4,14 +4,21 @@ import { Hourglass } from 'react-loader-spinner';
 export const PageLoader = props => {
   return (
     <Section>
-      <Container>
+      <Container
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
         <Hourglass
-          speed={1}
           visible={true}
-          height={80}
+          height="80"
           width="80"
-          ariaLabel="hourglass-loading"
           {...props}
+          ariaLabel="hourglass-loading"
+          wrapperStyle={{}}
           wrapperClass=""
           colors={['#306cce', '#72a1ed']}
         />
