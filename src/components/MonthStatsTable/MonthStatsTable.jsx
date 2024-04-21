@@ -1,4 +1,7 @@
 import { useEffect, useState } from 'react';
+import Popup from 'reactjs-popup';
+import { useDispatch, useSelector } from 'react-redux';
+
 import {
   TitleWrapper,
   MonthText,
@@ -10,15 +13,13 @@ import {
   ProcentageWater,
 } from './MonthStatsTable.styled.js';
 import PopUpCard from './PopUp/PopUp';
-import Popup from 'reactjs-popup';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { getMonthPercentageThunk } from 'store/waterCalendar/operations.js';
-import { selectMonthPercentage } from 'store/waterCalendar/selectors.js';
+import { getStatisticsSelector } from 'store/selectors.js';
+import { getWaterStatisticsForDateRange } from 'store/operations.js';
 
 export const MonthStatsTable = () => {
   const dispatch = useDispatch();
-  const percentagePerMonth = useSelector(selectMonthPercentage);
+  const statistics = useSelector(getStatisticsSelector);
 
   const [todayDate] = useState(new Date());
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -27,7 +28,7 @@ export const MonthStatsTable = () => {
   const month = currentDate.getMonth() + 1;
 
   useEffect(() => {
-    dispatch(getMonthPercentageThunk(`${currentYear}-${month}`));
+    dispatch(getWaterStatisticsForDateRange(`${currentYear}-${month}`));
   }, [month, currentYear, dispatch]);
 
   const goToPreviousMonth = () => {
@@ -76,8 +77,8 @@ export const MonthStatsTable = () => {
         </div>
       </TitleWrapper>
       <Ul>
-        {percentagePerMonth.length > 0 &&
-          percentagePerMonth.map(
+        {statistics.length > 0 &&
+          statistics.map(
             ({ waterRate, date, percentOfWaterRate, recordsCount }) => {
               return (
                 <Popup

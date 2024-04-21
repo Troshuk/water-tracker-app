@@ -4,6 +4,7 @@ import {
   getConsumptionForToday,
   createConsumptionRecord,
   deleteConsumptionRecord,
+  getWaterStatisticsForDateRange,
 } from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
@@ -13,10 +14,12 @@ const initialState = {
     consumptionPercentage: 0,
     consumption: [],
   },
+  calendarStatistics: [],
   ...[
     getConsumptionForToday,
     createConsumptionRecord,
     deleteConsumptionRecord,
+    getWaterStatisticsForDateRange,
   ].reduce(
     (acc, operation) => ({
       ...acc,
@@ -47,12 +50,21 @@ export const waterSlice = createSlice({
         );
       })
 
+      // Get Water Statistics For Date Range
+      .addCase(
+        getWaterStatisticsForDateRange.fulfilled,
+        (state, { payload }) => {
+          state.calendarStatistics = payload;
+        }
+      )
+
       // Handle fulfilled requests status
       .addMatcher(
         isAnyOf(
           getConsumptionForToday.fulfilled,
           createConsumptionRecord.fulfilled,
-          deleteConsumptionRecord.fulfilled
+          deleteConsumptionRecord.fulfilled,
+          getWaterStatisticsForDateRange.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -67,7 +79,8 @@ export const waterSlice = createSlice({
         isAnyOf(
           getConsumptionForToday.pending,
           createConsumptionRecord.pending,
-          deleteConsumptionRecord.pending
+          deleteConsumptionRecord.pending,
+          getWaterStatisticsForDateRange.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -82,7 +95,8 @@ export const waterSlice = createSlice({
         isAnyOf(
           getConsumptionForToday.rejected,
           createConsumptionRecord.rejected,
-          deleteConsumptionRecord.rejected
+          deleteConsumptionRecord.rejected,
+          getWaterStatisticsForDateRange.rejected
         ),
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {
