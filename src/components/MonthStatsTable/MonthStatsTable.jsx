@@ -45,13 +45,17 @@ export const MonthStatsTable = () => {
     }));
   };
 
-  const handleDateClick = day => {
+  const handleDateHover = day => {
     setState(prevState => ({
       ...prevState,
       selectedDate: day,
       selectedMonth: prevState.currentDate.getMonth(),
     }));
     openModal();
+  };
+
+  const handleModalClose = () => {
+    closeModal();
   };
 
   const daysInMonth = getDaysInMonth(currentDate);
@@ -63,19 +67,21 @@ export const MonthStatsTable = () => {
     const day = i + 1;
     days.push(
       <div className={css.containerList} key={`day-${day}`}>
-        <button
-          className={css.buttonCalendar}
-          onClick={() => handleDateClick(day)}
-        >
-          <li className={css.calendarDay}>{day}</li>
-        </button>
+        <div className={css.buttonCalendar}>
+          <li
+            className={css.calendarDay}
+            onMouseEnter={() => handleDateHover(day)}
+          >
+            {day}
+          </li>
+        </div>
         <p className={css.itemCalendary}>100%</p>
       </div>
     );
   });
 
   return (
-    <div className={css.calendar}>
+    <div className={css.calendar} onMouseLeave={handleModalClose}>
       <div className={css.calendarHeader}>
         <h1 className={css.title}>Month</h1>
         <div className={css.containerCalendar}>
@@ -111,7 +117,6 @@ export const MonthStatsTable = () => {
                 How many servings of water:
                 <span className={css.selectedTimes}> 6</span>
               </p>
-              <button onClick={closeModal}>Close Modal</button>
             </div>
           </div>
         )}
