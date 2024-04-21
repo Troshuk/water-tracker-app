@@ -54,7 +54,7 @@ export const authSlice = createSlice({
       })
 
       .addCase(updatePassword.fulfilled, (state, {payload}) => {
-        state.user = payload.user;
+        state.user = payload;
         state.token = payload.token;
       })
 
