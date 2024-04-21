@@ -1,127 +1,122 @@
-import React, { useState } from 'react';
-import css from './MonthStatsTable.module.css';
-import useModal from 'components/customHooks/useModal';
+import { useEffect, useState } from 'react';
+import {
+  TitleWrapper,
+  MonthText,
+  SvgIcon,
+  MonthYearText,
+  LiItem,
+  LiCircle,
+  Ul,
+  ProcentageWater,
+} from './MonthStatsTable.styled.js';
+import PopUpCard from './PopUp/PopUp';
+import Popup from 'reactjs-popup';
+import { useDispatch, useSelector } from 'react-redux';
 
-const monthNames = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+import { getMonthPercentageThunk } from 'store/waterCalendar/operations.js';
+import { selectMonthPercentage } from 'store/waterCalendar/selectors.js';
 
 export const MonthStatsTable = () => {
-  const [state, setState] = useState({
-    currentDate: new Date(),
-    selectedDate: null,
-    selectedMonth: null,
-  });
+  const dispatch = useDispatch();
+  const percentagePerMonth = useSelector(selectMonthPercentage);
 
-  const { currentDate, selectedDate, selectedMonth } = state;
-  const { isOpen, openModal, closeModal } = useModal();
+  const [todayDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const monthName = currentDate.toLocaleString('en-US', { month: 'long' });
+  const month = currentDate.getMonth() + 1;
 
-  const getDaysInMonth = date =>
-    new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  useEffect(() => {
+    dispatch(getMonthPercentageThunk(`${currentYear}-${month}`));
+  }, [month, currentYear, dispatch]);
 
-  const getMonthName = date => {
-    const options = { month: 'long' };
-    return new Intl.DateTimeFormat('en-US', options).format(date);
-  };
-
-  const goToMonth = increment => {
-    setState(prevState => ({
-      ...prevState,
-      currentDate: new Date(
-        prevState.currentDate.getFullYear(),
-        prevState.currentDate.getMonth() + increment
-      ),
-    }));
-  };
-
-  const handleDateHover = day => {
-    setState(prevState => ({
-      ...prevState,
-      selectedDate: day,
-      selectedMonth: prevState.currentDate.getMonth(),
-    }));
-    openModal();
-  };
-
-  const handleModalClose = () => {
-    closeModal();
-  };
-
-  const daysInMonth = getDaysInMonth(currentDate);
-  const monthName = getMonthName(currentDate);
-
-  const days = [];
-
-  Array.from({ length: daysInMonth }).forEach((_, i) => {
-    const day = i + 1;
-    days.push(
-      <div className={css.containerList} key={`day-${day}`}>
-        <div className={css.buttonCalendar}>
-          <li
-            className={css.calendarDay}
-            onMouseEnter={() => handleDateHover(day)}
-          >
-            {day}
-          </li>
-        </div>
-        <p className={css.itemCalendary}>100%</p>
-      </div>
+  const goToPreviousMonth = () => {
+    const previousMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() - 1
     );
-  });
+    setCurrentDate(previousMonth);
+    if (currentDate.getMonth() === 0) {
+      setCurrentYear(currentYear - 1);
+    }
+  };
+
+  const goToNextMonth = () => {
+    if (currentDate.getMonth() === 11) {
+      setCurrentYear(currentYear + 1);
+    }
+    const nextMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1
+    );
+    if (
+      currentDate.getFullYear() < todayDate.getFullYear() ||
+      (currentDate.getFullYear() === todayDate.getFullYear() &&
+        currentDate.getMonth() < todayDate.getMonth())
+    ) {
+      setCurrentDate(nextMonth);
+    }
+  };
 
   return (
-    <div className={css.calendar} onMouseLeave={handleModalClose}>
-      <div className={css.calendarHeader}>
-        <h1 className={css.title}>Month</h1>
-        <div className={css.containerCalendar}>
-          <button onClick={() => goToMonth(-1)} className={css.itemButton}>
+    <>
+      <TitleWrapper>
+        <button>UPDATE</button>
+        <MonthText>Month</MonthText>
+        <div>
+          <SvgIcon onClick={goToPreviousMonth} width={6} height={10}>
             &lt;
-          </button>
-          <h2 className={css.itemName}>
-            {monthName},{currentDate.getFullYear()}
-          </h2>
-          <button onClick={() => goToMonth(1)} className={css.itemButton}>
+          </SvgIcon>
+          <MonthYearText>
+            {monthName}, {currentYear}
+          </MonthYearText>
+          <SvgIcon onClick={goToNextMonth} width={6} height={10}>
             &gt;
-          </button>
+          </SvgIcon>
         </div>
-      </div>
-      <div className={css.calendarBody}>
-        {isOpen && (
-          <div className={css.modalBackground}>
-            <div className={css.modalContent}>
-              <p>
-                <span className={css.selectedTimes}>
-                  {selectedDate}, {monthNames[selectedMonth]}
-                </span>
-              </p>
-              <p className={css.titleModal}>
-                Daily norma:
-                <span className={css.selectedTimes}> 1.8L</span>
-              </p>
-              <p className={css.titleModal}>
-                Fulfillment of the daily norm:
-                <span className={css.selectedTimes}> 100%</span>
-              </p>
-              <p className={css.titleModal}>
-                How many servings of water:
-                <span className={css.selectedTimes}> 6</span>
-              </p>
-            </div>
-          </div>
-        )}
-        <ul className={css.calendarList}>{days}</ul>
-      </div>
-    </div>
+      </TitleWrapper>
+      <Ul>
+        {percentagePerMonth.length > 0 &&
+          percentagePerMonth.map(
+            ({ waterRate, date, percentOfWaterRate, recordsCount }) => {
+              return (
+                <Popup
+                  style={{ width: '280px' }}
+                  key={date}
+                  trigger={
+                    <LiItem>
+                      <LiCircle percentage={percentOfWaterRate}>
+                        {parseInt(date)}
+                      </LiCircle>
+                      <ProcentageWater>
+                        {percentOfWaterRate ? percentOfWaterRate : 0}%
+                      </ProcentageWater>
+                    </LiItem>
+                  }
+                  position={[
+                    'top left',
+                    'top right',
+                    'center center',
+                    'right center',
+                  ]}
+                  on="click"
+                  closeOnDocumentClick
+                  keepTooltipInside={true}
+                  arrow={false}
+                  offsetX={8}
+                  offsetY={8}
+                >
+                  <PopUpCard
+                    date={date}
+                    waterRate={waterRate}
+                    percentOfWaterRate={percentOfWaterRate}
+                    recordsCount={recordsCount}
+                  />
+                </Popup>
+              );
+            }
+          )}
+      </Ul>
+    </>
   );
 };
