@@ -1,19 +1,21 @@
 import ReactModal from 'react-modal';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { ContentLoader, Icon } from 'components';
-
 import {
   createConsumptionRecord,
   getConsumptionForToday,
   updateConsumptionRecord,
 } from 'store/operations';
-import { createConsumptionRecordSelector } from 'store/selectors';
+import {
+  createConsumptionRecordSelector,
+  todayConsumptionsSelector,
+} from 'store/selectors';
 import { notifyApi } from 'notify';
 
 import css from './WaterConsumptionModals.module.css';
 import { notify } from 'notify';
+import moment from 'moment';
 
 ReactModal.setAppElement('#root');
 
@@ -32,6 +34,11 @@ const getCurrentTime = () => {
   return closes.toISOString();
 };
 
+const formatTimeLt = inDate => {
+  inDate ||= new Date();
+  return moment(inDate).format('h:mm A').toString();
+};
+
 const generateTimeOptions = () => {
   const options = [];
   const today = new Date();
@@ -39,12 +46,12 @@ const generateTimeOptions = () => {
 
   for (let hour = 0; hour < 24; hour++) {
     for (let minute = 0; minute < 60; minute += step) {
-      const hour12 = hour % 12 || 12; // Convert hour to 12-hour format
-      const period = hour < 12 ? 'AM' : 'PM'; // Determine AM or PM
-      const time = `${String(hour12)}:${String(minute).padStart(
-        2,
-        '0'
-      )} ${period}`;
+      // const hour12 = hour % 12 || 12; // Convert hour to 12-hour format
+      // const period = hour < 12 ? 'AM' : 'PM'; // Determine AM or PM
+      // const time = `${String(hour12)}:${String(minute).padStart(
+      //   2,
+      //   '0'
+      // )} ${period}`;
       const dateTime = new Date(
         today.getFullYear(),
         today.getMonth(),
@@ -52,6 +59,7 @@ const generateTimeOptions = () => {
         hour,
         minute
       );
+      const time = formatTimeLt(dateTime);
       const dateOption = dateTime.toISOString();
       options.push(
         <option key={dateOption} value={dateOption}>
@@ -215,6 +223,10 @@ export const WaterConsumptionEditModal = ({ isOpen, id, onRequestClose }) => {
   const { isLoading } = useSelector(createConsumptionRecordSelector);
 
   const dispatch = useDispatch();
+  const consumedWater = useSelector(todayConsumptionsSelector);
+  const lastConsumedWater = consumedWater[consumedWater.length - 1];
+  console.log(lastConsumedWater);
+
   const handleTimeChange = event => {
     setSelectedTime(event.target.value);
   };
@@ -294,8 +306,10 @@ export const WaterConsumptionEditModal = ({ isOpen, id, onRequestClose }) => {
           <span className={css.last_glass}>
             <Icon id="glass-water" width="36" height="36" fill="blue" />
           </span>
-          <span className={css.last_value}>250ml</span>
-          <span className={css.last_time}>7:00 AM</span>
+          <span className={css.last_value}>{lastConsumedWater?.value}</span>
+          <span className={css.last_time}>
+            {formatTimeLt(lastConsumedWater?.consumed_at)}
+          </span>
         </div>
         <h3 className={css.chooseValue}>Correct entered data:</h3>
         <p className={css.amount}>Amount of water:</p>
