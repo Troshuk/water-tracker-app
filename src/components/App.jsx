@@ -10,6 +10,7 @@ import {
   LOGIN_ROUTE,
   SIGN_UP_ROUTE,
   DASHBOARD_ROUTE,
+  UPDATE_PASSWORD_PAGE
 } from 'routes/routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthReducerSelector, fetchUserSelector } from 'store/selectors';
@@ -21,6 +22,7 @@ const LoginPage = lazy(() => import('pages/Login'));
 const RegisterPage = lazy(() => import('pages/Register'));
 const ForgotPasswordPage = lazy(() => import('pages/ForgotPasswordPage'));
 const Dashboard = lazy(() => import('pages/Dashboard'));
+const UpdatePasswordPage = lazy(() => import('pages/UpdatePasswordPage'));
 
 
 export const App = () => {
@@ -60,6 +62,11 @@ export const App = () => {
                 <Route
                   path={FORGOT_PASSWORD_ROUTE}
                   element={<ForgotPasswordPage />}
+                 
+                />
+                <Route
+                  path={UPDATE_PASSWORD_PAGE}
+                  element={<UpdatePasswordPage />}
                 />
               </>
             )}

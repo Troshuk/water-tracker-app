@@ -1,9 +1,5 @@
-import { UpdatePassword } from 'components/ForgotPassword/ForgotPassword.jsx';
-import { NavLink } from 'react-router-dom';
+import { UpdatePassword } from 'components/UpdatePassword/UpdatePassword.jsx';
 
 export default function ForgotPasswordPage() {
-  <NavLink to={UpdatePassword}>
- return <UpdatePassword />;
-  </NavLink>
- 
+  return <UpdatePassword />;
 }

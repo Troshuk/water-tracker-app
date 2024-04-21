@@ -8,61 +8,46 @@ import { Container, ContentLoader, Icon, Section } from 'components';
 import { logInSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 import { logIn } from 'store/operations';
-import { LoginSchema } from 'schemasValdiate/LoginSchema';
-// import { UPDATE_PASSWORD_PAGE, SIGN_UP_ROUTE } from 'routes/routes';
+import { LOGIN_ROUTE } from 'routes/routes';
 
-import css from './LoginFrom.module.css';
+import css from './UpdatePassword.module.css';
 
-export const LoginFrom = () => {
+export const UpdatePassword = () => {
   const [visible, setVisible] = useState(false);
+  const [visibleEye, setVisibleEye] = useState(false);
   const dispatch = useDispatch();
 
   const { isLoading } = useSelector(logInSelector);
 
-  const handleSubmit = ({ email, password }, actions) => {
+  const handleSubmit = ({ password }, actions) => {
     notifyApi(
-      dispatch(logIn({ email, password }))
+      dispatch(logIn({ password }))
         .unwrap()
         .then(() => actions.resetForm()),
-      `Attempt to login as: ${email}`,
+      `Attempt to password`,
       true
     );
   };
 
   return (
     <Section className={css.sectionForm}>
-      <Container className={css.loginContainer}>
+      <Container className={css.Container}>
+        <div className={css.titleThumb}>
+          <h1 className={css.title}>
+            To change your password, please fill out the form
+          </h1>
+        </div>
         <Formik
           initialValues={{
-            email: '',
             password: '',
+            passwordRepeat: '',
           }}
-          validationSchema={LoginSchema}
           onSubmit={handleSubmit}
         >
           {({ errors, touched }) => (
             <Form className={css.formContainer}>
-              <div className={css.containerEmail}>
-                <h1 className={css.titleForm}>Sign In</h1>
-                <p className={css.textInput}>Enter your email</p>
-                <Field
-                  type="text"
-                  name="email"
-                  placeholder="E-mail"
-                  className={`${css.inputField} ${
-                    errors.email && touched.email
-                      ? `${css.inputError} ${css.error}`
-                      : ''
-                  }`}
-                />
-                {errors.email && touched.email && (
-                  <p className={`${css.errorText} ${css.errorText}`}>
-                    {errors.email}
-                  </p>
-                )}
-              </div>
-              <div>
-                <p className={css.textInput}>Enter your password</p>
+              <div className={css.inputtThumb}>
+                <p className={css.textInput}>Enter your new password</p>
                 <div className={css.inputWithIcon}>
                   <Field
                     type={visible ? 'text' : 'password'}
@@ -83,26 +68,42 @@ export const LoginFrom = () => {
                   />
                 </div>
 
-                {errors.password && touched.password && (
-                  <p className={css.errorText}>{errors.password}</p>
-                )}
-                <button
-                  type="submit"
-                  className={css.buttonForm}
-                  disabled={isLoading}
-                >
-                  Sign In {isLoading && <ContentLoader />}
-                </button>
-              </div>
-              <div className={css.redirectLink}>
-                <NavLink to={SIGN_UP_ROUTE} className={css.linkForm}>
-                  Sign Up
-                </NavLink>
-              </div>
-              <div className={css.redirectForgot}>
-                <NavLink to={FORGOT_PASSWORD_ROUTE} className={css.linkForm}>
-                  Forgot your password?
-                </NavLink>
+                <div>
+                  <p className={css.textInput}>Repeat password</p>
+                  <div className={css.inputWithIcon}>
+                    <Field
+                      type={visibleEye ? 'text' : 'password'}
+                      name="passwordRepeat"
+                      placeholder="Repeat password"
+                      className={`${css.inputField} ${
+                        errors.passwordRepeat && touched.passwordRepeat
+                          ? `${css.inputError} ${css.error}`
+                          : ''
+                      }`}
+                    />
+                    <Icon
+                      id={visibleEye ? 'icon-eye' : 'icon-eye-slash'}
+                      width="16"
+                      height="16"
+                      className={css.iconField}
+                      onClick={() => setVisibleEye(!visibleEye)}
+                    />
+                  </div>
+
+                  {errors.passwordRepeat && touched.passwordRepeat && (
+                    <p className={css.errorText}>{errors.passwordRepeat}</p>
+                  )}
+
+                  <NavLink to={LOGIN_ROUTE}>
+                    <button
+                      type="submit"
+                      className={css.buttonForm}
+                      disabled={isLoading}
+                    >
+                      Send {isLoading && <ContentLoader />}
+                    </button>
+                  </NavLink>
+                </div>
               </div>
             </Form>
           )}

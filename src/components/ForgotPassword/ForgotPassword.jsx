@@ -5,7 +5,7 @@ import { notifyApi } from 'notify';
 
 import { forgotPasswordSelector } from 'store/selectors';
 import { Container, Section } from 'components';
-import { LOGIN_ROUTE } from 'routes/routes';
+import { LOGIN_ROUTE, UPDATE_PASSWORD_PAGE } from 'routes/routes';
 import { ContentLoader } from 'components';
 import { forgotPassword } from 'store/operations';
 import css from './ForgotPassword.module.css';
@@ -78,6 +78,9 @@ export const ForgotPassword = () => {
               </div>
               <NavLink to={LOGIN_ROUTE} className={css.redirectLink}>
                 Sign In
+              </NavLink>
+              <NavLink to={UPDATE_PASSWORD_PAGE} className={css.redirectLink}>
+                Update
               </NavLink>
             </Form>
           )}
