@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
-import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Container, ContentLoader, Icon, Section } from 'components';
