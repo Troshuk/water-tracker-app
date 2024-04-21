@@ -36,11 +36,11 @@ export const UpdatePassword = () => {
   return (
     <Section className={css.sectionForm}>
       <Container className={css.Container}>
-        <div className={css.titleThumb}>
+        <div className={css.titleFormThumb}>
           <h1 className={css.title}>
-            To change your password, please fill out the form
+            Change your password
           </h1>
-        </div>
+        
         <Formik
           initialValues={{
             password: '',
@@ -112,6 +112,7 @@ export const UpdatePassword = () => {
             </Form>
           )}
         </Formik>
+        </div>
       </Container>
     </Section>
   );

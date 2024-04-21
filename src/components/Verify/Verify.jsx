@@ -6,7 +6,7 @@ export const Verify = () => {
   return (
     <Section className={css.sectionForm}>
       <Container className={css.Container}>
-        <div className={css.titleThumb}>
+        <div>
           <h1 className={css.title}>
             Your email has been successfully verified
           </h1>
