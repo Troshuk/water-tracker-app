@@ -135,6 +135,7 @@ export const TodayWaterList = () => {
 
       <WaterConsumptionEditModal
         isOpen={editModal.open}
+        id={editModal.id}
         onRequestClose={() => setEditModal(modalIsOpenInitial)}
       />
 

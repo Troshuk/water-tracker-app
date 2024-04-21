@@ -4,6 +4,7 @@ import {
   getConsumptionForToday,
   createConsumptionRecord,
   deleteConsumptionRecord,
+  updateConsumptionRecord,
 } from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
@@ -17,6 +18,7 @@ const initialState = {
     getConsumptionForToday,
     createConsumptionRecord,
     deleteConsumptionRecord,
+    updateConsumptionRecord,
   ].reduce(
     (acc, operation) => ({
       ...acc,
@@ -45,6 +47,15 @@ export const waterSlice = createSlice({
         state.today.consumption = state.today.consumption.filter(
           water => water.id !== payload.id
         );
+      })
+      // Update consumption record
+      .addCase(updateConsumptionRecord.fulfilled, (state, { payload }) => {
+        const updatedIndex = state.today.consumption.findIndex(
+          water => water.id === payload.id
+        );
+        if (updatedIndex !== -1) {
+          state.today.consumption[updatedIndex] = payload;
+        }
       })
 
       // Handle fulfilled requests status
