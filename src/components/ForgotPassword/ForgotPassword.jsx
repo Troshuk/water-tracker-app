@@ -1,6 +1,6 @@
 import { Formik, Form, Field } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { notifyApi } from 'notify';
 
 import { forgotPasswordSelector } from 'store/selectors';
@@ -13,11 +13,13 @@ import css from './ForgotPassword.module.css';
 export const ForgotPassword = () => {
   const { isLoading } = useSelector(forgotPasswordSelector);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = ({ email }, actions) => {
     notifyApi(
       dispatch(forgotPassword({ email })).then(() => {
         actions.resetForm();
+        navigate(LOGIN_ROUTE);
       }),
       `Sending your password reset email`,
       true

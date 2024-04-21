@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { Container, ContentLoader, Icon, Section } from 'components';
 
@@ -16,16 +16,19 @@ export const UpdatePassword = () => {
   const [visible, setVisible] = useState(false);
   const [visibleEye, setVisibleEye] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { token } = useParams();
 
   const { isLoading } = useSelector(updatePasswordSelector);
 
   const handleSubmit = ({ password }, actions) => {
     notifyApi(
-      dispatch(updatePassword(token, { password }))
+      dispatch(updatePassword({ token, password }))
         .unwrap()
-        .then(() => actions.resetForm())
-        .navigate(LOGIN_ROUTE),
+        .then(() => {
+          actions.resetForm();
+          navigate(LOGIN_ROUTE);
+        }),
       `Updating your password`,
       true
     );
