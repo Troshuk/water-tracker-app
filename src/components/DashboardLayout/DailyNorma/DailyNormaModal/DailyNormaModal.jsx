@@ -30,7 +30,6 @@ import {
 import { Icon } from 'components';
 import { AuthReducerSelector } from 'store/selectors';
 import { DailyNormaModalSchema } from 'schemasValdiate/dailyNormaModallSchema';
-import { toast } from 'react-toastify';
 import { updateWaterGoal } from 'store/operations';
 import { notify } from 'notify';
 
