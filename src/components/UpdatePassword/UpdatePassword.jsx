@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import { Container, ContentLoader, Icon, Section } from 'components';
 
@@ -15,20 +16,20 @@ export const UpdatePassword = () => {
   const [visible, setVisible] = useState(false);
   const [visibleEye, setVisibleEye] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { token } = useParams();
 
   const { isLoading } = useSelector(updatePasswordSelector);
- 
 
-  const handleSubmit = (body, actions) => {
-    const password = body.password;
-    const data = { password };
-
+  const handleSubmit = ({ password }, actions) => {
     notifyApi(
-      dispatch(updatePassword(data))
+      dispatch(updatePassword({ token, password }))
         .unwrap()
-        .then(() => actions.resetForm())
-        .navigate(LOGIN_ROUTE),
-      `Attempt to password`,
+        .then(() => {
+          actions.resetForm();
+          navigate(LOGIN_ROUTE);
+        }),
+      `Updating your password`,
       true
     );
   };
@@ -98,15 +99,13 @@ export const UpdatePassword = () => {
                     <p className={css.errorText}>{errors.passwordRepeat}</p>
                   )}
 
-                  
-                    <button
-                      type="submit"
-                      className={css.buttonForm}
-                      disabled={isLoading}
-                    >
-                      Send {isLoading && <ContentLoader />}
-                    </button>
-                  
+                  <button
+                    type="submit"
+                    className={css.buttonForm}
+                    disabled={isLoading}
+                  >
+                    Send {isLoading && <ContentLoader />}
+                  </button>
                 </div>
               </div>
             </Form>
@@ -117,5 +116,3 @@ export const UpdatePassword = () => {
     </Section>
   );
 };
-
-

@@ -60,35 +60,16 @@ export const logOut = createAsyncThunkWithCatch('auth/logOut', async body => {
 
 export const forgotPassword = createAsyncThunkWithCatch(
   'auth/forgotPassword',
-  async ({email}, {getState}) => {
-    setToken(getToken(getState()));
-    const data = (await api.post(USERS_ENDPOINT + 'password/forgot', {email}))
-      .data;
-
-    return data;
-  }
+  async body => (await api.post(USERS_ENDPOINT + 'password/forgot', body)).data
 );
 
 export const updatePassword = createAsyncThunkWithCatch(
   'auth/updatePassword',
-  async ({token, ...body}) => {
-    const data = (
-      await api.post(USERS_ENDPOINT + `password/reset/${token}`, body)
-    ).data;
-  
-    setToken(data.token);
-  
-    return data;
-  }
-)
+  async ({ token, ...body }) =>
+    (await api.post(USERS_ENDPOINT + `password/reset/${token}`, body)).data
+);
 
-// export const forgotPassword = createAsyncThunkWithCatch(
-//   'auth/forgotPassword',
-//   async ({email}, {getState}) => {
-//     setToken(getToken(getState()));
-//     const data = (await api.post(USERS_ENDPOINT + 'password/forgot', {email}))
-//       .data;
-
-//     return data;
-//   }
-// );
+export const updateWaterGoal = createAsyncThunkWithCatch(
+  'user/updateWaterGoal',
+  async body => (await api.patch(USERS_ENDPOINT + 'water/goal', body)).data
+);
