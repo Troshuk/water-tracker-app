@@ -3,16 +3,13 @@ import styled from 'styled-components';
 export const Wrap = styled.div`
   display: inline-block;
   border-radius: 10px;
-  border: 1px solid #ecf2ff;
+  border: 1px solid var(--secondary-color-2);
   background: rgb(255, 255, 255);
   box-shadow: 0 4px 8px 0 rgba(158, 187, 255, 0.12);
   padding: 8px 20px;
-  margin-bottom: 8px;
-  position: static;
 
   @media (min-width: 768px) {
     position: absolute;
-    /* height: 76px; */
   }
 `;
 
@@ -20,25 +17,24 @@ export const Text = styled.p`
   margin-bottom: 12px;
   font-size: 18px;
   font-weight: 500;
-  font-family: 'Roboto';
-  line-height: 1.3;
-  color: #2f2f2f;
+  line-height: 1.33;
 `;
 
 export const TextWater = styled.p`
-  font-size: 24px;
-  font-family: 'Roboto';
+  font-size: 22px;
   font-weight: 700;
   line-height: 1;
-  color: #407bff;
+  color: var(--primery-color-blue);
+
+  @media (min-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 export const Button = styled.button`
   padding: 0;
   font-size: 16px;
-  font-family: 'Roboto';
-  font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.25;
   color: #8baeff;
   border: none;
   background-color: #ffffff;
@@ -51,8 +47,8 @@ export const Button = styled.button`
       90deg,
       #ff9d43 0%,
       #ff9d43 50%,
-      #407bff 50%,
-      #407bff 100%
+      var(--primery-color-blue) 50%,
+      var(--primery-color-blue) 100%
     );
 
     background-size: 200% 100%;

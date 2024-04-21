@@ -1,6 +1,14 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { logIn, signUp, fetchUser, logOut, forgotPassword, updatePassword } from './operations';
+import {
+  logIn,
+  signUp,
+  fetchUser,
+  logOut,
+  forgotPassword,
+  updatePassword,
+  updateWaterGoal,
+} from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
 
@@ -15,7 +23,15 @@ const initialState = {
   },
   token: null,
   isLoggedIn: false,
-  ...[logIn, signUp, fetchUser, logOut, forgotPassword, updatePassword].reduce(
+  ...[
+    logIn,
+    signUp,
+    fetchUser,
+    logOut,
+    forgotPassword,
+    updatePassword,
+    updateWaterGoal,
+  ].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -43,19 +59,9 @@ export const authSlice = createSlice({
       // Log Out
       .addCase(logOut.fulfilled, () => initialState)
 
-      // Forgot Password
-      .addCase(forgotPassword.fulfilled, (state, { payload }) => {
-        state.user.password = null;
+      // Water
+      .addCase(updateWaterGoal.fulfilled, (state, { payload }) => {
         state.user = payload;
-        // state.token = payload.token;
-        // state.isLoggedIn = false;
-
-        
-      })
-
-      .addCase(updatePassword.fulfilled, (state, {payload}) => {
-        state.user = payload;
-        state.token = payload.token;
       })
 
       // Handle fulfilled requests status
@@ -72,6 +78,7 @@ export const authSlice = createSlice({
           logOut.fulfilled,
           forgotPassword.fulfilled,
           updatePassword.fulfilled,
+          updateWaterGoal.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -89,7 +96,8 @@ export const authSlice = createSlice({
           fetchUser.pending,
           logOut.pending,
           forgotPassword.pending,
-          updatePassword.pending
+          updatePassword.pending,
+          updateWaterGoal.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -99,15 +107,13 @@ export const authSlice = createSlice({
           };
         }
       )
-      // Handle Rejected requests
+      // Handle Auth Rejected requests
       .addMatcher(
         isAnyOf(
           logIn.rejected,
           signUp.rejected,
           fetchUser.rejected,
-          logOut.rejected,
-          forgotPassword.rejected,
-          updatePassword.rejected,
+          logOut.rejected
         ),
         (_, { error, payload, type, meta }) => ({
           ...initialState,
@@ -117,6 +123,21 @@ export const authSlice = createSlice({
             key: null,
           },
         })
+      )
+      // Handle Rejected requests
+      .addMatcher(
+        isAnyOf(
+          updateWaterGoal.rejected,
+          forgotPassword.rejected,
+          updatePassword.rejected
+        ),
+        (state, { error, payload, type, meta }) => {
+          state[getStateKey(type, meta)] = {
+            isLoading: false,
+            error: payload ?? error.message,
+            key: null,
+          };
+        }
       );
   },
 });

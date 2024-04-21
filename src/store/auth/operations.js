@@ -68,3 +68,8 @@ export const updatePassword = createAsyncThunkWithCatch(
   async (token, body) =>
     (await api.post(USERS_ENDPOINT + `password/reset/${token}`, body)).data
 );
+
+export const updateWaterGoal = createAsyncThunkWithCatch(
+  'user/updateWaterGoal',
+  async body => (await api.patch(USERS_ENDPOINT + 'water/goal', body)).data
+);
