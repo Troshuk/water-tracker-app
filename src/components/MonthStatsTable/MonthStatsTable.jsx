@@ -1,123 +1,183 @@
 import { useEffect, useState } from 'react';
-import Popup from 'reactjs-popup';
 import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  TitleWrapper,
-  MonthText,
-  SvgIcon,
-  MonthYearText,
-  LiItem,
-  LiCircle,
-  Ul,
-  ProcentageWater,
-} from './MonthStatsTable.styled.js';
-import PopUpCard from './PopUp/PopUp';
+import useModal from 'components/customHooks/useModal';
 
-import { getStatisticsSelector } from 'store/selectors.js';
+import css from './MonthStatsTable.module.css';
 import { getWaterStatisticsForDateRange } from 'store/operations.js';
+import { getStatisticsSelector, userSelector } from 'store/selectors.js';
+
+const monthNames = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
 export const MonthStatsTable = () => {
   const dispatch = useDispatch();
-  const statistics = useSelector(getStatisticsSelector);
+  const [state, setState] = useState({
+    currentDate: new Date(),
+    selectedDate: null,
+    selectedMonth: null,
+  });
 
-  const [todayDate] = useState(new Date());
-  const [currentDate, setCurrentDate] = useState(new Date());
-  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const monthName = currentDate.toLocaleString('en-US', { month: 'long' });
-  const month = currentDate.getMonth() + 1;
+  const { currentDate, selectedDate, selectedMonth } = state;
+  const { isOpen, openModal, closeModal } = useModal();
+  const statistics = useSelector(getStatisticsSelector);
+  const { timezone: timeZone } = useSelector(userSelector);
+
+  const getDaysInMonth = date =>
+    new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+
+  const getMonthName = date => {
+    const options = { month: 'long' };
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+  };
+
+  const goToMonth = increment => {
+    setState(prevState => ({
+      ...prevState,
+      currentDate: new Date(
+        prevState.currentDate.getFullYear(),
+        prevState.currentDate.getMonth() + increment
+      ),
+    }));
+  };
+
+  const handleDateHover = day => {
+    setState(prevState => ({
+      ...prevState,
+      selectedDate: day,
+      selectedMonth: prevState.currentDate.getMonth(),
+    }));
+    openModal();
+  };
+
+  const handleModalClose = () => {
+    closeModal();
+  };
+
+  const daysInMonth = getDaysInMonth(currentDate);
+  const monthName = getMonthName(currentDate);
+
+  const days = [];
+
+  Array.from({ length: daysInMonth }).forEach((_, i) => {
+    const day = i + 1;
+    days.push({ day });
+  });
+
+  statistics?.forEach(statistic => {
+    const day = Number(statistic.date.split('-').pop());
+    days[day - 1] = { ...days[day - 1], statistic };
+  });
 
   useEffect(() => {
-    dispatch(getWaterStatisticsForDateRange(`${currentYear}-${month}`));
-  }, [month, currentYear, dispatch]);
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth();
 
-  const goToPreviousMonth = () => {
-    const previousMonth = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() - 1
+    dispatch(
+      getWaterStatisticsForDateRange({
+        fromDate: new Date(currentYear, currentMonth, 0).toISOString(),
+        toDate: new Date(currentYear, currentMonth + 1, 0).toISOString(),
+      })
     );
-    setCurrentDate(previousMonth);
-    if (currentDate.getMonth() === 0) {
-      setCurrentYear(currentYear - 1);
-    }
-  };
-
-  const goToNextMonth = () => {
-    if (currentDate.getMonth() === 11) {
-      setCurrentYear(currentYear + 1);
-    }
-    const nextMonth = new Date(
-      currentDate.getFullYear(),
-      currentDate.getMonth() + 1
-    );
-    if (
-      currentDate.getFullYear() < todayDate.getFullYear() ||
-      (currentDate.getFullYear() === todayDate.getFullYear() &&
-        currentDate.getMonth() < todayDate.getMonth())
-    ) {
-      setCurrentDate(nextMonth);
-    }
-  };
+  }, [dispatch, currentDate]);
 
   return (
-    <>
-      <TitleWrapper>
-        <button>UPDATE</button>
-        <MonthText>Month</MonthText>
-        <div>
-          <SvgIcon onClick={goToPreviousMonth} width={6} height={10}>
+    <div className={css.calendar} onMouseLeave={handleModalClose}>
+      <div className={css.calendarHeader}>
+        <h1 className={css.title}>Month</h1>
+        <div className={css.containerCalendar}>
+          <button onClick={() => goToMonth(-1)} className={css.itemButton}>
             &lt;
-          </SvgIcon>
-          <MonthYearText>
-            {monthName}, {currentYear}
-          </MonthYearText>
-          <SvgIcon onClick={goToNextMonth} width={6} height={10}>
+          </button>
+          <h2 className={css.itemName}>
+            {monthName},{currentDate.getFullYear()}
+          </h2>
+          <button onClick={() => goToMonth(1)} className={css.itemButton}>
             &gt;
-          </SvgIcon>
+          </button>
         </div>
-      </TitleWrapper>
-      <Ul>
-        {statistics.length > 0 &&
-          statistics.map(
-            ({ waterRate, date, percentOfWaterRate, recordsCount }) => {
-              return (
-                <Popup
-                  style={{ width: '280px' }}
-                  key={date}
-                  trigger={
-                    <LiItem>
-                      <LiCircle percentage={percentOfWaterRate}>
-                        {parseInt(date)}
-                      </LiCircle>
-                      <ProcentageWater>
-                        {percentOfWaterRate ? percentOfWaterRate : 0}%
-                      </ProcentageWater>
-                    </LiItem>
-                  }
-                  position={[
-                    'top left',
-                    'top right',
-                    'center center',
-                    'right center',
-                  ]}
-                  on="click"
-                  closeOnDocumentClick
-                  keepTooltipInside={true}
-                  arrow={false}
-                  offsetX={8}
-                  offsetY={8}
-                >
-                  <PopUpCard
-                    date={date}
-                    waterRate={waterRate}
-                    percentOfWaterRate={percentOfWaterRate}
-                    recordsCount={recordsCount}
-                  />
-                </Popup>
-              );
-            }
-          )}
-      </Ul>
-    </>
+      </div>
+      <div className={css.calendarBody}>
+        {isOpen && (
+          <div className={css.modalBackground}>
+            <div className={css.modalContent}>
+              <p>
+                <span className={css.selectedTimes}>
+                  {selectedDate}, {monthNames[selectedMonth]}
+                </span>
+              </p>
+              <p className={css.titleModal}>
+                Daily norma:
+                <span className={css.selectedTimes}> 1.8L</span>
+              </p>
+              <p className={css.titleModal}>
+                Fulfillment of the daily norm:
+                <span className={css.selectedTimes}> 100%</span>
+              </p>
+              <p className={css.titleModal}>
+                How many servings of water:
+                <span className={css.selectedTimes}> 6</span>
+              </p>
+            </div>
+          </div>
+        )}
+        <ul className={css.calendarList}>
+          {days.map(({ day, statistic }) => (
+            <li className={css.containerList} key={`day-${day}`}>
+              <div className={css.buttonCalendar}>
+                <span className={css.calendarDay}>{day}</span>
+              </div>
+              <p className={css.itemCalendary}>
+                {statistic?.consumptionPercentage || '0'}%
+              </p>
+              {statistic && (
+                <div className={css.modalBackground}>
+                  <div className={css.modalContent}>
+                    <p>
+                      <span className={css.selectedTimes}>
+                        {day}, {monthNames[currentDate.getMonth()]}
+                      </span>
+                    </p>
+                    <p className={css.titleModal}>
+                      Daily norma:
+                      <span className={css.selectedTimes}>
+                        {' '}
+                        {statistic?.dailyWaterGoal}L
+                      </span>
+                    </p>
+                    <p className={css.titleModal}>
+                      Fulfillment of the daily norm:
+                      <span className={css.selectedTimes}>
+                        {' '}
+                        {statistic?.consumptionPercentage}%
+                      </span>
+                    </p>
+                    <p className={css.titleModal}>
+                      How many servings of water:
+                      <span className={css.selectedTimes}>
+                        {' '}
+                        {statistic?.count}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 };
