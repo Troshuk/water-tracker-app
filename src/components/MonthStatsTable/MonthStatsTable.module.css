@@ -7,22 +7,15 @@
   justify-content: center;
   flex-direction: column;
   position: absolute;
-  right: -56%;
-  top: -2%;
+  top: -14px;
   transform: translate(-50%, -100%);
   z-index: 2;
 }
-@media screen and (min-width: 768px) {
-  .modalBackground {
-    left: 20%;
-    width: fit-content;
-  }
+
+.containerList {
+  position: relative;
 }
-@media screen and (min-width: 1440px) {
-  .modalBackground {
-    left: 25%;
-  }
-}
+
 .modalContent {
   display: flex;
   gap: 16px;
