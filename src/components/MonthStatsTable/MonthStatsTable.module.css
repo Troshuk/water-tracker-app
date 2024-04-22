@@ -57,6 +57,7 @@
   display: flex;
   justify-content: center;
   gap: 12px;
+  min-width: 128px;
 }
 
 .itemCalendary {
@@ -103,7 +104,21 @@
   font-size: 14px;
   line-height: 129%;
 }
-
+.greenBackground {
+  border: 1px solid green;
+  background: padding-box, border-box;
+  border-radius: 20px;
+}
+.redBackground {
+  border: 1px solid var(--color-secondary-orange);
+  background: padding-box, border-box;
+  border-radius: 20px;
+}
+.orangeBackground {
+  border: 1px solid var(--color-secondary-red);
+  background: padding-box, border-box;
+  border-radius: 20px;
+}
 @media screen and (min-width: 768px) {
   .calendarBody {
     min-height: 292px;
