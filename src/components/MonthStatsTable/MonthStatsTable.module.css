@@ -7,12 +7,22 @@
   justify-content: center;
   flex-direction: column;
   position: absolute;
-  margin: 0 auto;
-  top: -14px;
+  right: -56%;
+  top: -2%;
   transform: translate(-50%, -100%);
   z-index: 2;
 }
-
+@media screen and (min-width: 768px) {
+  .modalBackground {
+    left: 20%;
+    width: fit-content;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .modalBackground {
+    left: 25%;
+  }
+}
 .modalContent {
   display: flex;
   gap: 16px;
@@ -88,9 +98,6 @@
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 16px 26px;
-}
-
-.containerList {
   position: relative;
 }
 
@@ -121,7 +128,6 @@
 }
 
 .greenBackground {
-
   border-color: green;
 }
 
