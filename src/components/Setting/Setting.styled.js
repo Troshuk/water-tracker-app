@@ -21,53 +21,52 @@ export const StyledSettingModal = styled(ReactModal)`
 `;
 
 export const StModalWrap = styled.div`
-height: auto;
-max-height: 90vh;
-overflow-y: auto;
-background-color: #ffffff;
-color: #2f2f2f;
-padding: 32px 12px;
-border-radius: 10px;
-font-size: 18px;
-line-height: 1.1;
-font-family: 'Roboto';
-font-weight: 500;
-box-sizing: border-box;
+  height: auto;
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: #ffffff;
+  color: #2f2f2f;
+  padding: 32px 12px;
+  border-radius: 10px;
+  font-size: 18px;
+  line-height: 1.1;
+  font-family: 'Roboto';
+  font-weight: 500;
+  box-sizing: border-box;
 
-@media (min-width: 1440px) {
+  @media (min-width: 1440px) {
     width: 1008px;
     padding: 32px 24px;
   }
 
-@media (min-width: 768px) and (max-width: 1439px){
+  @media (min-width: 768px) and (max-width: 1439px) {
     width: 704px;
     padding: 32px 24px;
   }
-@media (min-width: 320px) and (max-width: 767px){
+  @media (min-width: 320px) and (max-width: 767px) {
     width: 280px;
   }
 `;
 
 export const Title = styled.h1`
-font-family: 'Roboto', sans-serif;
-font-size: 26px;
-font-weight: 500;
-line-height: 1.25;
-margin-bottom: 24px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.25;
+  margin-bottom: 24px;
 `;
 
 export const BtnSvg = styled.button`
-
-@media (min-width: 768px) and (max-width: 1439px){
-    top: 32px; 
+  @media (min-width: 768px) and (max-width: 1439px) {
+    top: 32px;
     right: 24px;
   }
 `;
 
 export const WrapHeader = styled.div`
-display: flex;
-justify-content: space-between;
-align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
 `;
 
 export const ImgWrapper = styled.div`
@@ -79,32 +78,26 @@ export const ImgWrapper = styled.div`
   border-radius: 50%;
   overflow: hidden;
   border: 1px solid #ecf2ff;
-  object-fit: cover; 
+  object-fit: cover;
 `;
 
-// export const ImgAvatar = styled.img`
-//   width: 100%;
-//   height: 100%;
-//   object-fit: cover; 
-// `;
-
 export const AvatarWrap = styled.div`
-display: flex;
-margin-top: 8px;
-gap: 8px;
+  display: flex;
+  margin-top: 8px;
+  gap: 8px;
 `;
 
 export const WrapInfo = styled.div`
-margin-top: 24px;
-@media (min-width: 1440px) {
+  margin-top: 24px;
+  @media (min-width: 1440px) {
     display: flex;
     gap: 24px;
   }
 `;
 
 export const UploadLabel = styled.label`
-display: flex;
-position: relative;
+  display: flex;
+  position: relative;
 `;
 
 export const FileInput = styled.input`
@@ -114,7 +107,7 @@ export const FileInput = styled.input`
 export const UploadButton = styled.div`
   display: flex;
   align-items: center;
-  gap: 8px; 
+  gap: 8px;
   cursor: pointer;
   color: #407bff;
   font-size: 14px;
@@ -123,10 +116,6 @@ export const UploadButton = styled.div`
   font-weight: 400;
   line-height: 1.3;
 `;
-
-// export const SvgUpload = styled.svg`
-// fill: #407bff;
-// `;
 
 export const StyledRadioGroup = styled.div`
   display: flex;
@@ -158,14 +147,14 @@ export const StyledRadioCircle = styled.span`
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 1px solid #007BFF;
+  border: 1px solid #007bff;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
 export const CircleColor = styled.div`
-  background-color: ${(props) => (props.checked ? '#007BFF' : '#fff')};
+  background-color: ${props => (props.checked ? '#007BFF' : '#fff')};
   width: 6px;
   height: 6px;
   border-radius: 50%;
@@ -179,20 +168,20 @@ export const StyledRadioText = styled.span`
 `;
 
 export const Button = styled.button`
-margin-top: 24px;
-background-color: #407bff;
-border: none;
-width: 100%;
-height: 36px;
-color: #ffffff;
-font-size: 16px;
-font-family: 'Roboto';
-font-weight: 500;
-line-height: 1.3;
-border-radius: 10px;
-box-shadow: 0px 4px 8px 0px rgba(64, 123, 255, 0.34);
+  margin-top: 24px;
+  background-color: #407bff;
+  border: none;
+  width: 100%;
+  height: 36px;
+  color: #ffffff;
+  font-size: 16px;
+  font-family: 'Roboto';
+  font-weight: 500;
+  line-height: 1.3;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px 0px rgba(64, 123, 255, 0.34);
 
-@media (min-width: 768px) {
+  @media (min-width: 768px) {
     display: block;
     font-size: 18px;
     width: 160px;
@@ -201,7 +190,7 @@ box-shadow: 0px 4px 8px 0px rgba(64, 123, 255, 0.34);
   }
 
   &:hover {
-    box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54)
+    box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
   }
 
   &:focus {
@@ -217,7 +206,7 @@ export const Input = styled.input`
   border-radius: 8px;
   padding: 12px 10px;
   outline: none;
-  color: #407BFF;
+  color: #407bff;
   font-size: 16px;
   &::placeholder {
     color: #9ebbff;
@@ -240,22 +229,22 @@ export const Input = styled.input`
 `;
 
 export const EmailText = styled.p`
-margin-top: 24px;
+  margin-top: 24px;
 `;
 
 export const PasswordTitle = styled.p`
-margin-top: 24px;
-@media (min-width: 1440px) {
-  margin-top: 0;
+  margin-top: 24px;
+  @media (min-width: 1440px) {
+    margin-top: 0;
   }
 `;
 
 export const PasswordText = styled.p`
-margin-top: 12px;
-font-family: 'Roboto';
-font-weight: 400;
-font-size: 16px;
-line-height: 1.25;
+  margin-top: 12px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
 `;
 
 export const InputPassword = styled.input`
@@ -266,7 +255,7 @@ export const InputPassword = styled.input`
   border-radius: 8px;
   padding: 12px 10px;
   outline: none;
-  color: #407BFF;
+  color: #407bff;
   font-size: 16px;
   &::placeholder {
     color: #9ebbff;
@@ -276,7 +265,7 @@ export const InputPassword = styled.input`
     width: 392px;
   }
 
-    &:focus {
+  &:focus {
     outline: none;
   }
 
@@ -286,32 +275,26 @@ export const InputPassword = styled.input`
       border-color: #ef5050 !important;
       color: #ef5050;
     `}
-  `;
+`;
 
 export const InputPasswordWrap = styled.div`
-position: relative;
-display: flex;
-align-items: center;
-width: 100%;
-@media (min-width: 768px) {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  @media (min-width: 768px) {
     width: 392px;
   }
 `;
 
-// export const SvgEye = styled.svg`
-// width: 18px;
-// height: 18px;
-// fill: #407bff;
-// `;
-
 export const ButtonEye = styled.button`
-position: absolute;
-width: 16px;
-height: 16px;
-background-color: #ffffff; 
-border: none;
-top: 22px;
-right: 22px;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: #ffffff;
+  border: none;
+  top: 22px;
+  right: 22px;
 `;
 
 export const MessageError = styled.div`
@@ -323,6 +306,6 @@ export const MessageError = styled.div`
 `;
 
 export const Label = styled.label`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;

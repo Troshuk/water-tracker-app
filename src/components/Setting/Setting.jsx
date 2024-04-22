@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Oval } from 'react-loader-spinner';
 import { Icon } from 'components';
 
 import { useFormik } from 'formik';
@@ -57,6 +56,30 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
   });
   const dispatch = useDispatch();
 
+  const formik = useFormik({
+    initialValues: {
+      name,
+      email,
+      oldPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    },
+    onSubmit: async values => {
+      try {
+        const data = saveValues(values);
+        if (Object.keys(data).length === 0) {
+          handleCloseModal();
+          return;
+        }
+        dispatch(updateUser(data));
+        handleCloseModal();
+      } catch (error) {
+        console.error(error.message);
+      }
+    },
+    validationSchema: SettingModalSchema,
+  });
+
   const saveValues = values => {
     let data = {};
 
@@ -81,37 +104,15 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
     }
 
     if (formik.values.oldPassword || formik.values.confirmPassword) {
-      const password = formik.values.confirmPassword,
-    
+      const password = {
+        newPassword: formik.values.confirmPassword,
+        oldPassword: formik.values.oldPassword,
+      };
       data = { ...data, password };
     }
 
     return data;
   };
-
-  const formik = useFormik({
-    initialValues: {
-      name,
-      email,
-      oldPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-    },
-    onSubmit: async values => {
-      try {
-        const data = saveValues(values);
-        if (Object.keys(data).length === 0) {
-          handleCloseModal();
-          return;
-        }
-        dispatch(updateUser(data));
-        handleCloseModal();
-      } catch (error) {
-        console.error(error.message);
-      }
-    },
-    validationSchema: SettingModalSchema,
-  });
 
   const handleFileChange = async evt => {
     const avatar = evt.target.files[0];

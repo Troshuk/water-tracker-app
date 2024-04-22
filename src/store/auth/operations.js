@@ -73,12 +73,11 @@ export const updateAvatarThunk = createAsyncThunkWithCatch(
   }
 );
 
-export const updateUser  = createAsyncThunkWithCatch(
+export const updateUser = createAsyncThunkWithCatch(
   'users/current',
   async body => {
-      const data = (
-      await api.patch(USERS_ENDPOINT + "current", body)).data;
+    const data = (await api.patch(USERS_ENDPOINT + 'current', body)).data;
 
-      return data;
+    return data;
   }
 );
