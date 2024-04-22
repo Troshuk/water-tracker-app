@@ -1,26 +1,25 @@
 import { Container, Section } from 'components';
-import ContentLoader from 'react-content-loader';
+import { Hourglass } from 'react-loader-spinner';
 
 export const PageLoader = props => {
   return (
     <Section>
       <Container>
-        <ContentLoader
-          speed={1}
-          width="800"
-          height={300}
-          viewBox="0 0 400 160"
-          backgroundColor="#333"
-          foregroundColor="#555"
+        <Hourglass
+          wrapperStyle={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          }}
+          visible={true}
+          height="150"
+          width="150"
           {...props}
-        >
-          <rect x="20" y="8" rx="5" ry="5" width="60%" height="10" />
-          <rect x="20" y="26" rx="5" ry="5" width="40%" height="10" />
-          <rect x="0" y="56" rx="5" ry="5" width="100%" height="10" />
-          <rect x="0" y="72" rx="5" ry="5" width="90%" height="10" />
-          <rect x="0" y="88" rx="5" ry="5" width="60%" height="10" />
-          <circle cx="20" cy="120" r="15" />
-        </ContentLoader>
+          ariaLabel="hourglass-loading"
+          wrapperClass=""
+          colors={['#306cce', '#72a1ed']}
+        />
       </Container>
     </Section>
   );

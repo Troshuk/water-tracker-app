@@ -1,0 +1,30 @@
+.sectionForm {
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: contain;
+  height: 90vh;
+  background-image: image-set(
+    url(images/sign-in-out-mobile.png) 1x,
+    url(images/sign-in-out-mobile-2x.png) 2x
+  );
+}
+
+@media screen and (min-width: 768px) {
+  .sectionForm {
+    background-image: image-set(
+      url(images/botle-sign-in-tablet.png) 1x,
+      url(images/botle-sign-in-tablet-2x.png) 2x
+    );
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .sectionForm {
+    background-position: bottom left;
+    background-image: image-set(
+      url(images/sign-in-out-desktop.png) 1x,
+      url(images/sign-in-out-desktop-2x.png) 2x
+    );
+  }
+}
+
