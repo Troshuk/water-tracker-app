@@ -21,11 +21,6 @@ export const deleteConsumptionRecord = createAsyncThunkWithCatch(
 
 export const updateConsumptionRecord = createAsyncThunkWithCatch(
   'water/updateConsumptionRecord',
-  async ({ id, updatedData }) => {
-    const response = await api.patch(
-      WATER_CONSUMPTION_ENDPOINT + id,
-      updatedData
-    );
-    return response.data;
-  }
+  async ({ id, updatedData }) =>
+    (await api.patch(WATER_CONSUMPTION_ENDPOINT + id, updatedData)).data
 );

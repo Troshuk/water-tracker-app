@@ -10,6 +10,7 @@ import {
   forgotPassword,
   updatePassword,
   verifyEmail,
+  updateWaterGoal,
 } from './operations';
 
 export const AuthReducerSelector = ({ authReducer }) => authReducer;
@@ -76,4 +77,9 @@ export const updateUserSelector = createSelector(
 export const updateAvatarSelector = createSelector(
   AuthReducerSelector,
   state => state[updateAvatar.typePrefix]
+);
+
+export const updateWaterGoalSelector = createSelector(
+  AuthReducerSelector,
+  state => state[updateWaterGoal.typePrefix]
 );

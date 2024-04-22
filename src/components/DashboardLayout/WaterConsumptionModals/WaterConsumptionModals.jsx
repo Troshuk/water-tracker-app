@@ -4,14 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ContentLoader, Icon } from 'components';
 import {
   createConsumptionRecord,
-  getConsumptionForToday,
   updateConsumptionRecord,
 } from 'store/operations';
 import { createConsumptionRecordSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 
 import css from './WaterConsumptionModals.module.css';
-import { notify } from 'notify';
 import moment from 'moment';
 
 ReactModal.setAppElement('#root');
@@ -110,17 +108,7 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
         })
       )
         .unwrap()
-        .then(() => {
-          onRequestClose();
-          dispatch(getConsumptionForToday())
-            .unwrap()
-            .catch(() =>
-              notify(
-                'There was an error loading water consumption for today, please try again later',
-                'error'
-              )
-            );
-        }),
+        .then(onRequestClose),
       'Adding some water',
       true
     );
@@ -263,17 +251,7 @@ export const WaterConsumptionEditModal = ({
     notifyApi(
       dispatch(updateConsumptionRecord({ id, updatedData }))
         .unwrap()
-        .then(() => {
-          onRequestClose();
-          dispatch(getConsumptionForToday())
-            .unwrap()
-            .catch(() =>
-              notify(
-                'There was an error loading water consumption for today, please try again later',
-                'error'
-              )
-            );
-        }),
+        .then(onRequestClose),
       'Adding some water',
       true
     );

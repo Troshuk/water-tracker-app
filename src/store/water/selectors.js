@@ -1,6 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { getConsumptionForToday, createConsumptionRecord } from './operations';
+import {
+  getConsumptionForToday,
+  createConsumptionRecord,
+  updateConsumptionRecord,
+  deleteConsumptionRecord,
+} from './operations';
 
 export const WaterReducerSelector = ({ waterReducer }) => waterReducer;
 
@@ -24,7 +29,17 @@ export const getConsumptionForTodaySelector = createSelector(
   state => state[getConsumptionForToday.typePrefix]
 );
 
+export const updateConsumptionRecordSelector = createSelector(
+  WaterReducerSelector,
+  state => state[updateConsumptionRecord.typePrefix]
+);
+
 export const createConsumptionRecordSelector = createSelector(
   WaterReducerSelector,
   state => state[createConsumptionRecord.typePrefix]
+);
+
+export const deleteConsumptionRecordSelector = createSelector(
+  WaterReducerSelector,
+  state => state[deleteConsumptionRecord.typePrefix]
 );

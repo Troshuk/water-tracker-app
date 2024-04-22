@@ -63,7 +63,8 @@ export const waterSlice = createSlice({
         isAnyOf(
           getConsumptionForToday.fulfilled,
           createConsumptionRecord.fulfilled,
-          deleteConsumptionRecord.fulfilled
+          deleteConsumptionRecord.fulfilled,
+          updateConsumptionRecord.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -78,7 +79,8 @@ export const waterSlice = createSlice({
         isAnyOf(
           getConsumptionForToday.pending,
           createConsumptionRecord.pending,
-          deleteConsumptionRecord.pending
+          deleteConsumptionRecord.pending,
+          updateConsumptionRecord.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -93,7 +95,8 @@ export const waterSlice = createSlice({
         isAnyOf(
           getConsumptionForToday.rejected,
           createConsumptionRecord.rejected,
-          deleteConsumptionRecord.rejected
+          deleteConsumptionRecord.rejected,
+          updateConsumptionRecord.rejected
         ),
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {

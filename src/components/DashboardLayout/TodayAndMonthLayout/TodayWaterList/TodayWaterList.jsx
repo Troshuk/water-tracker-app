@@ -3,15 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ConfirmActionWarningModal, Icon } from 'components';
 
-import {
-  deleteConsumptionRecord,
-  getConsumptionForToday,
-} from 'store/operations';
+import { deleteConsumptionRecord } from 'store/operations';
 import { todayConsumptionsSelector, userSelector } from 'store/selectors';
 
 import css from './TodayWaterList.module.css';
 import { notifyApi } from 'notify';
-import { notify } from 'notify';
 import {
   WaterConsumptionAddModal,
   WaterConsumptionEditModal,
@@ -36,18 +32,7 @@ export const TodayWaterList = () => {
 
   const handleDeleteConsumption = id => {
     notifyApi(
-      dispatch(deleteConsumptionRecord(id))
-        .unwrap()
-        .then(() =>
-          dispatch(getConsumptionForToday())
-            .unwrap()
-            .catch(() =>
-              notify(
-                'There was an error loading water consumption for today, please try again later',
-                'error'
-              )
-            )
-        ),
+      dispatch(deleteConsumptionRecord(id)).unwrap(),
       'Removing water record',
       true
     );
