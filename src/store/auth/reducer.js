@@ -7,6 +7,7 @@ import {
   logOut,
   updateAvatar,
   updateUser,
+  updateWaterGoal,
 } from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
@@ -22,7 +23,15 @@ const initialState = {
   },
   token: null,
   isLoggedIn: false,
-  ...[logIn, signUp, fetchUser, logOut, updateAvatar, updateUser].reduce(
+  ...[
+    logIn,
+    signUp,
+    fetchUser,
+    logOut,
+    updateAvatar,
+    updateUser,
+    updateWaterGoal,
+  ].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -52,7 +61,11 @@ export const authSlice = createSlice({
 
       // UpdateUser
       .addMatcher(
-        isAnyOf(updateUser.fulfilled, updateAvatar.fulfilled),
+        isAnyOf(
+          updateUser.fulfilled,
+          updateAvatar.fulfilled,
+          updateWaterGoal.fulfilled
+        ),
         (state, { payload }) => {
           state.user = payload;
         }
@@ -71,7 +84,8 @@ export const authSlice = createSlice({
           fetchUser.fulfilled,
           logOut.fulfilled,
           updateAvatar.fulfilled,
-          updateUser.fulfilled
+          updateUser.fulfilled,
+          updateWaterGoal.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -89,7 +103,8 @@ export const authSlice = createSlice({
           fetchUser.pending,
           logOut.pending,
           updateAvatar.pending,
-          updateUser.pending
+          updateUser.pending,
+          updateWaterGoal.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -99,7 +114,7 @@ export const authSlice = createSlice({
           };
         }
       )
-      // Handle Rejected requests
+      // Handle Auth Rejected requests
       .addMatcher(
         isAnyOf(
           logIn.rejected,
@@ -117,7 +132,11 @@ export const authSlice = createSlice({
         })
       )
       .addMatcher(
-        isAnyOf(updateAvatar.rejected, updateUser.rejected),
+        isAnyOf(
+          updateAvatar.rejected,
+          updateUser.rejected,
+          updateWaterGoal.rejected
+        ),
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {
             isLoading: false,

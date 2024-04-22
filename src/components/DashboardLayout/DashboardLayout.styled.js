@@ -14,6 +14,7 @@ export const StyledSection = styled(Section)`
   background-repeat: no-repeat;
   height: 100%;
   z-index: 0;
+  margin-top: 24px;
 
   @media screen and (min-width: 768px) {
     background-image: url(${backgroundImgTab});
@@ -24,8 +25,10 @@ export const StyledSection = styled(Section)`
   @media screen and (min-width: 1440px) {
     background-image: url(${backgroundImgDesc});
     background-size: contain;
-    background-position: top center;
+    background-position: center;
+    background-position-y: 2.5em, center;
     background-repeat: no-repeat;
+    margin-top: 20px;
   }
 `;
 
@@ -33,16 +36,23 @@ export const StyledContainer = styled(Container)`
   @media (min-width: 1440px) {
     display: flex;
     gap: 32px;
+    margin-top: 22px;
   }
 
   @media only screen and (max-width: 1439px) {
     padding-bottom: 40px;
+    margin-top: 24px;
   }
 `;
 
 export const LeftSideDiv = styled.div`
   @media (min-width: 1440px) {
-    padding-bottom: 76px;
+    padding-top: 30px;
+    /* padding-bottom: 76px; */
     width: 592px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding-top: 16px;
   }
 `;
