@@ -62,6 +62,7 @@ const ImgTumb = styled.div`
     img {
       position: relative;
       left: -50px;
+      top: -25px;
     }
   }
 `;

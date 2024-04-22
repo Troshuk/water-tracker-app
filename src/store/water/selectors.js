@@ -4,6 +4,8 @@ import {
   getConsumptionForToday,
   createConsumptionRecord,
   getWaterStatisticsForDateRange,
+  updateConsumptionRecord,
+  deleteConsumptionRecord,
 } from './operations';
 
 export const WaterReducerSelector = ({ waterReducer }) => waterReducer;
@@ -33,6 +35,11 @@ export const getConsumptionForTodaySelector = createSelector(
   state => state[getConsumptionForToday.typePrefix]
 );
 
+export const updateConsumptionRecordSelector = createSelector(
+  WaterReducerSelector,
+  state => state[updateConsumptionRecord.typePrefix]
+);
+
 export const createConsumptionRecordSelector = createSelector(
   WaterReducerSelector,
   state => state[createConsumptionRecord.typePrefix]
@@ -41,4 +48,9 @@ export const createConsumptionRecordSelector = createSelector(
 export const getWaterStatisticsForDateRangeSelector = createSelector(
   WaterReducerSelector,
   state => state[getWaterStatisticsForDateRange.typePrefix]
+);
+
+export const deleteConsumptionRecordSelector = createSelector(
+  WaterReducerSelector,
+  state => state[deleteConsumptionRecord.typePrefix]
 );

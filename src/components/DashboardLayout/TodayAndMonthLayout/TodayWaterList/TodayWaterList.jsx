@@ -3,40 +3,36 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ConfirmActionWarningModal, Icon } from 'components';
 
-import {
-  deleteConsumptionRecord,
-  getConsumptionForToday,
-} from 'store/operations';
+import { deleteConsumptionRecord } from 'store/operations';
 import { todayConsumptionsSelector, userSelector } from 'store/selectors';
 
 import css from './TodayWaterList.module.css';
 import { notifyApi } from 'notify';
-import { notify } from 'notify';
+import {
+  WaterConsumptionAddModal,
+  WaterConsumptionEditModal,
+} from 'components/DashboardLayout/WaterConsumptionModals/WaterConsumptionModals';
 
-const modalIsOpenInitial = { open: false, id: null };
+const modalIsOpenInitial = {
+  open: false,
+  id: null,
+  value: '',
+  consumed_at: '',
+};
 
 export const TodayWaterList = () => {
   const dispatch = useDispatch();
 
+  const [editModal, setEditModal] = useState(modalIsOpenInitial);
   const [modalIsOpen, setIsOpen] = useState(modalIsOpenInitial);
+  const [isOpenCreate, setIsOpenCreate] = useState(false);
 
   const water = useSelector(todayConsumptionsSelector);
   const { timezone: timeZone } = useSelector(userSelector);
 
   const handleDeleteConsumption = id => {
     notifyApi(
-      dispatch(deleteConsumptionRecord(id))
-        .unwrap()
-        .then(() =>
-          dispatch(getConsumptionForToday())
-            .unwrap()
-            .catch(() =>
-              notify(
-                'There was an error loading water consumption for today, please try again later',
-                'error'
-              )
-            )
-        ),
+      dispatch(deleteConsumptionRecord(id)).unwrap(),
       'Removing water record',
       true
     );
@@ -71,7 +67,18 @@ export const TodayWaterList = () => {
             </div>
 
             <div className={css.changeWaterIconThumb}>
-              <button className={css.editWaterBtn} type="button">
+              <button
+                className={css.editWaterBtn}
+                type="button"
+                onClick={() =>
+                  setEditModal({
+                    open: true,
+                    id: water.id,
+                    value: water.value,
+                    consumed_at: water.consumed_at,
+                  })
+                }
+              >
                 <Icon
                   className={css.editWaterIcon}
                   id="icon-pencil-square"
@@ -96,7 +103,11 @@ export const TodayWaterList = () => {
         ))}
       </ul>
       <div className={css.addWaterThumb}>
-        <button className={css.addWaterBtn} type="button">
+        <button
+          className={css.addWaterBtn}
+          type="button"
+          onClick={() => setIsOpenCreate(true)}
+        >
           <Icon
             className={css.plusWaterIcon}
             id="icon-plus-small"
@@ -117,6 +128,18 @@ export const TodayWaterList = () => {
         title="Delete entry"
         confirmMessage="Are you sure you want to delete the entry?"
         actionButtonName="Delete"
+      />
+      <WaterConsumptionEditModal
+        isOpen={editModal.open}
+        id={editModal.id}
+        value={editModal.value}
+        consumed_at={editModal.consumed_at}
+        onRequestClose={() => setEditModal(modalIsOpenInitial)}
+      />
+
+      <WaterConsumptionAddModal
+        isOpen={isOpenCreate}
+        onRequestClose={() => setIsOpenCreate(false)}
       />
     </div>
   );

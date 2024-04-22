@@ -24,3 +24,9 @@ export const getWaterStatisticsForDateRange = createAsyncThunkWithCatch(
   async ({ fromDate, toDate }) =>
     (await api.get(WATER_ENDPOINT + `statistics/${fromDate}/${toDate}`)).data
 );
+
+export const updateConsumptionRecord = createAsyncThunkWithCatch(
+  'water/updateConsumptionRecord',
+  async ({ id, updatedData }) =>
+    (await api.patch(WATER_CONSUMPTION_ENDPOINT + id, updatedData)).data
+);

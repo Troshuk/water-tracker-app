@@ -10,6 +10,8 @@ import {
   LOGIN_ROUTE,
   SIGN_UP_ROUTE,
   DASHBOARD_ROUTE,
+  UPDATE_PASSWORD_PAGE,
+  VERIFY_ROUTE,
 } from 'routes/routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthReducerSelector, fetchUserSelector } from 'store/selectors';
@@ -21,7 +23,8 @@ const LoginPage = lazy(() => import('pages/Login'));
 const RegisterPage = lazy(() => import('pages/Register'));
 const ForgotPasswordPage = lazy(() => import('pages/ForgotPasswordPage'));
 const Dashboard = lazy(() => import('pages/Dashboard'));
-
+const UpdatePasswordPage = lazy(() => import('pages/UpdatePasswordPage'));
+const VerifyPage = lazy(() => import('pages/VerifyPage'));
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -61,6 +64,11 @@ export const App = () => {
                   path={FORGOT_PASSWORD_ROUTE}
                   element={<ForgotPasswordPage />}
                 />
+                <Route
+                  path={UPDATE_PASSWORD_PAGE}
+                  element={<UpdatePasswordPage />}
+                />
+                <Route path={VERIFY_ROUTE} element={<VerifyPage />} />
               </>
             )}
             <Route path="*" element={<Navigate to={HOME_ROUTE} />} />
