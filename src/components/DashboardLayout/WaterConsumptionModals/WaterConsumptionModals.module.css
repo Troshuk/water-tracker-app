@@ -17,6 +17,10 @@
     padding: 24px 12px;
 }
 
+.closeIcon {
+    stroke: var(--color-primary-blue);
+}
+
 .topContainer {
     display: flex;
     justify-content: space-between;

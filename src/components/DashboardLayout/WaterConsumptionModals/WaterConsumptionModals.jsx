@@ -134,7 +134,12 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
             className={css.btn_close}
             onClick={onRequestClose}
           >
-            <Icon id="close" width="24" height="24" />
+            <Icon
+              id="icon-close-x"
+              width="14"
+              height="14"
+              className={css.closeIcon}
+            />
           </button>
         </div>
         <h3 className={css.chooseValue}>Choose a value:</h3>
@@ -276,7 +281,12 @@ export const WaterConsumptionEditModal = ({
             className={css.btn_close}
             onClick={onRequestClose}
           >
-            <Icon id="close" width="24" height="24" />
+            <Icon
+              id="icon-close-x"
+              width="14"
+              height="14"
+              className={css.closeIcon}
+            />
           </button>
         </div>
         <div className={css.last_consumed}>
