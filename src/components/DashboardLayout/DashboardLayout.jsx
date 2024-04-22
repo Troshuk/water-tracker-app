@@ -29,22 +29,24 @@ export const DashboardLayout = () => {
 
   // Re-fetch water for today when any of these actions happened
   useEffect(() => {
-    switch (true) {
-      case !deletingWater.isLoading && !deletingWater.error:
-      case !creatingWater.isLoading && !creatingWater.error:
-      case !updatingWater.isLoading && !updatingWater.error:
-      case !updatingWaterGoal.isLoading && !updatingWaterGoal.error:
-        dispatch(getConsumptionForToday())
-          .unwrap()
-          .catch(() =>
-            notify(
-              'There was an error loading water consumption for today, please try again later',
-              'error'
-            )
-          );
-        break;
-      default:
-        break;
+    if (
+      !deletingWater.isLoading &&
+      !deletingWater.error &&
+      !creatingWater.isLoading &&
+      !creatingWater.error &&
+      !updatingWater.isLoading &&
+      !updatingWater.error &&
+      !updatingWaterGoal.isLoading &&
+      !updatingWaterGoal.error
+    ) {
+      dispatch(getConsumptionForToday())
+        .unwrap()
+        .catch(() =>
+          notify(
+            'There was an error loading water consumption for today, please try again later',
+            'error'
+          )
+        );
     }
   }, [
     dispatch,

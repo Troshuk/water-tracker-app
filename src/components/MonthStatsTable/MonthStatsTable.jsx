@@ -77,20 +77,22 @@ export const MonthStatsTable = () => {
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
 
-    switch (true) {
-      case !deletingWater.isLoading && !deletingWater.error:
-      case !creatingWater.isLoading && !creatingWater.error:
-      case !updatingWater.isLoading && !updatingWater.error:
-      case !updatingWaterGoal.isLoading && !updatingWaterGoal.error:
-        dispatch(
-          getWaterStatisticsForDateRange({
-            fromDate: new Date(currentYear, currentMonth, 0).toISOString(),
-            toDate: new Date(currentYear, currentMonth + 1, 0).toISOString(),
-          })
-        );
-        break;
-      default:
-        break;
+    if (
+      !deletingWater.isLoading &&
+      !deletingWater.error &&
+      !creatingWater.isLoading &&
+      !creatingWater.error &&
+      !updatingWater.isLoading &&
+      !updatingWater.error &&
+      !updatingWaterGoal.isLoading &&
+      !updatingWaterGoal.error
+    ) {
+      dispatch(
+        getWaterStatisticsForDateRange({
+          fromDate: new Date(currentYear, currentMonth, 0).toISOString(),
+          toDate: new Date(currentYear, currentMonth + 1, 0).toISOString(),
+        })
+      );
     }
   }, [
     dispatch,
