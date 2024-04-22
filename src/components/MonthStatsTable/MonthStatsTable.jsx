@@ -101,6 +101,46 @@ export const MonthStatsTable = () => {
     updatingWaterGoal,
   ]);
 
+  const calculatePopupPosition = liId => {
+    // Hover element
+    const liElement = document.getElementById(liId);
+    // Container elements borders of which not to exceed
+    const calendarBodyElement = document.getElementById('TodayAndMonthLayout');
+    // Width of the popup element
+    const popupWidth = 280;
+
+    if (!liElement || !calendarBodyElement) {
+      return;
+    }
+
+    const liRect = liElement.getBoundingClientRect();
+    const calendarBodyRect = calendarBodyElement.getBoundingClientRect();
+
+    // Move popup to be centered in the middle of LI element
+    let popupLeft = liRect.width / 2;
+
+    // Get left and right coordinates of the popup
+    // Because we use transform translate -50%, move the boundaries by 50% here too
+    let liLeftCoordinates = liRect.x + popupLeft - popupWidth / 2;
+    let liRightCoordinates = liRect.x + popupLeft - popupWidth / 2 + popupWidth;
+
+    // Get left and right container boundaries
+    const containerLeftBoundary = calendarBodyRect.x;
+    const containerRightBoundary = calendarBodyRect.x + calendarBodyRect.width;
+
+    // Check if the right boundary crossed, then move it right to be on the border
+    if (liRightCoordinates > containerRightBoundary) {
+      popupLeft -= liRightCoordinates - containerRightBoundary;
+    }
+
+    // Check if the left boundary crossed, then move it right to be on the border
+    if (liLeftCoordinates < containerLeftBoundary) {
+      popupLeft += containerLeftBoundary - liLeftCoordinates;
+    }
+
+    return popupLeft + 'px';
+  };
+
   return (
     <div className={css.calendar}>
       <div className={css.calendarHeader}>
@@ -132,7 +172,11 @@ export const MonthStatsTable = () => {
             }
 
             return (
-              <li className={css.containerList} key={`day-${day}`}>
+              <li
+                className={css.containerList}
+                key={`day-${day}`}
+                id={`day-${day}`}
+              >
                 <div className={buttonClassNames}>
                   <span className={css.calendarDay}>{day}</span>
                 </div>
@@ -140,7 +184,10 @@ export const MonthStatsTable = () => {
                   {statistic?.consumptionPercentage || '0'}%
                 </p>
                 {statistic && (
-                  <div className={css.modalBackground}>
+                  <div
+                    className={css.modalBackground}
+                    style={{ left: calculatePopupPosition(`day-${day}`) }}
+                  >
                     <div className={css.modalContent}>
                       <p className={css.titleModal}>
                         <span className={css.selectedTimes}>

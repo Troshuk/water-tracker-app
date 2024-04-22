@@ -7,10 +7,13 @@
   justify-content: center;
   flex-direction: column;
   position: absolute;
-  margin: 0 auto;
   top: -14px;
   transform: translate(-50%, -100%);
   z-index: 2;
+}
+
+.containerList {
+  position: relative;
 }
 
 .modalContent {
@@ -88,9 +91,6 @@
   align-content: flex-start;
   flex-wrap: wrap;
   gap: 16px 26px;
-}
-
-.containerList {
   position: relative;
 }
 
@@ -121,7 +121,6 @@
 }
 
 .greenBackground {
-
   border-color: green;
 }
 
