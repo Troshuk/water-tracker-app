@@ -5,7 +5,12 @@ import {
   signUp,
   fetchUser,
   logOut,
+  forgotPassword,
+  updatePassword,
+  updateAvatar,
+  updateUser,
   updateWaterGoal,
+  verifyEmail,
 } from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
@@ -21,7 +26,18 @@ const initialState = {
   },
   token: null,
   isLoggedIn: false,
-  ...[logIn, signUp, fetchUser, logOut, updateWaterGoal].reduce(
+  ...[
+    logIn,
+    signUp,
+    fetchUser,
+    logOut,
+    forgotPassword,
+    updatePassword,
+    verifyEmail,
+    updateAvatar,
+    updateUser,
+    updateWaterGoal,
+  ].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -49,11 +65,17 @@ export const authSlice = createSlice({
       // Log Out
       .addCase(logOut.fulfilled, () => initialState)
 
-      //Water
-
-      .addCase(updateWaterGoal.fulfilled, (state, { payload }) => {
-        state.user = payload;
-      })
+      // UpdateUser
+      .addMatcher(
+        isAnyOf(
+          updateUser.fulfilled,
+          updateAvatar.fulfilled,
+          updateWaterGoal.fulfilled
+        ),
+        (state, { payload }) => {
+          state.user = payload;
+        }
+      )
 
       // Handle fulfilled requests status
       .addMatcher(isAnyOf(logIn.fulfilled, fetchUser.fulfilled), state => {
@@ -67,6 +89,11 @@ export const authSlice = createSlice({
           signUp.fulfilled,
           fetchUser.fulfilled,
           logOut.fulfilled,
+          forgotPassword.fulfilled,
+          updatePassword.fulfilled,
+          verifyEmail.fulfilled,
+          updateAvatar.fulfilled,
+          updateUser.fulfilled,
           updateWaterGoal.fulfilled
         ),
         (state, { type, meta }) => {
@@ -84,6 +111,11 @@ export const authSlice = createSlice({
           signUp.pending,
           fetchUser.pending,
           logOut.pending,
+          forgotPassword.pending,
+          updatePassword.pending,
+          verifyEmail.pending,
+          updateAvatar.pending,
+          updateUser.pending,
           updateWaterGoal.pending
         ),
         (state, { type, meta }) => {
@@ -111,9 +143,15 @@ export const authSlice = createSlice({
           },
         })
       )
-      // Handle Rejected requests
       .addMatcher(
-        isAnyOf(updateWaterGoal.rejected),
+        isAnyOf(
+          forgotPassword.rejected,
+          updatePassword.rejected,
+          verifyEmail.rejected,
+          updateAvatar.rejected,
+          updateUser.rejected,
+          updateWaterGoal.rejected
+        ),
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {
             isLoading: false,

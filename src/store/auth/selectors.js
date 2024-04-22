@@ -1,5 +1,16 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { fetchUser, logIn, logOut, signUp } from './operations';
+
+import {
+  fetchUser,
+  logIn,
+  logOut,
+  signUp,
+  updateUser,
+  updateAvatar,
+  forgotPassword,
+  updatePassword,
+  verifyEmail,
+} from './operations';
 
 export const AuthReducerSelector = ({ authReducer }) => authReducer;
 
@@ -41,4 +52,28 @@ export const logOutSelector = createSelector(
 export const fetchUserSelector = createSelector(
   AuthReducerSelector,
   state => state[fetchUser.typePrefix]
+);
+
+export const forgotPasswordSelector = createSelector(
+  AuthReducerSelector,
+  state => state[forgotPassword.typePrefix]
+);
+
+export const updatePasswordSelector = createSelector(
+  AuthReducerSelector,
+  state => state[updatePassword.typePrefix]
+);
+
+export const verifyEmailSelector = createSelector(
+  AuthReducerSelector,
+  state => state[verifyEmail.typePrefix]
+);
+export const updateUserSelector = createSelector(
+  AuthReducerSelector,
+  state => state[updateUser.typePrefix]
+);
+
+export const updateAvatarSelector = createSelector(
+  AuthReducerSelector,
+  state => state[updateAvatar.typePrefix]
 );
