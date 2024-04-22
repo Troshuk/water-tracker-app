@@ -3,7 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import css from './MonthStatsTable.module.css';
 import { getWaterStatisticsForDateRange } from 'store/operations.js';
-import { getStatisticsSelector } from 'store/selectors.js';
+import {
+  createConsumptionRecordSelector,
+  deleteConsumptionRecordSelector,
+  getStatisticsSelector,
+  updateConsumptionRecordSelector,
+  updateWaterGoalSelector,
+} from 'store/selectors.js';
 
 const monthNames = [
   'January',
@@ -29,6 +35,10 @@ export const MonthStatsTable = () => {
   const { currentDate } = state;
 
   const statistics = useSelector(getStatisticsSelector);
+  const deletingWater = useSelector(deleteConsumptionRecordSelector);
+  const creatingWater = useSelector(createConsumptionRecordSelector);
+  const updatingWater = useSelector(updateConsumptionRecordSelector);
+  const updatingWaterGoal = useSelector(updateWaterGoalSelector);
 
   const getDaysInMonth = date =>
     new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -67,13 +77,29 @@ export const MonthStatsTable = () => {
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth();
 
-    dispatch(
-      getWaterStatisticsForDateRange({
-        fromDate: new Date(currentYear, currentMonth, 0).toISOString(),
-        toDate: new Date(currentYear, currentMonth + 1, 0).toISOString(),
-      })
-    );
-  }, [dispatch, currentDate]);
+    switch (true) {
+      case !deletingWater.isLoading && !deletingWater.error:
+      case !creatingWater.isLoading && !creatingWater.error:
+      case !updatingWater.isLoading && !updatingWater.error:
+      case !updatingWaterGoal.isLoading && !updatingWaterGoal.error:
+        dispatch(
+          getWaterStatisticsForDateRange({
+            fromDate: new Date(currentYear, currentMonth, 0).toISOString(),
+            toDate: new Date(currentYear, currentMonth + 1, 0).toISOString(),
+          })
+        );
+        break;
+      default:
+        break;
+    }
+  }, [
+    dispatch,
+    currentDate,
+    deletingWater,
+    creatingWater,
+    updatingWater,
+    updatingWaterGoal,
+  ]);
 
   return (
     <div className={css.calendar}>
@@ -94,62 +120,58 @@ export const MonthStatsTable = () => {
       <div className={css.calendarBody}>
         <ul className={css.calendarList}>
           {days.map(({ day, statistic }) => {
-            const randomStatistic = {
-              consumptionPercentage: statistic
-                ? statistic.consumptionPercentage
-                : Math.floor(Math.random() * 101),
-              dailyWaterGoal: statistic
-                ? statistic.dailyWaterGoal
-                : Math.floor(Math.random() * 5000) + 1,
-              count: statistic
-                ? statistic.count
-                : Math.floor(Math.random() * 15) + 1,
-            };
-
             let buttonClassNames = css.buttonCalendar;
 
-            if (randomStatistic.consumptionPercentage < 20) {
+            if (!statistic?.consumptionPercentage) {
+            } else if (statistic?.consumptionPercentage < 20) {
               buttonClassNames += ` ${css.orangeBackground}`;
-            } else if (randomStatistic.consumptionPercentage < 100) {
+            } else if (statistic?.consumptionPercentage < 100) {
               buttonClassNames += ` ${css.redBackground}`;
             } else {
               buttonClassNames += ` ${css.greenBackground}`;
             }
+
             return (
               <li className={css.containerList} key={`day-${day}`}>
                 <div className={buttonClassNames}>
                   <span className={css.calendarDay}>{day}</span>
                 </div>
                 <p className={css.itemCalendary}>
-                  {randomStatistic?.consumptionPercentage || '0'}%
+                  {statistic?.consumptionPercentage || '0'}%
                 </p>
                 {statistic && (
                   <div className={css.modalBackground}>
                     <div className={css.modalContent}>
-                      <p>
+                      <p className={css.titleModal}>
                         <span className={css.selectedTimes}>
                           {day}, {monthNames[currentDate.getMonth()]}
                         </span>
                       </p>
                       <p className={css.titleModal}>
                         Daily norma:
-                        <span className={css.selectedTimes}>
+                        <span
+                          className={`${css.selectedTimes} ${css.statisticValue}`}
+                        >
                           {' '}
-                          {randomStatistic?.dailyWaterGoal}L
+                          {statistic?.dailyWaterGoal} L
                         </span>
                       </p>
                       <p className={css.titleModal}>
                         Fulfillment of the daily norm:
-                        <span className={css.selectedTimes}>
+                        <span
+                          className={`${css.selectedTimes} ${css.statisticValue}`}
+                        >
                           {' '}
-                          {randomStatistic?.consumptionPercentage}%
+                          {statistic?.consumptionPercentage}%
                         </span>
                       </p>
                       <p className={css.titleModal}>
                         How many servings of water:
-                        <span className={css.selectedTimes}>
+                        <span
+                          className={`${css.selectedTimes} ${css.statisticValue}`}
+                        >
                           {' '}
-                          {randomStatistic?.count}
+                          {statistic?.count}
                         </span>
                       </p>
                     </div>
