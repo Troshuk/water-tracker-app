@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ConfirmActionWarningModal, Icon } from 'components';
@@ -26,6 +26,15 @@ export const TodayWaterList = () => {
   const [editModal, setEditModal] = useState(modalIsOpenInitial);
   const [modalIsOpen, setIsOpen] = useState(modalIsOpenInitial);
   const [isOpenCreate, setIsOpenCreate] = useState(false);
+
+  useEffect(() => {
+    const body = document.body;
+    let over_flow = 'auto';
+    if (modalIsOpen.open || editModal.open || isOpenCreate) {
+      over_flow = 'hidden';
+    }
+    body.style.overflow = over_flow;
+  }, [editModal.open, isOpenCreate, modalIsOpen.open]);
 
   const water = useSelector(todayConsumptionsSelector);
   const { timezone: timeZone } = useSelector(userSelector);

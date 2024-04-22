@@ -15,12 +15,21 @@ import {
 import { todayConsumptionPercentageSelector } from 'store/selectors.js';
 
 import iconSprite from 'images/icons.svg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { WaterConsumptionAddModal } from '../WaterConsumptionModals/WaterConsumptionModals';
 
 export const WaterRatioPanel = () => {
   const consumptionPercentage = useSelector(todayConsumptionPercentageSelector);
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const body = document.body;
+    let over_flow = 'auto';
+    if (isOpen) {
+      over_flow = 'hidden';
+    }
+    body.style.overflow = over_flow;
+  }, [isOpen]);
 
   const sliderStyle = {
     background: `linear-gradient(to right, #9EBBFF ${consumptionPercentage}%, #D7E3FF ${consumptionPercentage}%)`,

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import {
   ConfirmActionWarningModal,
@@ -23,6 +23,15 @@ export const NavigationBar = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [settingModalIsOpen, setSettingIsOpen] = useState(false);
+
+  useEffect(() => {
+    const body = document.body;
+    let over_flow = 'auto';
+    if (modalIsOpen || settingModalIsOpen) {
+      over_flow = 'hidden';
+    }
+    body.style.overflow = over_flow;
+  }, [modalIsOpen, settingModalIsOpen]);
 
   const handleToggleUserMenu = () => {
     setIsMenuOpen(!isMenuOpen);
