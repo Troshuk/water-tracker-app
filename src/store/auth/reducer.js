@@ -5,6 +5,8 @@ import {
   signUp,
   fetchUser,
   logOut,
+  updateAvatar,
+  updateUser,
   updateWaterGoal,
 } from './operations';
 
@@ -21,7 +23,15 @@ const initialState = {
   },
   token: null,
   isLoggedIn: false,
-  ...[logIn, signUp, fetchUser, logOut, updateWaterGoal].reduce(
+  ...[
+    logIn,
+    signUp,
+    fetchUser,
+    logOut,
+    updateAvatar,
+    updateUser,
+    updateWaterGoal,
+  ].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -49,11 +59,17 @@ export const authSlice = createSlice({
       // Log Out
       .addCase(logOut.fulfilled, () => initialState)
 
-      //Water
-
-      .addCase(updateWaterGoal.fulfilled, (state, { payload }) => {
-        state.user = payload;
-      })
+      // UpdateUser
+      .addMatcher(
+        isAnyOf(
+          updateUser.fulfilled,
+          updateAvatar.fulfilled,
+          updateWaterGoal.fulfilled
+        ),
+        (state, { payload }) => {
+          state.user = payload;
+        }
+      )
 
       // Handle fulfilled requests status
       .addMatcher(isAnyOf(logIn.fulfilled, fetchUser.fulfilled), state => {
@@ -67,6 +83,8 @@ export const authSlice = createSlice({
           signUp.fulfilled,
           fetchUser.fulfilled,
           logOut.fulfilled,
+          updateAvatar.fulfilled,
+          updateUser.fulfilled,
           updateWaterGoal.fulfilled
         ),
         (state, { type, meta }) => {
@@ -84,6 +102,8 @@ export const authSlice = createSlice({
           signUp.pending,
           fetchUser.pending,
           logOut.pending,
+          updateAvatar.pending,
+          updateUser.pending,
           updateWaterGoal.pending
         ),
         (state, { type, meta }) => {
@@ -111,9 +131,12 @@ export const authSlice = createSlice({
           },
         })
       )
-      // Handle Rejected requests
       .addMatcher(
-        isAnyOf(updateWaterGoal.rejected),
+        isAnyOf(
+          updateAvatar.rejected,
+          updateUser.rejected,
+          updateWaterGoal.rejected
+        ),
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {
             isLoading: false,
