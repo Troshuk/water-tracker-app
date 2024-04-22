@@ -23,34 +23,33 @@ import {
   Text,
   TextInfo,
   TitleText,
+  ValueDiv,
+  ValueSpan,
   WrapFormula,
   WrapFormulaText,
   WrapHeader,
 } from './DailyNormaModal.styled';
 import { Icon } from 'components';
-import { AuthReducerSelector } from 'store/selectors';
+import { userSelector } from 'store/selectors';
 import { DailyNormaModalSchema } from 'schemasValdiate/dailyNormaModallSchema';
 import { updateWaterGoal } from 'store/operations';
 import { notify } from 'notify';
+import { notifyApi } from 'notify';
 
 export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
-  const [amount, setAmount] = useState(0);
   const dispatch = useDispatch();
-  const { user } = useSelector(AuthReducerSelector);
+  const { gender } = useSelector(userSelector);
+  const [amount, setAmount] = useState(0);
 
   const formik = useFormik({
     initialValues: {
-      gender: user.gender,
+      gender,
       weight: 0,
       time: 0,
-      dailyWaterGoal: 0,
     },
     validationSchema: DailyNormaModalSchema,
-    onSubmit: async values => {
+    onSubmit: async () => {
       let waterNorma = amount * 1000;
-      if (values.dailyWaterGoal > 0) {
-        waterNorma = values.dailyWaterGoal * 1000;
-      }
 
       if (waterNorma < 1000) {
         return notify('Even the cat drinks more (min 1 L)', 'error');
@@ -70,13 +69,17 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
         );
       }
 
-      dispatch(
-        updateWaterGoal({
-          dailyWaterGoal: waterNorma,
-        })
-      )
-        .unwrap()
-        .then(handleCloseModal);
+      notifyApi(
+        dispatch(
+          updateWaterGoal({
+            dailyWaterGoal: waterNorma,
+          })
+        )
+          .unwrap()
+          .then(handleCloseModal),
+        `Updating your daily norma`,
+        true
+      );
     },
   });
 
@@ -97,6 +100,7 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
     }
 
     let result;
+
     switch (formik.values.gender) {
       case 'woman':
         result = (weightNumber * 0.03 + timeNumber * 0.4).toFixed(1);
@@ -108,7 +112,6 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
         return;
     }
 
-    formik.values.dailyNorma = result;
     setAmount(result);
   }, [formik.values]);
 
@@ -134,6 +137,7 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
       contentLabel="Modal"
       isOpen={modalIsOpen}
       onRequestClose={handleCloseModal}
+      closeTimeoutMS={300}
       style={{
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -144,9 +148,9 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
         <TitleText>My daily norma</TitleText>
         <BtnCloseModal type="button" onClick={handleCloseModal}>
           <Icon
-            id="icon-plus-small"
-            width="36"
-            height="36"
+            id="icon-close-x"
+            width="14"
+            height="14"
             style={{ stroke: '#407bff' }}
           />
         </BtnCloseModal>
@@ -208,13 +212,16 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
         ) : null}
         <label>
           <TextInfo>Your weight in kilograms:</TextInfo>
-          <Input
-            name="weight"
-            type="text"
-            value={formik.values.weight}
-            onChange={handleInputChange}
-            $hasError={formik.touched.weight && formik.errors.weight}
-          />
+          <ValueDiv>
+            <Input
+              name="weight"
+              type="text"
+              value={formik.values.weight}
+              onChange={handleInputChange}
+              $hasError={formik.touched.weight && formik.errors.weight}
+            />
+            <ValueSpan>kg</ValueSpan>
+          </ValueDiv>
           {formik.touched.weight && formik.errors.weight ? (
             <MessageError>{formik.errors.weight}</MessageError>
           ) : null}
@@ -222,15 +229,18 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
         <label>
           <TextInfo>
             The time of active participation in sports or other activities with
-            a high physical. load in hours:
+            a high physical load in hours:
           </TextInfo>
-          <Input
-            name="time"
-            type="text"
-            value={formik.values.time}
-            onChange={handleInputChange}
-            $hasError={formik.touched.time && formik.errors.time}
-          />
+          <ValueDiv>
+            <Input
+              name="time"
+              type="text"
+              value={formik.values.time}
+              onChange={handleInputChange}
+              $hasError={formik.touched.time && formik.errors.time}
+            />
+            <ValueSpan>hours</ValueSpan>
+          </ValueDiv>
           {formik.touched.time && formik.errors.time ? (
             <MessageError>{formik.errors.time}</MessageError>
           ) : null}
@@ -242,15 +252,20 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
           <AmountNumberInfo>{amount} L</AmountNumberInfo>
         </AmountText>
         <Text>Write down how much water you will drink:</Text>
-        <Input
-          name="dailyNorma"
-          type="text"
-          value={formik.values.dailyNorma}
-          onChange={handleInputChange}
-          $hasError={formik.touched.dailyNorma && formik.errors.dailyNorma}
-        />
-        {formik.touched.dailyNorma && formik.errors.dailyNorma ? (
-          <MessageError>{formik.errors.dailyNorma}</MessageError>
+        <ValueDiv>
+          <Input
+            name="consumedWater"
+            type="text"
+            value={amount}
+            onChange={e => setAmount(e.target.value)}
+            $hasError={
+              formik.touched.consumedWater && formik.errors.consumedWater
+            }
+          />
+          <ValueSpan>L</ValueSpan>
+        </ValueDiv>
+        {formik.touched.consumedWater && formik.errors.consumedWater ? (
+          <MessageError>{formik.errors.consumedWater}</MessageError>
         ) : null}
         <Button type="submit">Save</Button>
       </form>
