@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/water-tracker-app/static/css/main.74d5e7f0.css",
-    "main.js": "/water-tracker-app/static/js/main.f5aaf00a.js",
+    "main.css": "/water-tracker-app/static/css/main.6642385c.css",
+    "main.js": "/water-tracker-app/static/js/main.a4fb7ec2.js",
     "static/css/499.1838f8eb.chunk.css": "/water-tracker-app/static/css/499.1838f8eb.chunk.css",
     "static/js/499.89443f15.chunk.js": "/water-tracker-app/static/js/499.89443f15.chunk.js",
     "static/js/14.a507fdd0.chunk.js": "/water-tracker-app/static/js/14.a507fdd0.chunk.js",
@@ -21,7 +21,6 @@
     "static/media/botle-sign-in-tablet-2x.png": "/water-tracker-app/static/media/botle-sign-in-tablet-2x.8df7ff20348b4bc9ca7f.png",
     "static/media/background-main-page-tablet-2x.png": "/water-tracker-app/static/media/background-main-page-tablet-2x.e9abe4bcd2d3abec1624.png",
     "static/media/bottle-home-screen-desktop-2x.png": "/water-tracker-app/static/media/bottle-home-screen-desktop-2x.ee9b9a2fd272a606dc81.png",
-    "static/media/icons.svg": "/water-tracker-app/static/media/icons.edc51e7f196d855e4bb164afa4febb16.svg",
     "static/media/botle-home-screen-tablet-2x.png": "/water-tracker-app/static/media/botle-home-screen-tablet-2x.ebdd58b0e71f8517bf86.png",
     "static/media/background-main-page-phone.png": "/water-tracker-app/static/media/background-main-page-phone.7f2cb0f7d700eaf435e7.png",
     "static/media/logo.svg": "/water-tracker-app/static/media/logo.370a42932595504fe7b2db82e524cd33.svg",
@@ -43,6 +42,7 @@
     "static/media/roboto-latin-ext-400-normal.woff2": "/water-tracker-app/static/media/roboto-latin-ext-400-normal.861b791f9de857a6e7bc.woff2",
     "static/media/roboto-latin-ext-700-normal.woff2": "/water-tracker-app/static/media/roboto-latin-ext-700-normal.ed67ad54b1a8f5d21150.woff2",
     "static/media/roboto-latin-ext-500-normal.woff2": "/water-tracker-app/static/media/roboto-latin-ext-500-normal.9165081d10e1ba601384.woff2",
+    "static/media/icons.svg": "/water-tracker-app/static/media/icons.a3b9fe4d1ba09d49af0a8d2f918b0a08.svg",
     "static/media/bottle-home-screen-phone-2x.png": "/water-tracker-app/static/media/bottle-home-screen-phone-2x.570f294dc36d3b6cb3ce.png",
     "static/media/background-element-main-page-desktop-2x.png": "/water-tracker-app/static/media/background-element-main-page-desktop-2x.db63eb5896fe6735c1de.png",
     "static/media/background-main-page-phone-2x.png": "/water-tracker-app/static/media/background-main-page-phone-2x.c77edb4782142a9de10d.png",
@@ -74,8 +74,8 @@
     "static/media/roboto-greek-ext-400-normal.woff": "/water-tracker-app/static/media/roboto-greek-ext-400-normal.f708607d2a7290fb8bfa.woff",
     "static/media/roboto-greek-ext-700-normal.woff": "/water-tracker-app/static/media/roboto-greek-ext-700-normal.249853776d22a271b2b5.woff",
     "index.html": "/water-tracker-app/index.html",
-    "main.74d5e7f0.css.map": "/water-tracker-app/static/css/main.74d5e7f0.css.map",
-    "main.f5aaf00a.js.map": "/water-tracker-app/static/js/main.f5aaf00a.js.map",
+    "main.6642385c.css.map": "/water-tracker-app/static/css/main.6642385c.css.map",
+    "main.a4fb7ec2.js.map": "/water-tracker-app/static/js/main.a4fb7ec2.js.map",
     "499.1838f8eb.chunk.css.map": "/water-tracker-app/static/css/499.1838f8eb.chunk.css.map",
     "499.89443f15.chunk.js.map": "/water-tracker-app/static/js/499.89443f15.chunk.js.map",
     "14.a507fdd0.chunk.js.map": "/water-tracker-app/static/js/14.a507fdd0.chunk.js.map",
@@ -88,7 +88,7 @@
     "465.0494d823.chunk.js.map": "/water-tracker-app/static/js/465.0494d823.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.74d5e7f0.css",
-    "static/js/main.f5aaf00a.js"
+    "static/css/main.6642385c.css",
+    "static/js/main.a4fb7ec2.js"
   ]
 }
