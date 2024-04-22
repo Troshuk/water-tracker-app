@@ -5,9 +5,12 @@ import {
   signUp,
   fetchUser,
   logOut,
+  forgotPassword,
+  updatePassword,
   updateAvatar,
   updateUser,
   updateWaterGoal,
+  verifyEmail,
 } from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
@@ -28,6 +31,9 @@ const initialState = {
     signUp,
     fetchUser,
     logOut,
+    forgotPassword,
+    updatePassword,
+    verifyEmail,
     updateAvatar,
     updateUser,
     updateWaterGoal,
@@ -83,6 +89,9 @@ export const authSlice = createSlice({
           signUp.fulfilled,
           fetchUser.fulfilled,
           logOut.fulfilled,
+          forgotPassword.fulfilled,
+          updatePassword.fulfilled,
+          verifyEmail.fulfilled,
           updateAvatar.fulfilled,
           updateUser.fulfilled,
           updateWaterGoal.fulfilled
@@ -102,6 +111,9 @@ export const authSlice = createSlice({
           signUp.pending,
           fetchUser.pending,
           logOut.pending,
+          forgotPassword.pending,
+          updatePassword.pending,
+          verifyEmail.pending,
           updateAvatar.pending,
           updateUser.pending,
           updateWaterGoal.pending
@@ -133,6 +145,9 @@ export const authSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
+          forgotPassword.rejected,
+          updatePassword.rejected,
+          verifyEmail.rejected,
           updateAvatar.rejected,
           updateUser.rejected,
           updateWaterGoal.rejected
