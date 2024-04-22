@@ -5,7 +5,7 @@ import {
   signUp,
   fetchUser,
   logOut,
-  updateAvatarThunk,
+  updateAvatar,
   updateUser,
 } from './operations';
 
@@ -22,7 +22,7 @@ const initialState = {
   },
   token: null,
   isLoggedIn: false,
-  ...[logIn, signUp, fetchUser, logOut, updateAvatarThunk, updateUser].reduce(
+  ...[logIn, signUp, fetchUser, logOut, updateAvatar, updateUser].reduce(
     (acc, operation) => ({
       ...acc,
       [operation.typePrefix]: { isLoading: false, error: null, key: null },
@@ -50,19 +50,13 @@ export const authSlice = createSlice({
       // Log Out
       .addCase(logOut.fulfilled, () => initialState)
 
-      // UpdateAvatar
-      .addCase(updateAvatarThunk.fulfilled, (state, { payload }) => {
-        state.user = payload;
-      })
-
       // UpdateUser
-      .addCase(updateUser.fulfilled, (state, { payload }) => {
-        state.user.email = payload.email;
-        state.user.name = payload.name;
-        state.user.gender = payload.gender;
-        state.user.avatarUrl = payload.avatarUrl;
-        state.user.dailyNorma = payload.dailyNorma;
-      })
+      .addMatcher(
+        isAnyOf(updateUser.fulfilled, updateAvatar.fulfilled),
+        (state, { payload }) => {
+          state.user = payload;
+        }
+      )
 
       // Handle fulfilled requests status
       .addMatcher(isAnyOf(logIn.fulfilled, fetchUser.fulfilled), state => {
@@ -76,7 +70,7 @@ export const authSlice = createSlice({
           signUp.fulfilled,
           fetchUser.fulfilled,
           logOut.fulfilled,
-          updateAvatarThunk.fulfilled,
+          updateAvatar.fulfilled,
           updateUser.fulfilled
         ),
         (state, { type, meta }) => {
@@ -94,7 +88,7 @@ export const authSlice = createSlice({
           signUp.pending,
           fetchUser.pending,
           logOut.pending,
-          updateAvatarThunk.pending,
+          updateAvatar.pending,
           updateUser.pending
         ),
         (state, { type, meta }) => {
@@ -123,7 +117,7 @@ export const authSlice = createSlice({
         })
       )
       .addMatcher(
-        isAnyOf(updateAvatarThunk.rejected, updateUser.rejected),
+        isAnyOf(updateAvatar.rejected, updateUser.rejected),
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {
             isLoading: false,

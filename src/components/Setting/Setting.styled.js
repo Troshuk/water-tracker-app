@@ -57,6 +57,9 @@ export const Title = styled.h1`
 `;
 
 export const BtnSvg = styled.button`
+  width: 24px;
+  height: 24px;
+
   @media (min-width: 768px) and (max-width: 1439px) {
     top: 32px;
     right: 24px;
@@ -248,6 +251,7 @@ export const PasswordText = styled.p`
 `;
 
 export const InputPassword = styled.input`
+  position: relative;
   margin-top: 8px;
   width: 100%;
   box-sizing: border-box;
@@ -293,8 +297,10 @@ export const ButtonEye = styled.button`
   height: 16px;
   background-color: #ffffff;
   border: none;
-  top: 22px;
-  right: 22px;
+  top: 0;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-20%);
 `;
 
 export const MessageError = styled.div`

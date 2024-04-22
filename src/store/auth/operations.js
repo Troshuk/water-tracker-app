@@ -58,26 +58,17 @@ export const logOut = createAsyncThunkWithCatch('auth/logOut', async body => {
   return data;
 });
 
-export const updateAvatarThunk = createAsyncThunkWithCatch(
-  'users/avatar',
-  async body => {
-    const data = (
+export const updateAvatar = createAsyncThunkWithCatch(
+  'users/updateAvatar',
+  async body =>
+    (
       await api.patch(USERS_ENDPOINT + 'avatar', body, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+        headers: { 'Content-Type': 'multipart/form-data' },
       })
-    ).data;
-
-    return data;
-  }
+    ).data
 );
 
 export const updateUser = createAsyncThunkWithCatch(
-  'users/current',
-  async body => {
-    const data = (await api.patch(USERS_ENDPOINT + 'current', body)).data;
-
-    return data;
-  }
+  'users/update',
+  async body => (await api.patch(USERS_ENDPOINT + 'current', body)).data
 );

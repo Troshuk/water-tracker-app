@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Icon } from 'components';
-
 import { useFormik } from 'formik';
+
+import { ContentLoader, Icon } from 'components';
+
 import {
   StModalBackdrope,
   StModalWrap,
@@ -33,21 +34,21 @@ import {
   MessageError,
   Label,
 } from './Setting.styled.js';
-import { userSelector } from 'store/selectors';
+import {
+  updateAvatarSelector,
+  updateUserSelector,
+  userSelector,
+} from 'store/selectors';
 
-import { SettingModalSchema } from '../../schemasValdiate/SettingModalSchema.jsx';
-import { updateAvatarThunk, updateUser } from '../../store/auth/operations.js';
+import { SettingModalSchema } from 'schemasValdiate/SettingModalSchema.jsx';
+import { updateAvatar, updateUser } from 'store/operations.js';
+import { notify, notifyApi } from 'notify.js';
 
 export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
-  const user = useSelector(userSelector);
+  const { avatarURL, gender, name, email } = useSelector(userSelector);
+  const { isLoading: isUpdatingUser } = useSelector(updateUserSelector);
+  const { isLoading: isUpdatingAvatar } = useSelector(updateAvatarSelector);
 
-  const avatarURL = user.avatarURL;
-  const gender = user.gender;
-  const name = user.name;
-  const email = user.email;
-
-  const [loader, setLoader] = useState(false);
-  const [genderValue, setGenderValue] = useState(user.gender);
   const [imgSize, setImgSize] = useState(false);
   const [showPassword, setShowPassword] = useState({
     oldPassword: false,
@@ -60,22 +61,21 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
     initialValues: {
       name,
       email,
+      gender,
       oldPassword: '',
       newPassword: '',
       confirmPassword: '',
     },
+    enableReinitialize: true,
     onSubmit: async values => {
-      try {
-        const data = saveValues(values);
-        if (Object.keys(data).length === 0) {
-          handleCloseModal();
-          return;
-        }
-        dispatch(updateUser(data));
-        handleCloseModal();
-      } catch (error) {
-        console.error(error.message);
+      const data = saveValues(values);
+
+      if (Object.keys(data).length === 0) {
+        notify('You have not cahnged anything');
+        return;
       }
+
+      notifyApi(dispatch(updateUser(data)).unwrap(), 'Saving your user', true);
     },
     validationSchema: SettingModalSchema,
   });
@@ -86,29 +86,26 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
     if (
       values.name &&
       values.name.trim().length !== 0 &&
-      values.name !== formik.initialValues.name
+      values.name !== name
     ) {
-      data = { ...data, name: values.name };
+      data.name = values.name;
     }
 
     if (
       values.email &&
       values.email.trim().length !== 0 &&
-      values.email !== formik.initialValues.email
+      values.email !== email
     ) {
-      data = { ...data, email: values.email };
+      data.email = values.email;
     }
 
-    if (genderValue !== gender) {
-      data = { ...data, gender: genderValue };
+    if (gender !== values.gender) {
+      data.gender = values.gender;
     }
 
-    if (formik.values.oldPassword || formik.values.confirmPassword) {
-      const password = {
-        newPassword: formik.values.confirmPassword,
-        oldPassword: formik.values.oldPassword,
-      };
-      data = { ...data, password };
+    if (values.oldPassword || values.confirmPassword) {
+      data.password = values.confirmPassword;
+      data.old_password = values.oldPassword;
     }
 
     return data;
@@ -117,6 +114,7 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
   const handleFileChange = async evt => {
     const avatar = evt.target.files[0];
     setImgSize(false);
+
     if (!avatar) {
       return;
     }
@@ -130,12 +128,12 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
 
     const formData = new FormData();
     formData.append('avatar', avatar);
-    setLoader(true);
-    dispatch(updateAvatarThunk(formData));
-  };
 
-  const handleGenderChange = evt => {
-    setGenderValue(evt.target.value);
+    notifyApi(
+      dispatch(updateAvatar(formData)).unwrap(),
+      'Updating your photo',
+      true
+    );
   };
 
   const handleInputChange = evt => {
@@ -171,11 +169,7 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
         <StModalWrap>
           <WrapHeader>
             <Title>Setting</Title>
-            <BtnSvg
-              className="cross-btn"
-              type="button"
-              onClick={handleCloseModal}
-            >
+            <BtnSvg type="button" onClick={handleCloseModal}>
               <Icon
                 id="icon-close-x"
                 width="14"
@@ -196,7 +190,7 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
               </ImgWrapper>
               <UploadLabel>
                 <FileInput
-                  //   disabled={isLoading}
+                  disabled={isUpdatingAvatar || isUpdatingUser}
                   name="avatarUrl"
                   type="file"
                   accept="image/*"
@@ -209,7 +203,7 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
                     height="16"
                     style={{ stroke: '#407bff' }}
                   />
-                  <p>Upload a photo</p>
+                  <p>Upload a photo {isUpdatingAvatar && <ContentLoader />}</p>
                 </UploadButton>
               </UploadLabel>
             </AvatarWrap>
@@ -224,26 +218,26 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
                     <StyledRadioInput
                       type="radio"
                       name="gender"
-                      value="girl"
-                      onChange={handleGenderChange}
+                      value="woman"
+                      onChange={handleInputChange}
                     />
                     <StyledRadioCircle>
                       <CircleColor
-                        checked={genderValue === 'girl'}
+                        checked={formik.values.gender === 'woman'}
                       ></CircleColor>
                     </StyledRadioCircle>
-                    <StyledRadioText>Girl</StyledRadioText>
+                    <StyledRadioText>Woman</StyledRadioText>
                   </StyledRadioLabel>
                   <StyledRadioLabel>
                     <StyledRadioInput
                       type="radio"
                       name="gender"
                       value="man"
-                      onChange={handleGenderChange}
+                      onChange={handleInputChange}
                     />
                     <StyledRadioCircle>
                       <CircleColor
-                        checked={genderValue === 'man'}
+                        checked={formik.values.gender === 'man'}
                       ></CircleColor>
                     </StyledRadioCircle>
                     <StyledRadioText>Man</StyledRadioText>
@@ -252,9 +246,9 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
                 <label>
                   <p>Your name</p>
                   <Input
-                    name="username"
+                    name="name"
                     type="text"
-                    placeholder={name}
+                    defaultValue={formik.values.name}
                     onChange={handleInputChange}
                     $hasError={formik.touched.name && formik.errors.name}
                   />
@@ -267,7 +261,7 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
                   <Input
                     name="email"
                     type="email"
-                    placeholder={email}
+                    defaultValue={formik.values.email}
                     onChange={handleInputChange}
                     $hasError={formik.touched.email && formik.errors.email}
                   />
@@ -393,7 +387,9 @@ export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
                 </Label>
               </div>
             </WrapInfo>
-            <Button type="submit">Save</Button>
+            <Button type="submit" disabled={isUpdatingAvatar || isUpdatingUser}>
+              Save {isUpdatingUser && <ContentLoader />}
+            </Button>
           </form>
         </StModalWrap>
       </StModalBackdrope>
