@@ -9,4 +9,5 @@ export { Icon } from './Icon/Icon';
 export { ForgotPassword } from './ForgotPassword/ForgotPassword';
 export { DashboardLayout } from './DashboardLayout/DashboardLayout';
 export { ConfirmActionWarningModal } from './ConfirmActionWarningModal/ConfirmActionWarningModal';
+export { MonthStatsTable } from './MonthStatsTable/MonthStatsTable';
 export { SettingsModal } from './SettingsModal/SettingsModal';

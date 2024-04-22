@@ -19,6 +19,12 @@ export const deleteConsumptionRecord = createAsyncThunkWithCatch(
   async id => (await api.delete(WATER_CONSUMPTION_ENDPOINT + id)).data
 );
 
+export const getWaterStatisticsForDateRange = createAsyncThunkWithCatch(
+  'water/getWaterStatisticsForDateRange',
+  async ({ fromDate, toDate }) =>
+    (await api.get(WATER_ENDPOINT + `statistics/${fromDate}/${toDate}`)).data
+);
+
 export const updateConsumptionRecord = createAsyncThunkWithCatch(
   'water/updateConsumptionRecord',
   async ({ id, updatedData }) =>

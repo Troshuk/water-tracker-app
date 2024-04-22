@@ -4,6 +4,7 @@ import {
   getConsumptionForToday,
   createConsumptionRecord,
   deleteConsumptionRecord,
+  getWaterStatisticsForDateRange,
   updateConsumptionRecord,
 } from './operations';
 
@@ -14,10 +15,12 @@ const initialState = {
     consumptionPercentage: 0,
     consumption: [],
   },
+  calendarStatistics: [],
   ...[
     getConsumptionForToday,
     createConsumptionRecord,
     deleteConsumptionRecord,
+    getWaterStatisticsForDateRange,
     updateConsumptionRecord,
   ].reduce(
     (acc, operation) => ({
@@ -58,12 +61,21 @@ export const waterSlice = createSlice({
         }
       })
 
+      // Get Water Statistics For Date Range
+      .addCase(
+        getWaterStatisticsForDateRange.fulfilled,
+        (state, { payload }) => {
+          state.calendarStatistics = payload;
+        }
+      )
+
       // Handle fulfilled requests status
       .addMatcher(
         isAnyOf(
           getConsumptionForToday.fulfilled,
           createConsumptionRecord.fulfilled,
           deleteConsumptionRecord.fulfilled,
+          getWaterStatisticsForDateRange.fulfilled,
           updateConsumptionRecord.fulfilled
         ),
         (state, { type, meta }) => {
@@ -80,6 +92,7 @@ export const waterSlice = createSlice({
           getConsumptionForToday.pending,
           createConsumptionRecord.pending,
           deleteConsumptionRecord.pending,
+          getWaterStatisticsForDateRange.pending,
           updateConsumptionRecord.pending
         ),
         (state, { type, meta }) => {
@@ -96,6 +109,7 @@ export const waterSlice = createSlice({
           getConsumptionForToday.rejected,
           createConsumptionRecord.rejected,
           deleteConsumptionRecord.rejected,
+          getWaterStatisticsForDateRange.rejected,
           updateConsumptionRecord.rejected
         ),
         (state, { error, payload, type, meta }) => {
