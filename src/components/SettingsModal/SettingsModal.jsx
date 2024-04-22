@@ -33,7 +33,7 @@ import {
   InputPasswordWrap,
   MessageError,
   Label,
-} from './Setting.styled.js';
+} from './SettingsModal.styled.js';
 import {
   updateAvatarSelector,
   updateUserSelector,
@@ -44,7 +44,7 @@ import { SettingModalSchema } from 'schemasValdiate/SettingModalSchema.jsx';
 import { updateAvatar, updateUser } from 'store/operations.js';
 import { notify, notifyApi } from 'notify.js';
 
-export const SettingModal = ({ settingModalIsOpen, closeModal }) => {
+export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
   const { avatarURL, gender, name, email } = useSelector(userSelector);
   const { isLoading: isUpdatingUser } = useSelector(updateUserSelector);
   const { isLoading: isUpdatingAvatar } = useSelector(updateAvatarSelector);

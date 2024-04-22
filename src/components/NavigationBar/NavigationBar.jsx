@@ -2,8 +2,12 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 
-import { ConfirmActionWarningModal, Container, Icon } from 'components';
-import {SettingModal} from '../Setting/Setting.jsx'
+import {
+  ConfirmActionWarningModal,
+  Container,
+  Icon,
+  SettingsModal,
+} from 'components';
 
 import { HOME_ROUTE, LOGIN_ROUTE } from 'routes/routes';
 import { AuthReducerSelector } from 'store/selectors';
@@ -19,7 +23,6 @@ export const NavigationBar = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [settingModalIsOpen, setSettingIsOpen] = useState(false);
-
 
   const handleToggleUserMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -128,11 +131,10 @@ export const NavigationBar = () => {
         )}
       </Container>
 
-      <SettingModal
-      settingModalIsOpen={settingModalIsOpen}
-      closeModal={() => setSettingIsOpen(false)}
+      <SettingsModal
+        settingModalIsOpen={settingModalIsOpen}
+        closeModal={() => setSettingIsOpen(false)}
       />
-      
 
       <ConfirmActionWarningModal
         modalIsOpen={modalIsOpen}
