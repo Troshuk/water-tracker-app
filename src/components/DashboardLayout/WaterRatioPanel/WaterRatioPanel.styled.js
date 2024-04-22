@@ -129,10 +129,13 @@ export const ButtonAddWater = styled.button`
   border: none;
   background-color: var(--color-primary-blue);
   color: var(--color-primary-white);
-  box-shadow: 0px 4px 8px 0px #407bff57;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
   &:hover,
   &:focus {
-    box-shadow: 0px 4px 14px 0px #407bff;
+    box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
+  }
+  &:active {
+    box-shadow: none;
   }
   transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
   @media (min-width: 320px) {

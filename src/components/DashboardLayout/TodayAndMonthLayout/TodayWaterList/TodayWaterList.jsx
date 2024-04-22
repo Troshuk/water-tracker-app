@@ -108,13 +108,15 @@ export const TodayWaterList = () => {
           type="button"
           onClick={() => setIsOpenCreate(true)}
         >
-          <Icon
-            className={css.plusWaterIcon}
-            id="icon-plus-small"
-            width="16"
-            height="16"
-          />
-          Add water
+          <span>
+            <Icon
+              className={css.plusWaterIcon}
+              id="icon-plus-small"
+              width="16"
+              height="16"
+            />
+            Add water
+          </span>
         </button>
       </div>
 

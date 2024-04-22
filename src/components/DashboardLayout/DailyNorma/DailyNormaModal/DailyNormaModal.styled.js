@@ -230,15 +230,19 @@ export const Button = styled.button`
   font-weight: 500;
   line-height: 1.3;
   border-radius: 10px;
-  box-shadow: 0px 4px 8px 0px rgba(64, 123, 255, 0.34);
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
 
   &:hover {
-    box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+    box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
   }
 
   &:focus {
+    box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
+  }
+
+  &:active {
     box-shadow: none;
-    outline: none;
   }
 
   @media (min-width: 768px) {
