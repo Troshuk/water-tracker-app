@@ -15,6 +15,10 @@ const setToken = (token = null) =>
 
 const getUsersTimezone = () => Intl.DateTimeFormat().resolvedOptions().timeZone;
 
+const multipartHeaders = {
+  headers: { 'Content-Type': 'multipart/form-data' },
+};
+
 export const fetchUser = createAsyncThunkWithCatch(
   'auth/fetchUser',
   async (_, { getState }) => {
@@ -69,6 +73,17 @@ export const updatePassword = createAsyncThunkWithCatch(
     (await api.post(USERS_ENDPOINT + `password/reset/${token}`, body)).data
 );
 
+export const updateAvatar = createAsyncThunkWithCatch(
+  'users/updateAvatar',
+  async body =>
+    (await api.patch(USERS_ENDPOINT + 'avatar', body, multipartHeaders)).data
+);
+
+export const updateUser = createAsyncThunkWithCatch(
+  'users/update',
+  async body => (await api.patch(USERS_ENDPOINT + 'current', body)).data
+);
+
 export const updateWaterGoal = createAsyncThunkWithCatch(
   'user/updateWaterGoal',
   async body => (await api.patch(USERS_ENDPOINT + 'water/goal', body)).data
@@ -76,6 +91,5 @@ export const updateWaterGoal = createAsyncThunkWithCatch(
 
 export const verifyEmail = createAsyncThunkWithCatch(
   'auth/verifyEmail',
-  async ({token}) =>
-    (await api.get(USERS_ENDPOINT + `verify/${token}`)).data
+  async ({ token }) => (await api.get(USERS_ENDPOINT + `verify/${token}`)).data
 );
