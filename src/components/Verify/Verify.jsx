@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { notifyApi } from 'notify';
 
-import { Container, Section, ContentLoader } from 'components';
+import { Container, Section, PageLoader } from 'components';
 
 import css from './Verify.module.css';
 
@@ -15,16 +15,14 @@ export const Verify = () => {
   const { isLoading } = useSelector(verifyEmailSelector);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {token } = useParams();
+  const { token } = useParams();
 
   useEffect(() => {
     notifyApi(
-      dispatch(verifyEmail( {token} ))
+      dispatch(verifyEmail(token))
         .unwrap()
-        .then(() => {
-          navigate(LOGIN_ROUTE);
-        }),
-      `Updating your password`,
+        .finally(() => navigate(LOGIN_ROUTE)),
+      `Verifying your email`,
       true
     );
   }, [dispatch, navigate, token]);
@@ -32,7 +30,7 @@ export const Verify = () => {
   return (
     <Section className={css.sectionForm}>
       <Container className={css.Container}>
-      {isLoading && <ContentLoader />}
+        {isLoading && <PageLoader />}
       </Container>
     </Section>
   );

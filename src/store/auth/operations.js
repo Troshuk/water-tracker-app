@@ -91,5 +91,5 @@ export const updateWaterGoal = createAsyncThunkWithCatch(
 
 export const verifyEmail = createAsyncThunkWithCatch(
   'auth/verifyEmail',
-  async ({ token }) => (await api.get(USERS_ENDPOINT + `verify/${token}`)).data
+  async token => (await api.get(USERS_ENDPOINT + `verify/${token}`)).data
 );
