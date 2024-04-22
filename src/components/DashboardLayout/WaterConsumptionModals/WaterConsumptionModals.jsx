@@ -43,12 +43,6 @@ const generateTimeOptions = () => {
 
   for (let hour = 0; hour < 24; hour++) {
     for (let minute = 0; minute < 60; minute += step) {
-      // const hour12 = hour % 12 || 12; // Convert hour to 12-hour format
-      // const period = hour < 12 ? 'AM' : 'PM'; // Determine AM or PM
-      // const time = `${String(hour12)}:${String(minute).padStart(
-      //   2,
-      //   '0'
-      // )} ${period}`;
       const dateTime = new Date(
         today.getFullYear(),
         today.getMonth(),
@@ -309,7 +303,12 @@ export const WaterConsumptionEditModal = ({
         </div>
         <div className={css.last_consumed}>
           <span className={css.last_glass}>
-            <Icon id="glass-water" width="36" height="36" fill="blue" />
+            <Icon
+              id="water-glass"
+              className={css.last_glass}
+              width="36"
+              height="36"
+            />
           </span>
           <span className={css.last_value}>{value} ml</span>
           <span className={css.last_time}>{formatTimeLt(consumed_at)}</span>
