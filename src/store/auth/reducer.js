@@ -11,6 +11,7 @@ import {
   updateUser,
   updateWaterGoal,
   verifyEmail,
+  resendEmail
 } from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
@@ -37,6 +38,7 @@ const initialState = {
     updateAvatar,
     updateUser,
     updateWaterGoal,
+    resendEmail,
   ].reduce(
     (acc, operation) => ({
       ...acc,
@@ -94,7 +96,8 @@ export const authSlice = createSlice({
           verifyEmail.fulfilled,
           updateAvatar.fulfilled,
           updateUser.fulfilled,
-          updateWaterGoal.fulfilled
+          updateWaterGoal.fulfilled,
+          resendEmail.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -116,7 +119,8 @@ export const authSlice = createSlice({
           verifyEmail.pending,
           updateAvatar.pending,
           updateUser.pending,
-          updateWaterGoal.pending
+          updateWaterGoal.pending,
+          resendEmail.pending,
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -150,7 +154,8 @@ export const authSlice = createSlice({
           verifyEmail.rejected,
           updateAvatar.rejected,
           updateUser.rejected,
-          updateWaterGoal.rejected
+          updateWaterGoal.rejected,
+          resendEmail.rejected
         ),
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {
