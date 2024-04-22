@@ -30,30 +30,26 @@ import {
   WrapHeader,
 } from './DailyNormaModal.styled';
 import { Icon } from 'components';
-import { AuthReducerSelector } from 'store/selectors';
+import { userSelector } from 'store/selectors';
 import { DailyNormaModalSchema } from 'schemasValdiate/dailyNormaModallSchema';
 import { updateWaterGoal } from 'store/operations';
 import { notify } from 'notify';
+import { notifyApi } from 'notify';
 
 export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
-  const [amount, setAmount] = useState(0);
   const dispatch = useDispatch();
-  const { user } = useSelector(AuthReducerSelector);
+  const { gender } = useSelector(userSelector);
+  const [amount, setAmount] = useState(0);
 
   const formik = useFormik({
     initialValues: {
-      gender: user.gender,
+      gender,
       weight: 0,
       time: 0,
-      dailyWaterGoal: 0,
-      consumedWater: 0,
     },
     validationSchema: DailyNormaModalSchema,
-    onSubmit: async values => {
-      let waterNorma =
-        parseFloat(values.consumedWater) > 0
-          ? parseFloat(values.consumedWater) * 1000
-          : parseFloat(values.dailyWaterGoal) * 1000;
+    onSubmit: async () => {
+      let waterNorma = amount * 1000;
 
       if (waterNorma < 1000) {
         return notify('Even the cat drinks more (min 1 L)', 'error');
@@ -73,13 +69,17 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
         );
       }
 
-      dispatch(
-        updateWaterGoal({
-          dailyWaterGoal: waterNorma,
-        })
-      )
-        .unwrap()
-        .then(handleCloseModal);
+      notifyApi(
+        dispatch(
+          updateWaterGoal({
+            dailyWaterGoal: waterNorma,
+          })
+        )
+          .unwrap()
+          .then(handleCloseModal),
+        `Updating your daily norma`,
+        true
+      );
     },
   });
 
@@ -100,6 +100,7 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
     }
 
     let result;
+
     switch (formik.values.gender) {
       case 'woman':
         result = (weightNumber * 0.03 + timeNumber * 0.4).toFixed(1);
@@ -111,7 +112,6 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
         return;
     }
 
-    formik.values.dailyWaterGoal = result;
     setAmount(result);
   }, [formik.values]);
 
@@ -256,8 +256,8 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
           <Input
             name="consumedWater"
             type="text"
-            value={formik.values.consumedWater}
-            onChange={handleInputChange}
+            value={amount}
+            onChange={e => setAmount(e.target.value)}
             $hasError={
               formik.touched.consumedWater && formik.errors.consumedWater
             }
