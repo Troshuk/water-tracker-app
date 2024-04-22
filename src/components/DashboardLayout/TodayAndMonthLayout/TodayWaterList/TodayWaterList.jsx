@@ -17,7 +17,12 @@ import {
   WaterConsumptionEditModal,
 } from 'components/DashboardLayout/WaterConsumptionModals/WaterConsumptionModals';
 
-const modalIsOpenInitial = { open: false, id: null };
+const modalIsOpenInitial = {
+  open: false,
+  id: null,
+  value: '',
+  consumed_at: '',
+};
 
 export const TodayWaterList = () => {
   const dispatch = useDispatch();
@@ -80,7 +85,14 @@ export const TodayWaterList = () => {
               <button
                 className={css.editWaterBtn}
                 type="button"
-                onClick={() => setEditModal({ open: true, id: water.id })}
+                onClick={() =>
+                  setEditModal({
+                    open: true,
+                    id: water.id,
+                    value: water.value,
+                    consumed_at: water.consumed_at,
+                  })
+                }
               >
                 <Icon
                   className={css.editWaterIcon}
@@ -132,10 +144,11 @@ export const TodayWaterList = () => {
         confirmMessage="Are you sure you want to delete the entry?"
         actionButtonName="Delete"
       />
-
       <WaterConsumptionEditModal
         isOpen={editModal.open}
         id={editModal.id}
+        value={editModal.value}
+        consumed_at={editModal.consumed_at}
         onRequestClose={() => setEditModal(modalIsOpenInitial)}
       />
 
