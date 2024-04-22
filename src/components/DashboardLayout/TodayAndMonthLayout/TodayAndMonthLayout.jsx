@@ -5,7 +5,7 @@ import css from './TodayAndMonthLayout.module.css';
 
 export const TodayAndMonthLayout = () => {
   return (
-    <div className={css.card} id="calendarBody">
+    <div className={css.card} id="TodayAndMonthLayout">
       <TodayWaterList />
       <MonthStatsTable />
     </div>

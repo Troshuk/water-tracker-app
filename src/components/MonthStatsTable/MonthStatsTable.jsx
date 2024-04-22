@@ -105,7 +105,7 @@ export const MonthStatsTable = () => {
     // Hover element
     const liElement = document.getElementById(liId);
     // Container elements borders of which not to exceed
-    const calendarBodyElement = document.getElementById('calendarBody');
+    const calendarBodyElement = document.getElementById('TodayAndMonthLayout');
     // Width of the popup element
     const popupWidth = 280;
 
