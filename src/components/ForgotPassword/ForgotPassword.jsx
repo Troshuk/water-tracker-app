@@ -3,11 +3,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { notifyApi } from 'notify';
 
-import { forgotPasswordSelector } from 'store/selectors';
-import { Container, Section } from 'components';
+import { Container, Section, ContentLoader } from 'components';
+
 import { LOGIN_ROUTE } from 'routes/routes';
-import { ContentLoader } from 'components';
+import { forgotPasswordSelector } from 'store/selectors';
 import { forgotPassword } from 'store/operations';
+
 import css from './ForgotPassword.module.css';
 
 export const ForgotPassword = () => {
@@ -17,10 +18,12 @@ export const ForgotPassword = () => {
 
   const handleSubmit = ({ email }, actions) => {
     notifyApi(
-      dispatch(forgotPassword({ email })).then(() => {
-        actions.resetForm();
-        navigate(LOGIN_ROUTE);
-      }),
+      dispatch(forgotPassword({ email }))
+        .unwrap()
+        .then(() => {
+          actions.resetForm();
+          navigate(LOGIN_ROUTE);
+        }),
       `Sending your password reset email`,
       true
     );
