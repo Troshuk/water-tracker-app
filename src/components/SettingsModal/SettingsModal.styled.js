@@ -127,6 +127,7 @@ export const WrapInfo = styled.div`
 
 export const UploadLabel = styled.label`
   display: flex;
+  align-items: center;
   position: relative;
 `;
 
@@ -138,13 +139,29 @@ export const UploadButton = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  height: 20px;
   cursor: pointer;
   color: #407bff;
   font-size: 14px;
-  font-weight: 500;
   font-family: 'Roboto';
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.3;
+  transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
+  &:hover {
+    color: var(--secondary-color-5);
+    .upload-icon {
+      stroke: var(--secondary-color-5);
+  }
+  }
+  .upload-icon {
+    stroke: #407bff;
+    fill: none;
+    margin-bottom:1px;
+    transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
+  }
+  .upload-icon:hover {
+    stroke: var(--secondary-color-5);
+  }
 `;
 
 export const StyledRadioGroup = styled.div`
@@ -323,7 +340,7 @@ export const ButtonEye = styled.button`
   position: absolute;
   width: 16px;
   height: 16px;
-  background-color: #ffffff;
+  background-color: transparent;
   border: none;
   top: 0;
   top: 50%;

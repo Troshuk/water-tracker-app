@@ -202,7 +202,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
                     id="icon-arrow-up-tray"
                     width="16"
                     height="16"
-                    style={{ stroke: '#407bff' }}
+                    className="upload-icon"
                   />
                   <p>Upload a photo {isUpdatingAvatar && <ContentLoader />}</p>
                 </UploadButton>
