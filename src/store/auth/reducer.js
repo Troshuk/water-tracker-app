@@ -11,8 +11,16 @@ import {
   updateUser,
   updateWaterGoal,
   verifyEmail,
-  resendEmail
+  resendEmail,
 } from './operations';
+import {
+  createConsumptionRecord,
+  deleteConsumptionRecord,
+  getConsumptionForDay,
+  getConsumptionForToday,
+  getWaterStatisticsForDateRange,
+  updateConsumptionRecord,
+} from 'store/operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
 
@@ -120,7 +128,7 @@ export const authSlice = createSlice({
           updateAvatar.pending,
           updateUser.pending,
           updateWaterGoal.pending,
-          resendEmail.pending,
+          resendEmail.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -142,10 +150,31 @@ export const authSlice = createSlice({
           ...initialState,
           [getStateKey(type, meta)]: {
             isLoading: false,
-            error: payload ?? error.message,
+            error: payload?.data ?? error.message,
             key: null,
           },
         })
+      )
+
+      // Handle 401 `Not authorized` requests
+      .addMatcher(
+        isAnyOf(
+          getConsumptionForToday.rejected,
+          createConsumptionRecord.rejected,
+          deleteConsumptionRecord.rejected,
+          getWaterStatisticsForDateRange.rejected,
+          updateConsumptionRecord.rejected,
+          getConsumptionForDay.rejected,
+          updateAvatar.rejected,
+          updateUser.rejected,
+          updateWaterGoal.rejected
+        ),
+        (_, { payload }) => {
+          // If any of the requests returned 401, reset state
+          if (payload?.status === 401) {
+            return initialState;
+          }
+        }
       )
       .addMatcher(
         isAnyOf(
@@ -160,7 +189,7 @@ export const authSlice = createSlice({
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {
             isLoading: false,
-            error: payload ?? error.message,
+            error: payload?.data ?? error.message,
             key: null,
           };
         }

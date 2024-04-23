@@ -41,6 +41,9 @@ export const waterSlice = createSlice({
     updateViewingDate(state, { payload }) {
       state.viewingDate = payload;
     },
+    resetWaterSlice() {
+      return initialState;
+    },
   },
 
   extraReducers: builder => {
@@ -134,7 +137,7 @@ export const waterSlice = createSlice({
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {
             isLoading: false,
-            error: payload ?? error.message,
+            error: payload?.data ?? error.message,
             key: null,
           };
         }
@@ -142,6 +145,6 @@ export const waterSlice = createSlice({
   },
 });
 
-export const { updateViewingDate } = waterSlice.actions;
+export const { updateViewingDate, resetWaterSlice } = waterSlice.actions;
 
 export const waterReducer = waterSlice.reducer;
