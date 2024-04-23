@@ -118,26 +118,43 @@
   font-size: 16px;
   line-height: 1.25;
   color: var(--primery-color-blue);
-
-  width: 97px;
-  height: 20px;
-  display: flex;
-  align-items: center;
   margin-top: 12px;
 }
 
-.addWaterBtn:hover,
-.addWaterBtn:focus {
-  color: var(--secondary-color-5);
+.addWaterBtn span {
+  display: flex;
+  align-items: center;
+  color: transparent;
+  overflow: hidden;
+
+  background: linear-gradient(
+    90deg,
+    #ff9d43 0%,
+    #ff9d43 50%,
+    var(--primery-color-blue) 50%,
+    var(--primery-color-blue) 100%
+  );
+
+  background-size: 200% 100%;
+  background-position: 100%;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  transition: 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98);
 }
 
-.plusWaterIcon {
+.addWaterBtn:hover span {
+  background-position: 0 100%;
+}
+
+.addWaterBtn span .plusWaterIcon {
   stroke: var(--primery-color-blue);
   margin-right: 8px;
+  transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
 }
 
-.addWaterBtn:hover .plusWaterIcon,
-.addWaterBtn:focus .plusWaterIcon {
+.addWaterBtn:hover .plusWaterIcon {
   stroke: var(--secondary-color-5);
 }
 

@@ -138,10 +138,16 @@ input.inputError {
   align-items: center;
   justify-content: center;
   gap: 10px;
+  transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
 }
 
-.buttonForm:hover {
-  box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+.buttonForm:hover,
+.buttonForm:focus {
+  box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
+}
+
+.buttonForm:active {
+  box-shadow: none;
 }
 
 .redirectLink {
@@ -158,6 +164,7 @@ input.inputError {
 .linkForm {
   text-decoration: none;
   color: var(--primery-color-blue);
+  transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
 }
 
 .linkForm:hover {

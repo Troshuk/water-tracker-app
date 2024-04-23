@@ -1,289 +1,327 @@
 /*AddModal Style */
 
 .modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 280px;
+  min-height: 540px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  opacity: 0;
+}
+
+.modalContentAfterOpen {
+  animation: modalFadeIn 0.3s ease-in-out forwards;
+}
+
+.modalContentBeforeClose {
+  animation: modalFadeOut 0.3s ease-in-out forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
     transform: translate(-50%, -50%);
-    width: 100%;
-    max-width: 280px;
-    min-height: 540px;
-    background-color: #ffffff;
-    border-radius: 10px;
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
 }
 
 .containerModalAdd {
-    width: 100%;
-    padding: 24px 12px;
+  width: 100%;
+  padding: 24px 12px;
 }
 
 .closeIcon {
-    stroke: var(--color-primary-blue);
+  stroke: var(--color-primary-blue);
 }
 
 .topContainer {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 24px;
-    align-items: start;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  align-items: start;
 }
 
 .title {
-    font-family: var(--font-main);
-    font-size: 26px;
-    font-weight: 500;
-    line-height: 1.23;
+  font-family: var(--font-main);
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.23;
 }
 
 .btn_close {
-    font-family: var(--font-main);
-    font-size: 26px;
-    font-weight: 500;
-    line-height: 1.23;
+  font-family: var(--font-main);
+  font-size: 26px;
+  font-weight: 500;
+  line-height: 1.23;
 }
 
 .chooseValue {
-    font-family: var(--font-main);
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.11;
-    margin-bottom: 16px;
+  font-family: var(--font-main);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.11;
+  margin-bottom: 16px;
 }
 
 .amount {
-    font-family: var(--font-main);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.25;
-    margin-bottom: 12px;
+  font-family: var(--font-main);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  margin-bottom: 12px;
 }
 
 .addPanel {
-    display: flex;
-    width: 194px;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
+  display: flex;
+  width: 194px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
 }
 
 .plus_minus {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 44px;
-    width: 44px;
-    border-radius: 50%;
-    border: 1px solid var(--color-secondary-blue);
-    box-shadow: 0px 2px 4px rgba(64, 123, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 44px;
+  width: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--color-secondary-blue);
+  box-shadow: 0px 2px 4px rgba(64, 123, 255, 0.2);
 }
 
 .little_plus_minus {
-    fill: transparent;
+  fill: transparent;
 }
 
 .amount_to_add {
-    width: 92px;
-    height: 36px;
-    border-radius: 40px;
-    color: var(--color-primary-blue);
-    background-color: var(--color-secondary-light-blue);
-    font-family: var(--font-main);
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.33;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 92px;
+  height: 36px;
+  border-radius: 40px;
+  color: var(--color-primary-blue);
+  background-color: var(--color-secondary-light-blue);
+  font-family: var(--font-main);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.33;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container_select {
-    display: block;
-    width: 100%;
-    margin-bottom: 24px;
+  display: block;
+  width: 100%;
+  margin-bottom: 24px;
 }
 
 .label_time {
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.25;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
 }
 
 .select_time_value {
-    width: 120px;
-    height: 44px;
-    padding: 12px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-primary-blue);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.25;
-    border: 1px solid var(--color-secondary-light-blue);
-    border-radius: 6px;
-    margin-top: 12px;
+  width: 120px;
+  height: 44px;
+  padding: 12px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-primary-blue);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  border: 1px solid var(--color-secondary-light-blue);
+  border-radius: 6px;
+  margin-top: 12px;
 }
 
 .label_value {
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 1.11;
-    margin-bottom: 16px;
-    color: var(--color-primary-black);
-
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.11;
+  margin-bottom: 16px;
+  color: var(--color-primary-black);
 }
 
 .container_save {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .value_save {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.33;
-    margin-bottom: 16px;
-    color: var(--color-primary-blue);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.33;
+  margin-bottom: 16px;
+  color: var(--color-primary-blue);
 }
 
 .btn_sav {
-    width: 100%;
-    height: 36px;
-    color: white;
-    background-color: var(--color-primary-blue);
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1.11;
-    box-shadow: 0px 4px 4px rgba(64, 123, 255, 0.34);
+  width: 100%;
+  height: 36px;
+  color: white;
+  background-color: var(--color-primary-blue);
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.11;
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
+}
+
+.btn_sav:is(:hover, :focus) {
+  box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
+}
+
+.btn_sav:active {
+  box-shadow: none;
 }
 
 @media (min-width: 768px) {
-    .modal {
-        max-width: 704px;
-        min-height: 504px;
-    }
+  .modal {
+    max-width: 704px;
+    min-height: 504px;
+  }
 
-    .containerModalAdd {
-        padding: 32px 24px;
-    }
+  .containerModalAdd {
+    padding: 32px 24px;
+  }
 
-    .select_time_value {
-        width: 100%;
-    }
+  .select_time_value {
+    width: 100%;
+  }
 
-    .container_save {
-        margin-left: auto;
-        justify-content: space-between;
-        height: 44px;
-        width: 256px;
-    }
+  .container_save {
+    margin-left: auto;
+    justify-content: space-between;
+    height: 44px;
+    width: 256px;
+  }
 
-    .btn_sav {
-        width: 160px;
-        height: 44px;
-        font-size: 18px;
-        line-height: 1.11;
-    }
+  .btn_sav {
+    width: 160px;
+    height: 44px;
+    font-size: 18px;
+    line-height: 1.11;
+  }
 
-    .value_save {
-        margin-bottom: 0px;
-    }
+  .value_save {
+    margin-bottom: 0px;
+  }
 }
 
 @media (min-width: 1440px) {
-    .modal {
-        max-width: 592px;
-    }
+  .modal {
+    max-width: 592px;
+  }
 
-    .container_select {
-        width: 100%;
-    }
+  .container_select {
+    width: 100%;
+  }
 
-    .btn_sav {
-        box-shadow: 0px 4px 8px rgba(64, 123, 255, 0.34);
-    }
-
+  .btn_sav {
+    box-shadow: 0px 4px 8px rgba(64, 123, 255, 0.34);
+  }
 }
 
 /*EditModal Style */
 
 .containerModalEdit {
-    width: 280px;
-    height: 648px;
-    padding: 24px 12px;
+  width: 280px;
+  height: 648px;
+  padding: 24px 12px;
 }
 
 .last_consumed {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 52px;
-    background-color: var(--secondary-color-2);
-    border-radius: 10px;
-    margin-bottom: 24px;
-    padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 52px;
+  background-color: var(--secondary-color-2);
+  border-radius: 10px;
+  margin-bottom: 24px;
+  padding: 8px 24px;
 }
 
 .last_glass {
-    margin-right: 12px;
-    fill: var(--primery-color-blue);
+  margin-right: 12px;
+  fill: var(--primery-color-blue);
 }
 
 .last_value {
-    font-size: 18px;
-    line-height: 1.33;
-    color: var(--color-primary-blue);
-    margin-right: 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  color: var(--color-primary-blue);
+  margin-right: 16px;
 }
 
 .last_time {
-    font-size: 12px;
-    line-height: 2.0;
+  font-size: 12px;
+  line-height: 2;
 }
 
 .select_time_value_edit {
-    width: 100%;
-    height: 44px;
-    padding: 12px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--color-primary-blue);
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.25;
-    border: 1px solid var(--color-secondary-light-blue);
-    border-radius: 6px;
-    margin-top: 12px;
+  width: 100%;
+  height: 44px;
+  padding: 12px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-primary-blue);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.25;
+  border: 1px solid var(--color-secondary-light-blue);
+  border-radius: 6px;
+  margin-top: 12px;
 }
 
 @media (min-width: 768px) {
-    .containerModalEdit {
-        width: 704px;
-        height: 580px;
-        padding: 32px 24px;
-    }
+  .containerModalEdit {
+    width: 704px;
+    height: 580px;
+    padding: 32px 24px;
+  }
 
-    .last_consumed {
-        width: 254px;
-    }
+  .last_consumed {
+    width: 254px;
+  }
 
-    .select_time_value_edit {
-        width: 544px;
-    }
+  .select_time_value_edit {
+    width: 544px;
+  }
 }
 
 @media (min-width: 1440px) {
-    .containerModalEdit {
-        width: 592px;
-    }
+  .containerModalEdit {
+    width: 592px;
+  }
 
-    .select_time_value_edit {
-        width: 100%;
-    }
+  .select_time_value_edit {
+    width: 100%;
+  }
 }

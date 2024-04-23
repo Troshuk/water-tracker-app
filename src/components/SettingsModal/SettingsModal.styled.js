@@ -1,22 +1,44 @@
 import ReactModal from 'react-modal';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-export const StModalBackdrope = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+const modalFadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+`;
+
+const modalFadeOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+`;
+
+export const StyledSettingModal = styled(ReactModal)`
+  position: absolute;
+  top: 50%;
+  left: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
   overflow: hidden;
-`;
+  transform: translate(-50%, -50%);
+  &.ReactModal__Content--after-open {
+    animation: ${modalFadeIn} 0.3s ease-in-out forwards;
+  }
 
-export const StyledSettingModal = styled(ReactModal)`
-  &.ReactModal__Overlay--after-open {
-    border: none;
+  &.ReactModal__Content--before-close {
+    animation: ${modalFadeOut} 0.3s ease-in-out forwards;
   }
 `;
 
@@ -100,6 +122,7 @@ export const WrapInfo = styled.div`
 
 export const UploadLabel = styled.label`
   display: flex;
+  align-items: center;
   position: relative;
 `;
 
@@ -111,13 +134,29 @@ export const UploadButton = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  height: 20px;
   cursor: pointer;
   color: #407bff;
   font-size: 14px;
-  font-weight: 500;
   font-family: 'Roboto';
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.3;
+  transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
+  &:hover {
+    color: var(--secondary-color-5);
+    .upload-icon {
+      stroke: var(--secondary-color-5);
+    }
+  }
+  .upload-icon {
+    stroke: #407bff;
+    fill: none;
+    margin-bottom: 1px;
+    transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
+  }
+  .upload-icon:hover {
+    stroke: var(--secondary-color-5);
+  }
 `;
 
 export const StyledRadioGroup = styled.div`
@@ -182,7 +221,8 @@ export const Button = styled.button`
   font-weight: 500;
   line-height: 1.3;
   border-radius: 10px;
-  box-shadow: 0px 4px 8px 0px rgba(64, 123, 255, 0.34);
+  box-shadow: 0 4px 8px 0 rgba(64, 123, 255, 0.34);
+  transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
 
   @media (min-width: 768px) {
     display: block;
@@ -193,7 +233,7 @@ export const Button = styled.button`
   }
 
   &:hover {
-    box-shadow: 0px 4px 14px 0px rgba(64, 123, 255, 0.54);
+    box-shadow: 0 4px 14px 0 rgba(64, 123, 255, 0.54);
   }
 
   &:focus {
@@ -295,7 +335,7 @@ export const ButtonEye = styled.button`
   position: absolute;
   width: 16px;
   height: 16px;
-  background-color: #ffffff;
+  background-color: transparent;
   border: none;
   top: 0;
   top: 50%;

@@ -1,8 +1,9 @@
 .Modal {
   outline: none;
-  position: absolute;
-  right: 50%;
-  transform: translate(50%, 40%);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -130%);
   border-radius: 10px;
   padding: 32px 24px;
   max-width: 280px;
@@ -11,6 +12,37 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  opacity: 0;
+}
+
+.modalContentAfterOpen {
+  animation: modalFadeIn 0.3s ease-in-out forwards;
+}
+
+.modalContentBeforeClose {
+  animation: modalFadeOut 0.3s ease-in-out forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -150%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -130%);
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -130%);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -150%);
+  }
 }
 
 .title {
@@ -69,7 +101,30 @@
 @media screen and (min-width: 768px) {
   .Modal {
     min-width: 592px;
+    transform: translate(-50%, 15%);
     top: 20%;
+  }
+
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -15%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, 15%);
+    }
+  }
+
+  @keyframes modalFadeOut {
+    from {
+      opacity: 1;
+      transform: translate(-50%, 15%);
+    }
+    to {
+      opacity: 0;
+      transform: translate(-50%, -15%);
+    }
   }
 
   .btnThumb {
@@ -89,6 +144,29 @@
   @media screen and (min-width: 1440px) {
     .Modal {
       top: 30%;
+      transform: translate(-50%, 20%);
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -20%);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, 20%);
+      }
+    }
+
+    @keyframes modalFadeOut {
+      from {
+        opacity: 1;
+        transform: translate(-50%, 20%);
+      }
+      to {
+        opacity: 0;
+        transform: translate(-50%, -20%);
+      }
     }
   }
 }

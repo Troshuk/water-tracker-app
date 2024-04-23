@@ -19,7 +19,12 @@ export const ConfirmActionWarningModal = ({
       contentLabel="Modal"
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      className={css.Modal}
+      className={{
+        base: css.Modal,
+        afterOpen: css.modalContentAfterOpen,
+        beforeClose: css.modalContentBeforeClose,
+      }}
+      closeTimeoutMS={300}
       style={{
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.8)',
