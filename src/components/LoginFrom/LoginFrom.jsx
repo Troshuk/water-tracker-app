@@ -9,7 +9,11 @@ import { logInSelector } from 'store/selectors';
 import { notifyApi } from 'notify';
 import { logIn } from 'store/operations';
 import { LoginSchema } from 'schemasValdiate/LoginSchema';
-import { FORGOT_PASSWORD_ROUTE, SIGN_UP_ROUTE } from 'routes/routes';
+import {
+  FORGOT_PASSWORD_ROUTE,
+  SIGN_UP_ROUTE,
+  RESEND_EMAIL,
+} from 'routes/routes';
 
 import css from './LoginFrom.module.css';
 
@@ -98,8 +102,9 @@ export const LoginFrom = () => {
                 <NavLink to={SIGN_UP_ROUTE} className={css.linkForm}>
                   Sign Up
                 </NavLink>
-              </div>
-              <div className={css.redirectForgot}>
+                <NavLink to={RESEND_EMAIL} className={css.linkForm}>
+                  Can't login?
+                </NavLink>
                 <NavLink to={FORGOT_PASSWORD_ROUTE} className={css.linkForm}>
                   Forgot your password?
                 </NavLink>

@@ -93,3 +93,8 @@ export const verifyEmail = createAsyncThunkWithCatch(
   'auth/verifyEmail',
   async token => (await api.get(USERS_ENDPOINT + `verify/${token}`)).data
 );
+
+export const resendEmail = createAsyncThunkWithCatch(
+'auth/resendEmail',
+async body => (await api.post(USERS_ENDPOINT + 'verify', body)).data
+);

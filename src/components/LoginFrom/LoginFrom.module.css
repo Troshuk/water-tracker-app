@@ -149,15 +149,9 @@ input.inputError {
   margin-top: 16px;
   color: var(--primery-color-blue);
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
-}
-
-.redirectForgot {
-  font-size: 16px;
-  margin-top: 16px;
-  color: var(--primery-color-blue);
-  display: flex;
-  justify-content: flex-start;
+  gap: 16px;
   margin-bottom: 66px;
 }
 
