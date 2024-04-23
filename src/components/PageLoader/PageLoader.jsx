@@ -13,8 +13,8 @@ export const PageLoader = props => {
             transform: 'translate(-50%, -50%)',
           }}
           visible={true}
-          height="150"
-          width="150"
+          height="80"
+          width="80"
           {...props}
           ariaLabel="hourglass-loading"
           wrapperClass=""
