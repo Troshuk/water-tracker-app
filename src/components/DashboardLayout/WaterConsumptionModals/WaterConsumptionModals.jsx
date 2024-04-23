@@ -271,7 +271,11 @@ export const WaterConsumptionEditModal = ({
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Modal"
-      className={css.modal}
+      className={{
+        base: css.modal,
+        afterOpen: css.modalContentAfterOpen,
+        beforeClose: css.modalContentBeforeClose,
+      }}
       style={{
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.8)',

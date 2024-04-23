@@ -23,20 +23,15 @@ const modalFadeOut = keyframes`
   }
 `;
 
-export const StModalBackdrope = styled.div`
+export const StyledSettingModal = styled(ReactModal)`
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100vw;
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
   overflow: hidden;
-`;
-
-export const StyledSettingModal = styled(ReactModal)`
   transform: translate(-50%, -50%);
   &.ReactModal__Content--after-open {
     animation: ${modalFadeIn} 0.3s ease-in-out forwards;
@@ -151,12 +146,12 @@ export const UploadButton = styled.div`
     color: var(--secondary-color-5);
     .upload-icon {
       stroke: var(--secondary-color-5);
-  }
+    }
   }
   .upload-icon {
     stroke: #407bff;
     fill: none;
-    margin-bottom:1px;
+    margin-bottom: 1px;
     transition: all 0.25s cubic-bezier(0.7, 0.98, 0.86, 0.98) 0s;
   }
   .upload-icon:hover {
