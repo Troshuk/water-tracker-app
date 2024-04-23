@@ -1,10 +1,32 @@
 import ReactModal from 'react-modal';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const modalFadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+`;
+
+const modalFadeOut = keyframes`
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+`;
 
 export const StModalBackdrope = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -15,8 +37,13 @@ export const StModalBackdrope = styled.div`
 `;
 
 export const StyledSettingModal = styled(ReactModal)`
-  &.ReactModal__Overlay--after-open {
-    border: none;
+  transform: translate(-50%, -50%);
+  &.ReactModal__Content--after-open {
+    animation: ${modalFadeIn} 0.3s ease-in-out forwards;
+  }
+
+  &.ReactModal__Content--before-close {
+    animation: ${modalFadeOut} 0.3s ease-in-out forwards;
   }
 `;
 

@@ -164,6 +164,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
       contentLabel="Setting Modal"
       isOpen={settingModalIsOpen}
       onRequestClose={closeModal}
+      closeTimeoutMS={300}
     >
       <StModalBackdrope onClick={onBackdropeClick}>
         <StModalWrap>
