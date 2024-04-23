@@ -6,7 +6,10 @@ import {
   createConsumptionRecord,
   updateConsumptionRecord,
 } from 'store/operations';
-import { createConsumptionRecordSelector } from 'store/selectors';
+import {
+  createConsumptionRecordSelector,
+  viewingDateSelector,
+} from 'store/selectors';
 import { notifyApi } from 'notify';
 
 import css from './WaterConsumptionModals.module.css';
@@ -14,15 +17,16 @@ import moment from 'moment';
 
 ReactModal.setAppElement('#root');
 
-const getCurrentTime = () => {
+const getCurrentTime = viewingDate => {
   const today = new Date();
   const roundedMinutes = Math.round(today.getMinutes() / 5.0) * 5;
   const formattedMinutes = String(roundedMinutes).padStart(2, '0');
+  const currentDate = viewingDate ? new Date(viewingDate) : today;
 
   const closes = new Date(
-    today.getFullYear(),
-    today.getMonth(),
-    today.getDate(),
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate(),
     today.getHours(),
     formattedMinutes
   );
@@ -34,9 +38,9 @@ const formatTimeLt = inDate => {
   return moment(inDate).format('h:mm A').toString();
 };
 
-const generateTimeOptions = () => {
+const generateTimeOptions = viewingDate => {
   const options = [];
-  const today = new Date();
+  const today = viewingDate ? new Date(viewingDate) : new Date();
   const step = 5;
 
   for (let hour = 0; hour < 24; hour++) {
@@ -64,9 +68,16 @@ const MAX_VALUE = 5000;
 const MIN_VALUE = 0;
 
 export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
-  const [selectedTime, setSelectedTime] = useState(getCurrentTime());
+  const [selectedTime, setSelectedTime] = useState(getCurrentTime(null));
   const [changedConsumedValue, setChangedConsumedValue] = useState(Number(50));
   const { isLoading } = useSelector(createConsumptionRecordSelector);
+  const viewingDate = useSelector(viewingDateSelector);
+
+  useEffect(() => {
+    if (viewingDate) {
+      setSelectedTime(getCurrentTime(viewingDate));
+    }
+  }, [viewingDate]);
 
   const dispatch = useDispatch();
 
@@ -173,7 +184,7 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
               onChange={handleTimeChange}
               className={css.select_time_value}
             >
-              {selectedTime},{generateTimeOptions()}
+              {selectedTime},{generateTimeOptions(viewingDate)}
             </select>
           </div>
           <div className={css.container_select}>
@@ -332,7 +343,7 @@ export const WaterConsumptionEditModal = ({
               onChange={handleTimeChange}
               className={css.select_time_value_edit}
             >
-              {selectedTime},{generateTimeOptions()}
+              {selectedTime},{generateTimeOptions(consumed_at)}
             </select>
           </div>
           <div className={css.container_select}>

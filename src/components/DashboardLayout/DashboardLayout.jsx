@@ -11,13 +11,14 @@ import {
   LeftSideDiv,
   StyledSection,
 } from './DashboardLayout.styled';
-import { getConsumptionForToday } from 'store/operations';
+import { getConsumptionForDay, getConsumptionForToday } from 'store/operations';
 import { notify } from 'notify';
 import {
   createConsumptionRecordSelector,
   deleteConsumptionRecordSelector,
   updateConsumptionRecordSelector,
   updateWaterGoalSelector,
+  viewingDateSelector,
 } from 'store/selectors';
 
 export const DashboardLayout = () => {
@@ -26,6 +27,7 @@ export const DashboardLayout = () => {
   const creatingWater = useSelector(createConsumptionRecordSelector);
   const updatingWater = useSelector(updateConsumptionRecordSelector);
   const updatingWaterGoal = useSelector(updateWaterGoalSelector);
+  const viewingDate = useSelector(viewingDateSelector);
 
   // Re-fetch water for today when any of these actions happened
   useEffect(() => {
@@ -39,7 +41,11 @@ export const DashboardLayout = () => {
       !updatingWaterGoal.isLoading &&
       !updatingWaterGoal.error
     ) {
-      dispatch(getConsumptionForToday())
+      dispatch(
+        viewingDate
+          ? getConsumptionForDay(new Date(viewingDate).toISOString())
+          : getConsumptionForToday()
+      )
         .unwrap()
         .catch(() =>
           notify(
@@ -54,6 +60,7 @@ export const DashboardLayout = () => {
     creatingWater,
     updatingWater,
     updatingWaterGoal,
+    viewingDate,
   ]);
 
   return (

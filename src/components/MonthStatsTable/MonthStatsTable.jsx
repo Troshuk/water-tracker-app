@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
 import css from './MonthStatsTable.module.css';
 import { getWaterStatisticsForDateRange } from 'store/operations.js';
@@ -9,7 +10,10 @@ import {
   getStatisticsSelector,
   updateConsumptionRecordSelector,
   updateWaterGoalSelector,
+  userSelector,
+  viewingDateSelector,
 } from 'store/selectors.js';
+import { updateViewingDate } from 'store/reducers';
 
 const monthNames = [
   'January',
@@ -39,6 +43,27 @@ export const MonthStatsTable = () => {
   const creatingWater = useSelector(createConsumptionRecordSelector);
   const updatingWater = useSelector(updateConsumptionRecordSelector);
   const updatingWaterGoal = useSelector(updateWaterGoalSelector);
+  const { dailyWaterGoal } = useSelector(userSelector);
+  const viewingDate = useSelector(viewingDateSelector);
+
+  const setViewingDate = day => {
+    dispatch(
+      updateViewingDate(
+        day
+          ? new Date(
+              currentDate.getFullYear(),
+              currentDate.getMonth(),
+              day
+            ).toISOString()
+          : null
+      )
+    );
+  };
+
+  const backToToday = () => {
+    setState({ currentDate: new Date() });
+    setViewingDate();
+  };
 
   const getDaysInMonth = date =>
     new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -60,12 +85,32 @@ export const MonthStatsTable = () => {
 
   const daysInMonth = getDaysInMonth(currentDate);
   const monthName = getMonthName(currentDate);
+  const isSameMonth = moment().isSame(currentDate, 'month');
+  const currentDay = moment().date();
+  const isSameDay = viewingDate ? moment().isSame(viewingDate, 'day') : true;
+  const viewingDay = viewingDate ? moment(viewingDate).date() : false;
 
   const days = [];
 
   Array.from({ length: daysInMonth }).forEach((_, i) => {
     const day = i + 1;
-    days.push({ day });
+    const isToday = isSameMonth && day === currentDay;
+
+    const dayInfo = {
+      day,
+      isToday,
+      isViewingDay: viewingDay ? isSameMonth && day === viewingDay : isToday,
+    };
+
+    if (!isSameMonth || day <= currentDay) {
+      dayInfo.statistic = {
+        consumptionPercentage: 0,
+        dailyWaterGoal,
+        count: 0,
+      };
+    }
+
+    days.push(dayInfo);
   });
 
   statistics?.forEach(statistic => {
@@ -145,6 +190,12 @@ export const MonthStatsTable = () => {
 
   return (
     <div className={css.calendar}>
+      {(!isSameDay || !isSameMonth) && (
+        <button className={css.backToToday} onClick={backToToday}>
+          Back to Today
+        </button>
+      )}
+
       <div className={css.calendarHeader}>
         <h1 className={css.title}>Month</h1>
         <div className={css.containerCalendar}>
@@ -154,14 +205,21 @@ export const MonthStatsTable = () => {
           <h2 className={css.itemName}>
             {monthName}, {currentDate.getFullYear()}
           </h2>
-          <button onClick={() => goToMonth(1)} className={css.itemButton}>
+          <button
+            onClick={() => !isSameMonth && goToMonth(1)}
+            className={css.itemButton}
+            style={{
+              cursor: isSameMonth ? 'not-allowed' : 'pointer',
+              opacity: isSameMonth ? 0.3 : 1,
+            }}
+          >
             &gt;
           </button>
         </div>
       </div>
       <div className={css.calendarBody}>
         <ul className={css.calendarList}>
-          {days.map(({ day, statistic }) => {
+          {days.map(({ day, statistic, isToday, isViewingDay }) => {
             let buttonClassNames = css.buttonCalendar;
 
             if (!statistic?.consumptionPercentage) {
@@ -178,9 +236,19 @@ export const MonthStatsTable = () => {
                 className={css.containerList}
                 key={`day-${day}`}
                 id={`day-${day}`}
+                onClick={() =>
+                  statistic && setViewingDate(isToday ? null : day)
+                }
+                style={{ cursor: statistic ? 'pointer' : 'not-allowed' }}
               >
                 <div className={buttonClassNames}>
-                  <span className={css.calendarDay}>{day}</span>
+                  <span
+                    className={`${css.calendarDay} ${isToday && css.isToday} ${
+                      isViewingDay && css.isViewingDay
+                    }`}
+                  >
+                    {day}
+                  </span>
                 </div>
                 <p className={css.itemCalendary}>
                   {statistic?.consumptionPercentage || '0'}%

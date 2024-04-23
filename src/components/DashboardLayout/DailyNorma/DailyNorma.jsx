@@ -1,12 +1,21 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 import { DailyNormaModal } from './DailyNormaModal/DailyNormaModal.jsx';
 import { Button, Text, TextWater, Wrap, BtnWrap } from './DailyNorma.styled.js';
-import { dailyWaterGoalSelector } from 'store/selectors.js';
+import {
+  dailyWaterGoalSelector,
+  dayConsumptionWaterGoalSelector,
+  viewingDateSelector,
+} from 'store/selectors.js';
 
 export const DailyNorma = () => {
   const dailyWaterGoal = useSelector(dailyWaterGoalSelector);
+  const viewingDate = useSelector(viewingDateSelector);
+  const viewingDateDailyWaterGoal = useSelector(
+    dayConsumptionWaterGoalSelector
+  );
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -22,7 +31,9 @@ export const DailyNorma = () => {
     };
   }, [modalIsOpen]);
 
-  const waterValue = (dailyWaterGoal / 1000).toFixed(1);
+  const waterValue = (
+    (viewingDateDailyWaterGoal || dailyWaterGoal) / 1000
+  ).toFixed(1);
 
   const openModal = () => {
     setIsOpen(true);
@@ -34,7 +45,16 @@ export const DailyNorma = () => {
 
   return (
     <Wrap>
-      <Text>My daily norma</Text>
+      <Text>
+        My daily norma
+        {viewingDate && (
+          <>
+            <br />
+            {moment(viewingDate).format('LL')}
+          </>
+        )}
+      </Text>
+
       <BtnWrap>
         <TextWater>{waterValue} L</TextWater>
         <Button type="button" onClick={openModal}>

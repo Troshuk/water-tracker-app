@@ -6,6 +6,7 @@ import {
   deleteConsumptionRecord,
   getWaterStatisticsForDateRange,
   updateConsumptionRecord,
+  getConsumptionForDay,
 } from './operations';
 
 const getStateKey = (type, meta) => type.replace(`/${meta.requestStatus}`, '');
@@ -15,6 +16,7 @@ const initialState = {
     consumptionPercentage: 0,
     consumption: [],
   },
+  viewingDate: null,
   calendarStatistics: [],
   ...[
     getConsumptionForToday,
@@ -22,6 +24,7 @@ const initialState = {
     deleteConsumptionRecord,
     getWaterStatisticsForDateRange,
     updateConsumptionRecord,
+    getConsumptionForDay,
   ].reduce(
     (acc, operation) => ({
       ...acc,
@@ -34,12 +37,14 @@ const initialState = {
 export const waterSlice = createSlice({
   name: 'water',
   initialState,
+  reducers: {
+    updateViewingDate(state, { payload }) {
+      state.viewingDate = payload;
+    },
+  },
+
   extraReducers: builder => {
     builder
-      // Get consumption for today
-      .addCase(getConsumptionForToday.fulfilled, (state, { payload }) => {
-        state.today = payload;
-      })
       // Create consumption record
       .addCase(createConsumptionRecord.fulfilled, (state, { payload }) => {
         state.today.consumption.push(payload);
@@ -69,6 +74,17 @@ export const waterSlice = createSlice({
         }
       )
 
+      // Get consumption for today or date
+      .addMatcher(
+        isAnyOf(
+          getConsumptionForToday.fulfilled,
+          getConsumptionForDay.fulfilled
+        ),
+        (state, { payload }) => {
+          state.today = payload;
+        }
+      )
+
       // Handle fulfilled requests status
       .addMatcher(
         isAnyOf(
@@ -76,7 +92,8 @@ export const waterSlice = createSlice({
           createConsumptionRecord.fulfilled,
           deleteConsumptionRecord.fulfilled,
           getWaterStatisticsForDateRange.fulfilled,
-          updateConsumptionRecord.fulfilled
+          updateConsumptionRecord.fulfilled,
+          getConsumptionForDay.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -93,7 +110,8 @@ export const waterSlice = createSlice({
           createConsumptionRecord.pending,
           deleteConsumptionRecord.pending,
           getWaterStatisticsForDateRange.pending,
-          updateConsumptionRecord.pending
+          updateConsumptionRecord.pending,
+          getConsumptionForDay.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -110,7 +128,8 @@ export const waterSlice = createSlice({
           createConsumptionRecord.rejected,
           deleteConsumptionRecord.rejected,
           getWaterStatisticsForDateRange.rejected,
-          updateConsumptionRecord.rejected
+          updateConsumptionRecord.rejected,
+          getConsumptionForDay.rejected
         ),
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {
@@ -122,5 +141,7 @@ export const waterSlice = createSlice({
       );
   },
 });
+
+export const { updateViewingDate } = waterSlice.actions;
 
 export const waterReducer = waterSlice.reducer;
