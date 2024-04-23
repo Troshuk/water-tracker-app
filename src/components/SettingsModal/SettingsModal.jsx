@@ -183,7 +183,13 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
               {avatarURL ? (
                 <img alt={name || email} src={avatarURL} />
               ) : (
-                <Icon id="icon-user" />
+                <div>
+                  {name
+                    ? name.charAt(0).toUpperCase()
+                    : email
+                    ? email.charAt(0).toUpperCase()
+                    : ''}
+                </div>
               )}
             </ImgWrapper>
             <UploadLabel>
@@ -246,7 +252,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
                 <Input
                   name="name"
                   type="text"
-                  defaultValue={formik.values.name}
+                  placeholder="Your name"
                   onChange={handleInputChange}
                   $hasError={formik.touched.name && formik.errors.name}
                 />
@@ -259,7 +265,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
                 <Input
                   name="email"
                   type="email"
-                  defaultValue={formik.values.email}
+                  placeholder="E-mail"
                   onChange={handleInputChange}
                   $hasError={formik.touched.email && formik.errors.email}
                 />
