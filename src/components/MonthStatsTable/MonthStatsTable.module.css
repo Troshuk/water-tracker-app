@@ -62,7 +62,9 @@
 .itemButton {
   color: var(--color-primary-blue);
 }
-
+.itemNext {
+  visibility: hidden;
+}
 .containerCalendar {
   display: flex;
   justify-content: space-between;

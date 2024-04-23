@@ -33,6 +33,12 @@ export const MonthStatsTable = () => {
   });
 
   const { currentDate } = state;
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth();
+  const isLastAvailableMonth =
+    currentYear < new Date().getFullYear() ||
+    (currentYear === new Date().getFullYear() &&
+      currentMonth === new Date().getMonth());
 
   const statistics = useSelector(getStatisticsSelector);
   const deletingWater = useSelector(deleteConsumptionRecordSelector);
@@ -154,7 +160,12 @@ export const MonthStatsTable = () => {
           <h2 className={css.itemName}>
             {monthName}, {currentDate.getFullYear()}
           </h2>
-          <button onClick={() => goToMonth(1)} className={css.itemButton}>
+          <button
+            onClick={() => goToMonth(1)}
+            className={`${css.itemButton}  ${
+              isLastAvailableMonth ? css.itemNext : ''
+            }`}
+          >
             &gt;
           </button>
         </div>
