@@ -1,10 +1,15 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import moment from 'moment';
 
 import { ConfirmActionWarningModal, Icon } from 'components';
 
 import { deleteConsumptionRecord } from 'store/operations';
-import { todayConsumptionsSelector, userSelector } from 'store/selectors';
+import {
+  todayConsumptionsSelector,
+  userSelector,
+  viewingDateSelector,
+} from 'store/selectors';
 
 import css from './TodayWaterList.module.css';
 import { notifyApi } from 'notify';
@@ -38,6 +43,7 @@ export const TodayWaterList = () => {
 
   const water = useSelector(todayConsumptionsSelector);
   const { timezone: timeZone } = useSelector(userSelector);
+  const viewingDate = useSelector(viewingDateSelector);
 
   const handleDeleteConsumption = id => {
     notifyApi(
@@ -57,7 +63,9 @@ export const TodayWaterList = () => {
 
   return (
     <div className={css.todayWaterContainer}>
-      <p className={css.todayTitle}>Today</p>
+      <p className={css.todayTitle}>
+        {viewingDate ? moment(viewingDate).format('LL') : 'Today'}
+      </p>
       <ul className={css.todayWaterList}>
         {water?.map(water => (
           <li className={css.todayWaterItem} key={water.id}>

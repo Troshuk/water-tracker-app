@@ -9,6 +9,11 @@ export const getConsumptionForToday = createAsyncThunkWithCatch(
   async () => (await api.get(WATER_ENDPOINT + 'today')).data
 );
 
+export const getConsumptionForDay = createAsyncThunkWithCatch(
+  'water/getConsumptionForDay',
+  async date => (await api.get(WATER_ENDPOINT + 'day/' + date)).data
+);
+
 export const createConsumptionRecord = createAsyncThunkWithCatch(
   'water/createConsumptionRecord',
   async water => (await api.post(WATER_CONSUMPTION_ENDPOINT, water)).data

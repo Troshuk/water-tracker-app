@@ -1,4 +1,5 @@
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 import {
   RangeAndAddWater,
@@ -12,7 +13,10 @@ import {
   SvgButton,
 } from './WaterRatioPanel.styled';
 
-import { todayConsumptionPercentageSelector } from 'store/selectors.js';
+import {
+  todayConsumptionPercentageSelector,
+  viewingDateSelector,
+} from 'store/selectors.js';
 
 import iconSprite from 'images/icons.svg';
 import { useState, useEffect } from 'react';
@@ -20,6 +24,7 @@ import { WaterConsumptionAddModal } from '../WaterConsumptionModals/WaterConsump
 
 export const WaterRatioPanel = () => {
   const consumptionPercentage = useSelector(todayConsumptionPercentageSelector);
+  const viewingDate = useSelector(viewingDateSelector);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -38,7 +43,9 @@ export const WaterRatioPanel = () => {
   return (
     <RangeAndAddWater>
       <RangeDiv>
-        <RangeTitle>Today</RangeTitle>
+        <RangeTitle>
+          {viewingDate ? moment(viewingDate).format('LL') : 'Today'}
+        </RangeTitle>
         <StyledRangeInput
           type="range"
           value={consumptionPercentage}

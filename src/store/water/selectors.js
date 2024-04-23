@@ -15,9 +15,19 @@ export const todayConsumptionSelector = createSelector(
   state => state.today
 );
 
+export const viewingDateSelector = createSelector(
+  WaterReducerSelector,
+  state => state.viewingDate
+);
+
 export const todayConsumptionPercentageSelector = createSelector(
   WaterReducerSelector,
   state => state.today.consumptionPercentage
+);
+
+export const dayConsumptionWaterGoalSelector = createSelector(
+  WaterReducerSelector,
+  state => state.today.dailyWaterGoal
 );
 
 export const todayConsumptionsSelector = createSelector(

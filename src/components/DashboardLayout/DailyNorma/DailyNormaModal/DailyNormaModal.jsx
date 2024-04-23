@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
+import moment from 'moment';
 
 import {
   AboutFormula,
@@ -30,7 +31,7 @@ import {
   WrapHeader,
 } from './DailyNormaModal.styled';
 import { Icon } from 'components';
-import { userSelector } from 'store/selectors';
+import { userSelector, viewingDateSelector } from 'store/selectors';
 import { DailyNormaModalSchema } from 'schemasValdiate/dailyNormaModallSchema';
 import { updateWaterGoal } from 'store/operations';
 import { notify } from 'notify';
@@ -40,6 +41,7 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
   const dispatch = useDispatch();
   const { gender } = useSelector(userSelector);
   const [amount, setAmount] = useState(0);
+  const viewingDate = useSelector(viewingDateSelector);
 
   const formik = useFormik({
     initialValues: {
@@ -69,14 +71,13 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
         );
       }
 
+      const data = { dailyWaterGoal: waterNorma };
+
+      if (viewingDate) {
+        data.viewingDate = viewingDate;
+      }
       notifyApi(
-        dispatch(
-          updateWaterGoal({
-            dailyWaterGoal: waterNorma,
-          })
-        )
-          .unwrap()
-          .then(handleCloseModal),
+        dispatch(updateWaterGoal(data)).unwrap().then(handleCloseModal),
         `Updating your daily norma`,
         true
       );
@@ -145,7 +146,10 @@ export const DailyNormaModal = ({ modalIsOpen, closeModal }) => {
       }}
     >
       <WrapHeader>
-        <TitleText>My daily norma</TitleText>
+        <TitleText>
+          My daily norma{' '}
+          {viewingDate && ` for: ${moment(viewingDate).format('LL')}`}
+        </TitleText>
         <BtnCloseModal type="button" onClick={handleCloseModal}>
           <Icon
             id="icon-close-x"

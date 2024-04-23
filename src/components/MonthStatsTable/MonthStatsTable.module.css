@@ -33,6 +33,12 @@
   min-height: 460px;
 }
 
+.backToToday {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  color: var(--color-primary-blue);
+}
+
 .calendarHeader {
   display: flex;
   align-items: center;
@@ -118,6 +124,18 @@
   justify-content: center;
   font-size: 14px;
   line-height: 129%;
+}
+
+.containerList:hover .calendarDay {
+  background-color: yellow;
+}
+
+.isToday {
+  background-color: #dede00;
+}
+
+.isViewingDay {
+  background-color: yellow;
 }
 
 .greenBackground {
