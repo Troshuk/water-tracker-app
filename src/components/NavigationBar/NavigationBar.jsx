@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import {
   ConfirmActionWarningModal,
@@ -64,6 +64,21 @@ export const NavigationBar = () => {
   const shortName = () => user?.name?.split(' ')?.[0]?.substring(0, 15);
   const emailName = () => user?.email?.split('@')?.[0];
 
+  const useOutsideClick = callback => {
+    const ref = useRef();
+    useEffect(() => {
+      const handleClick = event => {
+        if (ref.current && !ref.current.contains(event.target)) callback();
+      };
+
+      document.addEventListener('click', handleClick);
+      return () => document.removeEventListener('click', handleClick);
+    }, [ref, callback]);
+    return ref;
+  };
+
+  const ref = useOutsideClick(handleCloseUserMenu);
+
   return (
     <header className={css.header}>
       <Container className={css.container}>
@@ -71,7 +86,7 @@ export const NavigationBar = () => {
           <Logo height="48" />
         </Link>
         {isLoggedIn ? (
-          <div>
+          <div ref={ref}>
             <button
               className={css.userMenuToggle}
               onClick={handleToggleUserMenu}
@@ -97,7 +112,10 @@ export const NavigationBar = () => {
             </button>
 
             {isMenuOpen && (
-              <div className={css.profileDropDown}>
+              <div
+                className={css.profileDropDown}
+                // onMouseLeave={handleCloseUserMenu}
+              >
                 <ul className={css.userMenuDropdown}>
                   <li onClick={handleOpenSettingMenu} className={css.menuItem}>
                     <button className={css.itemIcon}>
