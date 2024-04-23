@@ -12,12 +12,13 @@ import {
   DASHBOARD_ROUTE,
   UPDATE_PASSWORD_PAGE,
   VERIFY_ROUTE,
-  RESEND_EMAIL
+  RESEND_EMAIL,
 } from 'routes/routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { AuthReducerSelector, fetchUserSelector } from 'store/selectors';
 import { fetchUser } from 'store/operations';
 import { notify } from 'notify';
+import { resetWaterSlice } from 'store/reducers';
 
 const HomePage = lazy(() => import('pages/Home'));
 const LoginPage = lazy(() => import('pages/Login'));
@@ -40,6 +41,10 @@ export const App = () => {
         .catch(() =>
           notify('Session has expired, please authenticate', 'error')
         );
+    }
+
+    if (!token) {
+      dispatch(resetWaterSlice());
     }
   }, [dispatch, isLoggedIn, token]);
 
