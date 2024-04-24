@@ -3,6 +3,7 @@ import { Suspense, lazy, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { PageLoader, NavigationBar } from 'components';
+import { toastConfig } from 'notify';
 
 import {
   FORGOT_PASSWORD_ROUTE,
@@ -83,7 +84,7 @@ export const App = () => {
           </Routes>
         </Suspense>
       </main>
-      <ToastContainer />
+      <ToastContainer {...toastConfig} />
     </>
   );
 };
