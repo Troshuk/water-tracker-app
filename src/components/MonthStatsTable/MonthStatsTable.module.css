@@ -130,16 +130,16 @@
   line-height: 129%;
 }
 
-.containerList:hover .calendarDay {
-  background-color: yellow;
+.containerList:hover {
+  box-shadow: 0 0 0 2px var(--color-secondary-blue);
 }
 
 .isToday {
-  background-color: #dede00;
+  box-shadow: 0 0 0 2px var(--color-secondary-orange);
 }
 
 .isViewingDay {
-  background-color: yellow;
+  box-shadow: 0 0 0 2px var(--color-secondary-blue);
 }
 
 .greenBackground {

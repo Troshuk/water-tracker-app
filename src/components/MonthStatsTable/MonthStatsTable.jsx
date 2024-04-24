@@ -99,7 +99,7 @@ export const MonthStatsTable = () => {
     const dayInfo = {
       day,
       isToday,
-      isViewingDay: viewingDay ? isSameMonth && day === viewingDay : isToday,
+      isViewingDay: viewingDay && isSameMonth && day === viewingDay,
     };
 
     if (!isSameMonth || day <= currentDay) {
@@ -233,7 +233,9 @@ export const MonthStatsTable = () => {
 
             return (
               <li
-                className={css.containerList}
+                className={`${css.containerList} ${isToday && css.isToday} ${
+                  isViewingDay && css.isViewingDay
+                }`}
                 key={`day-${day}`}
                 id={`day-${day}`}
                 onClick={() =>
@@ -242,13 +244,7 @@ export const MonthStatsTable = () => {
                 style={{ cursor: statistic ? 'pointer' : 'not-allowed' }}
               >
                 <div className={buttonClassNames}>
-                  <span
-                    className={`${css.calendarDay} ${isToday && css.isToday} ${
-                      isViewingDay && css.isViewingDay
-                    }`}
-                  >
-                    {day}
-                  </span>
+                  <span className={`${css.calendarDay}`}>{day}</span>
                 </div>
                 <p className={css.itemCalendary}>
                   {statistic?.consumptionPercentage || '0'}%
