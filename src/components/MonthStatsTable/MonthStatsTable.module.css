@@ -1,5 +1,7 @@
 .calendar {
   margin: 0 auto;
+  position: relative;
+  padding-top: 20px;
 }
 
 .modalBackground {
@@ -35,8 +37,10 @@
 
 .backToToday {
   margin: 0 auto;
-  margin-bottom: 20px;
   color: var(--color-primary-blue);
+  position: absolute;
+  z-index: 3;
+  top: 0;
 }
 
 .calendarHeader {

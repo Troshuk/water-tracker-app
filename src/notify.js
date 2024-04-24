@@ -1,16 +1,19 @@
-import { Slide, toast } from 'react-toastify';
+import { Zoom, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 
-const toastConfig = {
-  position: 'top-right',
+export const toastConfig = {
+  position: 'top-center',
   autoClose: 5000,
   hideProgressBar: false,
   closeOnClick: true,
   pauseOnHover: true,
   draggable: true,
   progress: undefined,
-  theme: 'dark',
-  transition: Slide,
+  theme: 'light',
+  transition: Zoom,
+  style: {
+    fontSize: '18px',
+  },
 };
 
 export const notify = (message, type = 'info') =>

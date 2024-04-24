@@ -31,6 +31,12 @@
   --color-7: var(--color-secondary-orange);
   --color-8: var(--color-secondary-light-blue);
 
+  /* ToastContainer */
+  --toastify-color-success: var(--color-secondary-blue);
+  --toastify-toast-width: 440px;
+  --toastify-toast-min-height: 84px;
+  --toastify-text-color-light: var(--primery-color-blue);
+
   /*? Container device width options */
   --mobile-container-width: 280px;
   --tablet-container-width: 704px;
