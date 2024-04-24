@@ -142,7 +142,9 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
     >
       <div className={css.containerModalAdd}>
         <div className={css.topContainer}>
-          <h2 className={css.title}>Add water</h2>
+          <h2 className={css.title}>
+            Add water{viewingDate && ` for ${moment(viewingDate).format('LL')}`}
+          </h2>
           <button
             type="button"
             className={css.btn_close}
