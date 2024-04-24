@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import {
   ConfirmActionWarningModal,
@@ -19,6 +19,7 @@ import css from './NavigationBar.module.css';
 
 export const NavigationBar = () => {
   const dispatch = useDispatch();
+  const dropdownRef = useRef(null);
   const { isLoggedIn, user } = useSelector(AuthReducerSelector);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -32,6 +33,22 @@ export const NavigationBar = () => {
     }
     body.style.overflow = over_flow;
   }, [modalIsOpen, settingModalIsOpen]);
+
+  useEffect(() => {
+    const handleOutsideClick = event => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('click', handleOutsideClick);
+    }
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [isMenuOpen]);
 
   const handleToggleUserMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -71,7 +88,7 @@ export const NavigationBar = () => {
           <Logo height="48" />
         </Link>
         {isLoggedIn ? (
-          <div>
+          <div ref={dropdownRef}>
             <button
               className={css.userMenuToggle}
               onClick={handleToggleUserMenu}
@@ -86,9 +103,9 @@ export const NavigationBar = () => {
                   className={css.iconUser}
                 />
               ) : (
-                <dev className={css.iconWithoutAvatar}>
+                <div className={css.iconWithoutAvatar}>
                   {(user.name || user.email || '').charAt(0).toUpperCase()}
-                </dev>
+                </div>
               )}
               <Icon
                 id="icon-chevron-double-up"
