@@ -74,9 +74,7 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
   const viewingDate = useSelector(viewingDateSelector);
 
   useEffect(() => {
-    if (viewingDate) {
-      setSelectedTime(getCurrentTime(viewingDate));
-    }
+    setSelectedTime(getCurrentTime(viewingDate || null));
   }, [viewingDate]);
 
   const dispatch = useDispatch();
