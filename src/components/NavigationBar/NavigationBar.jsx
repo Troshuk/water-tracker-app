@@ -19,7 +19,7 @@ import css from './NavigationBar.module.css';
 
 export const NavigationBar = () => {
   const dispatch = useDispatch();
-  const { isLoggedIn, user} = useSelector(AuthReducerSelector);
+  const { isLoggedIn, user } = useSelector(AuthReducerSelector);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [settingModalIsOpen, setSettingIsOpen] = useState(false);
@@ -79,20 +79,16 @@ export const NavigationBar = () => {
               <span className={css.userName}>{shortName() || emailName()}</span>
               {user.avatarURL ? (
                 <img
-                  alt={user.name || user.email}
+                  alt="User's avatar"
                   src={user.avatarURL}
                   width="28"
                   height="28"
                   className={css.iconUser}
                 />
               ) : (
-                <div className={css.iconWithoutAvatar}>
-                {user.name
-                  ? user.name.charAt(0).toUpperCase()
-                  : user.email
-                  ? user.email.charAt(0).toUpperCase()
-                  : ''}
-              </div>
+                <dev className={css.iconWithoutAvatar}>
+                  {(user.name || user.email || '').charAt(0).toUpperCase()}
+                </dev>
               )}
               <Icon
                 id="icon-chevron-double-up"

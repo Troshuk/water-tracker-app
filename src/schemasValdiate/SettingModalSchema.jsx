@@ -7,7 +7,7 @@ export const SettingModalSchema = Yup.object().shape({
       /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
       'Invalid email address'
     )
-    .nullable(),
+    .required('Email is required'),
   newPassword: Yup.string()
     .min(8, 'Password is too short')
     .max(64, 'Password is too long')
