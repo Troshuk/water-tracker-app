@@ -104,6 +104,9 @@ export const ImgWrapper = styled.div`
   overflow: hidden;
   border: 1px solid #ecf2ff;
   object-fit: cover;
+  font-size: 42px;
+  color: #ffffff;
+  background-color: #ff9d43;
 `;
 
 export const AvatarWrap = styled.div`

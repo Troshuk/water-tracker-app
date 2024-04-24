@@ -82,19 +82,11 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
   const saveValues = values => {
     let data = {};
 
-    if (
-      values.name &&
-      values.name.trim().length !== 0 &&
-      values.name !== name
-    ) {
-      data.name = values.name;
+    if (values.name !== name) {
+      data.name = values.name || null;
     }
 
-    if (
-      values.email &&
-      values.email.trim().length !== 0 &&
-      values.email !== email
-    ) {
+    if (values.email !== email) {
       data.email = values.email;
     }
 
@@ -181,9 +173,9 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
           <AvatarWrap>
             <ImgWrapper>
               {avatarURL ? (
-                <img alt={name || email} src={avatarURL} />
+                <img alt="User's avatar" src={avatarURL} />
               ) : (
-                <Icon id="icon-user" />
+                (name || email || '').charAt(0).toUpperCase()
               )}
             </ImgWrapper>
             <UploadLabel>
@@ -247,6 +239,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
                   name="name"
                   type="text"
                   defaultValue={formik.values.name}
+                  placeholder="Your name"
                   onChange={handleInputChange}
                   $hasError={formik.touched.name && formik.errors.name}
                 />
@@ -260,6 +253,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
                   name="email"
                   type="email"
                   defaultValue={formik.values.email}
+                  placeholder="Your email"
                   onChange={handleInputChange}
                   $hasError={formik.touched.email && formik.errors.email}
                 />

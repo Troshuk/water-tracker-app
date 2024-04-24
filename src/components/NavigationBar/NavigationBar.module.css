@@ -23,6 +23,18 @@
   border-radius: 28px;
 }
 
+.iconWithoutAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 16px;
+  background-color: #ff9d43;
+  color: #ffffff;
+}
+
 .userMenuDropdown {
   position: absolute;
   border-radius: 10px;
