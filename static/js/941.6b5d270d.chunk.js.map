@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/941.6b5d270d.chunk.js","mappings":"0KAEe,SAASA,IACtB,OAAOC,EAAAA,EAAAA,KAACC,EAAAA,GAAe,GACzB,C","sources":["pages/Dashboard.jsx"],"sourcesContent":["import { DashboardLayout } from 'components';\n\nexport default function Dashboard() {\n  return <DashboardLayout />;\n}\n"],"names":["Dashboard","_jsx","DashboardLayout"],"sourceRoot":""}
