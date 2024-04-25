@@ -12,6 +12,7 @@ import {
   verifyEmail,
   updateWaterGoal,
   resendEmail,
+  deleteAvatar,
 } from './operations';
 
 export const AuthReducerSelector = ({ authReducer }) => authReducer;
@@ -78,6 +79,11 @@ export const updateUserSelector = createSelector(
 export const updateAvatarSelector = createSelector(
   AuthReducerSelector,
   state => state[updateAvatar.typePrefix]
+);
+
+export const deleteAvatarSelector = createSelector(
+  AuthReducerSelector,
+  state => state[deleteAvatar.typePrefix]
 );
 
 export const updateWaterGoalSelector = createSelector(

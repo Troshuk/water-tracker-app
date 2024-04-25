@@ -28,7 +28,7 @@ const initialState = {
   ].reduce(
     (acc, operation) => ({
       ...acc,
-      [operation.typePrefix]: { isLoading: false, error: null, key: null },
+      [operation.typePrefix]: { isLoading: false, error: null },
     }),
     {}
   ),
@@ -102,7 +102,6 @@ export const waterSlice = createSlice({
           state[getStateKey(type, meta)] = {
             isLoading: false,
             error: null,
-            key: null,
           };
         }
       )
@@ -120,7 +119,6 @@ export const waterSlice = createSlice({
           state[getStateKey(type, meta)] = {
             isLoading: true,
             error: null,
-            key: meta.arg ?? null,
           };
         }
       )
@@ -138,7 +136,6 @@ export const waterSlice = createSlice({
           state[getStateKey(type, meta)] = {
             isLoading: false,
             error: payload?.data ?? error.message,
-            key: null,
           };
         }
       );

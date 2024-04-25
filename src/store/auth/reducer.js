@@ -12,6 +12,7 @@ import {
   updateWaterGoal,
   verifyEmail,
   resendEmail,
+  deleteAvatar,
 } from './operations';
 import {
   createConsumptionRecord,
@@ -47,10 +48,11 @@ const initialState = {
     updateUser,
     updateWaterGoal,
     resendEmail,
+    deleteAvatar,
   ].reduce(
     (acc, operation) => ({
       ...acc,
-      [operation.typePrefix]: { isLoading: false, error: null, key: null },
+      [operation.typePrefix]: { isLoading: false, error: null },
     }),
     {}
   ),
@@ -80,7 +82,8 @@ export const authSlice = createSlice({
         isAnyOf(
           updateUser.fulfilled,
           updateAvatar.fulfilled,
-          updateWaterGoal.fulfilled
+          updateWaterGoal.fulfilled,
+          deleteAvatar.fulfilled
         ),
         (state, { payload }) => {
           state.user = payload;
@@ -105,13 +108,13 @@ export const authSlice = createSlice({
           updateAvatar.fulfilled,
           updateUser.fulfilled,
           updateWaterGoal.fulfilled,
-          resendEmail.fulfilled
+          resendEmail.fulfilled,
+          deleteAvatar.fulfilled
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
             isLoading: false,
             error: null,
-            key: null,
           };
         }
       )
@@ -128,13 +131,13 @@ export const authSlice = createSlice({
           updateAvatar.pending,
           updateUser.pending,
           updateWaterGoal.pending,
-          resendEmail.pending
+          resendEmail.pending,
+          deleteAvatar.pending
         ),
         (state, { type, meta }) => {
           state[getStateKey(type, meta)] = {
             isLoading: true,
             error: null,
-            key: meta.arg ?? null,
           };
         }
       )
@@ -151,7 +154,6 @@ export const authSlice = createSlice({
           [getStateKey(type, meta)]: {
             isLoading: false,
             error: payload?.data ?? error.message,
-            key: null,
           },
         })
       )
@@ -167,7 +169,8 @@ export const authSlice = createSlice({
           getConsumptionForDay.rejected,
           updateAvatar.rejected,
           updateUser.rejected,
-          updateWaterGoal.rejected
+          updateWaterGoal.rejected,
+          deleteAvatar.rejected
         ),
         (_, { payload }) => {
           // If any of the requests returned 401, reset state
@@ -184,13 +187,13 @@ export const authSlice = createSlice({
           updateAvatar.rejected,
           updateUser.rejected,
           updateWaterGoal.rejected,
-          resendEmail.rejected
+          resendEmail.rejected,
+          deleteAvatar.rejected
         ),
         (state, { error, payload, type, meta }) => {
           state[getStateKey(type, meta)] = {
             isLoading: false,
             error: payload?.data ?? error.message,
-            key: null,
           };
         }
       );

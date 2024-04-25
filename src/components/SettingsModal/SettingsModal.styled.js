@@ -123,6 +123,12 @@ export const WrapInfo = styled.div`
   }
 `;
 
+export const UploadLabelWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+`;
+
 export const UploadLabel = styled.label`
   display: flex;
   align-items: center;

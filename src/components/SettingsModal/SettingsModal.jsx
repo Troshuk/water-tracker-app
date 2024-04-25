@@ -32,21 +32,24 @@ import {
   InputPasswordWrap,
   MessageError,
   Label,
+  UploadLabelWrap,
 } from './SettingsModal.styled.js';
 import {
   updateAvatarSelector,
   updateUserSelector,
   userSelector,
+  deleteAvatarSelector,
 } from 'store/selectors';
 
 import { SettingModalSchema } from 'schemasValdiate/SettingModalSchema.jsx';
-import { updateAvatar, updateUser } from 'store/operations.js';
+import { deleteAvatar, updateAvatar, updateUser } from 'store/operations.js';
 import { notify, notifyApi } from 'notify.js';
 
 export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
   const { avatarURL, gender, name, email } = useSelector(userSelector);
   const { isLoading: isUpdatingUser } = useSelector(updateUserSelector);
   const { isLoading: isUpdatingAvatar } = useSelector(updateAvatarSelector);
+  const { isLoading: isDeletingAvatar } = useSelector(deleteAvatarSelector);
 
   const [imgSize, setImgSize] = useState(false);
   const [showPassword, setShowPassword] = useState({
@@ -61,6 +64,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
       name,
       email,
       gender,
+      avatarURL,
       oldPassword: '',
       newPassword: '',
       confirmPassword: '',
@@ -137,6 +141,10 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
     setImgSize(false);
   };
 
+  const handleDeleteAvatar = () => {
+    notifyApi(dispatch(deleteAvatar()).unwrap(), 'Deleting your photo', true);
+  };
+
   const handleTogglePassword = field => {
     setShowPassword(prevShowPassword => ({
       ...prevShowPassword,
@@ -178,24 +186,45 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
                 (name || email || '').charAt(0).toUpperCase()
               )}
             </ImgWrapper>
-            <UploadLabel>
-              <FileInput
-                disabled={isUpdatingAvatar || isUpdatingUser}
-                name="avatarUrl"
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-              />
-              <UploadButton>
-                <Icon
-                  id="icon-arrow-up-tray"
-                  width="16"
-                  height="16"
-                  className="upload-icon"
+            <UploadLabelWrap>
+              <UploadLabel>
+                <FileInput
+                  disabled={
+                    isUpdatingAvatar || isDeletingAvatar || isUpdatingUser
+                  }
+                  name="avatarUrl"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
                 />
-                <p>Upload a photo {isUpdatingAvatar && <ContentLoader />}</p>
-              </UploadButton>
-            </UploadLabel>
+                <UploadButton>
+                  <Icon
+                    id="icon-arrow-up-tray"
+                    width="16"
+                    height="16"
+                    className="upload-icon"
+                  />
+                  <p>
+                    Upload new photo {isUpdatingAvatar && <ContentLoader />}
+                  </p>
+                </UploadButton>
+              </UploadLabel>
+              {avatarURL && (
+                <UploadLabel>
+                  <UploadButton onClick={handleDeleteAvatar}>
+                    <Icon
+                      id="icon-close-x"
+                      width="16"
+                      height="16"
+                      className="upload-icon"
+                    />
+                    <p>
+                      Delete this photo {isDeletingAvatar && <ContentLoader />}
+                    </p>
+                  </UploadButton>
+                </UploadLabel>
+              )}
+            </UploadLabelWrap>
           </AvatarWrap>
           {imgSize ? (
             <MessageError>File size to large (3 MB)</MessageError>
@@ -268,6 +297,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
                 <PasswordText>Outdated password:</PasswordText>
                 <InputPasswordWrap>
                   <InputPassword
+                    autoComplete="true"
                     name="oldPassword"
                     onChange={handleInputChange}
                     type={showPassword.oldPassword ? 'text' : 'password'}
@@ -305,6 +335,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
                 <PasswordText>New password:</PasswordText>
                 <InputPasswordWrap>
                   <InputPassword
+                    autoComplete="true"
                     name="newPassword"
                     onChange={handleInputChange}
                     type={showPassword.newPassword ? 'text' : 'password'}
@@ -342,6 +373,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
                 <PasswordText>Repeat new password:</PasswordText>
                 <InputPasswordWrap>
                   <InputPassword
+                    autoComplete="true"
                     name="confirmPassword"
                     onChange={handleInputChange}
                     type={showPassword.confirmPassword ? 'text' : 'password'}
@@ -379,7 +411,10 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
               </Label>
             </div>
           </WrapInfo>
-          <Button type="submit" disabled={isUpdatingAvatar || isUpdatingUser}>
+          <Button
+            type="submit"
+            disabled={isUpdatingAvatar || isDeletingAvatar || isUpdatingUser}
+          >
             Save {isUpdatingUser && <ContentLoader />}
           </Button>
         </form>
