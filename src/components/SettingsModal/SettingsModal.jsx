@@ -37,6 +37,7 @@ import {
   updateAvatarSelector,
   updateUserSelector,
   userSelector,
+  deleteAvatarSelector,
 } from 'store/selectors';
 
 import { SettingModalSchema } from 'schemasValdiate/SettingModalSchema.jsx';
@@ -54,6 +55,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
     newPassword: false,
     confirmPassword: false,
   });
+  const [isDeleteIconVisible, setIsDeleteIconVisible] = useState(false);
   const dispatch = useDispatch();
 
   const formik = useFormik({
@@ -61,6 +63,7 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
       name,
       email,
       gender,
+      avatarURL,
       oldPassword: '',
       newPassword: '',
       confirmPassword: '',
@@ -137,6 +140,10 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
     setImgSize(false);
   };
 
+  const handleDeleteAvatar = () => {
+    deleteAvatarSelector();
+  };
+
   const handleTogglePassword = field => {
     setShowPassword(prevShowPassword => ({
       ...prevShowPassword,
@@ -170,7 +177,10 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
         </WrapHeader>
         <form onSubmit={formik.handleSubmit}>
           <p>Your photo</p>
-          <AvatarWrap>
+          <AvatarWrap
+            onMouseEnter={() => setIsDeleteIconVisible(true)}
+            onMouseLeave={() => setIsDeleteIconVisible(false)}
+          >
             <ImgWrapper>
               {avatarURL ? (
                 <img alt="User's avatar" src={avatarURL} />
@@ -178,6 +188,16 @@ export const SettingsModal = ({ settingModalIsOpen, closeModal }) => {
                 (name || email || '').charAt(0).toUpperCase()
               )}
             </ImgWrapper>
+            {isDeleteIconVisible && (
+              <BtnSvg type="button" onClick={handleDeleteAvatar}>
+                <Icon
+                  id="icon-close-x"
+                  width="16"
+                  height="16"
+                  style={{ stroke: 'red', zIndex: 999 }}
+                />
+              </BtnSvg>
+            )}
             <UploadLabel>
               <FileInput
                 disabled={isUpdatingAvatar || isUpdatingUser}

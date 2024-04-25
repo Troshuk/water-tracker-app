@@ -79,6 +79,12 @@ export const updateAvatar = createAsyncThunkWithCatch(
     (await api.patch(USERS_ENDPOINT + 'avatar', body, multipartHeaders)).data
 );
 
+export const deleteAvatar = createAsyncThunkWithCatch(
+  'users/avatar',
+  async body =>
+    (await api.delete(USERS_ENDPOINT + 'avatar', body)).data
+);
+
 export const updateUser = createAsyncThunkWithCatch(
   'users/update',
   async body => (await api.patch(USERS_ENDPOINT + 'current', body)).data
