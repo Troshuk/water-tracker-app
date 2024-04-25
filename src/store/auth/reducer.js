@@ -12,7 +12,7 @@ import {
   updateWaterGoal,
   verifyEmail,
   resendEmail,
-  deleteAvatar
+  deleteAvatar,
 } from './operations';
 import {
   createConsumptionRecord,
@@ -48,11 +48,11 @@ const initialState = {
     updateUser,
     updateWaterGoal,
     resendEmail,
-    deleteAvatar
+    deleteAvatar,
   ].reduce(
     (acc, operation) => ({
       ...acc,
-      [operation.typePrefix]: { isLoading: false, error: null, key: null },
+      [operation.typePrefix]: { isLoading: false, error: null },
     }),
     {}
   ),
@@ -82,20 +82,11 @@ export const authSlice = createSlice({
         isAnyOf(
           updateUser.fulfilled,
           updateAvatar.fulfilled,
-          updateWaterGoal.fulfilled
+          updateWaterGoal.fulfilled,
+          deleteAvatar.fulfilled
         ),
         (state, { payload }) => {
           state.user = payload;
-        }
-      )
-
-      // DeleteAvatar
-      .addMatcher(
-        isAnyOf(
-          deleteAvatar.fulfilled,
-        ),
-        (state) => {
-          state.user.avatarUrl = null;
         }
       )
 
@@ -124,7 +115,6 @@ export const authSlice = createSlice({
           state[getStateKey(type, meta)] = {
             isLoading: false,
             error: null,
-            key: null,
           };
         }
       )
@@ -148,7 +138,6 @@ export const authSlice = createSlice({
           state[getStateKey(type, meta)] = {
             isLoading: true,
             error: null,
-            key: meta.arg ?? null,
           };
         }
       )
@@ -165,7 +154,6 @@ export const authSlice = createSlice({
           [getStateKey(type, meta)]: {
             isLoading: false,
             error: payload?.data ?? error.message,
-            key: null,
           },
         })
       )
@@ -206,7 +194,6 @@ export const authSlice = createSlice({
           state[getStateKey(type, meta)] = {
             isLoading: false,
             error: payload?.data ?? error.message,
-            key: null,
           };
         }
       );

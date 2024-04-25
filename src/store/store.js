@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import { authReducer, waterReducer } from './reducers.js';
+import { updateAvatar } from './operations.js';
 
 export const store = configureStore({
   reducer: {
@@ -28,7 +29,15 @@ export const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        ignoredActions: [
+          FLUSH,
+          REHYDRATE,
+          PAUSE,
+          PERSIST,
+          PURGE,
+          REGISTER,
+          updateAvatar.pending.type,
+        ],
       },
     }),
   devTools: process.env.NODE_ENV === 'development',

@@ -80,9 +80,8 @@ export const updateAvatar = createAsyncThunkWithCatch(
 );
 
 export const deleteAvatar = createAsyncThunkWithCatch(
-  'users/avatar',
-  async body =>
-    (await api.delete(USERS_ENDPOINT + 'avatar', body)).data
+  'users/deleteAvatar',
+  async body => (await api.delete(USERS_ENDPOINT + 'avatar', body)).data
 );
 
 export const updateUser = createAsyncThunkWithCatch(
@@ -101,6 +100,6 @@ export const verifyEmail = createAsyncThunkWithCatch(
 );
 
 export const resendEmail = createAsyncThunkWithCatch(
-'auth/resendEmail',
-async body => (await api.post(USERS_ENDPOINT + 'verify', body)).data
+  'auth/resendEmail',
+  async body => (await api.post(USERS_ENDPOINT + 'verify', body)).data
 );
