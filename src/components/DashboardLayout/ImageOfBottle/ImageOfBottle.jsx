@@ -1,9 +1,9 @@
 import styled from 'styled-components';
-// import bottleMobile from 'images/bottle-home-screen-phone.png';
+import bottleMobile from 'images/bottle-home-screen-phone.png';
 import bottleMobileX2 from 'images/bottle-home-screen-phone-2x.png';
-// import bottleTablet from 'images/botle-home-screen-tablet.png';
+import bottleTablet from 'images/botle-home-screen-tablet.png';
 import bottleTabletX2 from 'images/botle-home-screen-tablet-2x.png';
-// import bottleDesktop from 'images/bottle-home-screen-desktop.png';
+import bottleDesktop from 'images/bottle-home-screen-desktop.png';
 import bottleDesktopX2 from 'images/bottle-home-screen-desktop-2x.png';
 
 export const ImageOfBottle = () => {
@@ -12,11 +12,11 @@ export const ImageOfBottle = () => {
       <img
         src={bottleMobileX2}
         srcSet={`
-
+          ${bottleMobile} 320w,
           ${bottleMobileX2} 320w,
-
+          ${bottleTablet} 768w,
           ${bottleTabletX2} 768w,
-
+          ${bottleDesktop} 1400w,
           ${bottleDesktopX2} 1400w,
         `.trim()}
         sizes="(min-width: 1441px) 1440px,
