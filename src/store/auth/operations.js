@@ -49,8 +49,6 @@ export const signUp = createAsyncThunkWithCatch('auth/signUp', async body => {
     })
   ).data;
 
-  setToken(data.token);
-
   return data;
 });
 
