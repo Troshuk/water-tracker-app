@@ -95,6 +95,7 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
 
   const changeConsumedValue = e => {
     const num = Number(e.target.value);
+    e.target.value = num;
     handleSetConsumedValue(num);
   };
 
@@ -122,6 +123,10 @@ export const WaterConsumptionAddModal = ({ isOpen, onRequestClose }) => {
       true
     );
   };
+
+  useEffect(() => {
+    handleSetConsumedValue(changedConsumedValue);
+  }, [changedConsumedValue]);
 
   return (
     <ReactModal
